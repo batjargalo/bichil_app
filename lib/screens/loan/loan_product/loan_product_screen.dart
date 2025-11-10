@@ -59,7 +59,7 @@ class LoanProductScreen extends GetView<LoanProductController> {
                               ),
                             ),
                             Text(
-                              '${controller.loanLimit.first.loanLimit ?? 0} ₮ хүртэл',
+                              "5,000,000₮ хүртэл",
                               style: IOStyles.body2Semibold.copyWith(
                                 color: IOColors.textSecondary,
                               ),

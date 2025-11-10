@@ -144,7 +144,7 @@ class LoanApi extends IOClient {
   }
 
   Future<IOResponse> getLoanLimits() async {
-    const url = '/api/core/loanlimit';
-    return sendGetRequest(url, hasToken: true);
+    const url = '/api/polaris/customer/loan/loanlimit/';
+    return sendPostRequest(url, data: {}, hasToken: true);
   }
 }
