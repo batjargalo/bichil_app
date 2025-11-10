@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "364094091724",
+    "project_id": "bichil-globus-c7275",
+    "storage_bucket": "bichil-globus-c7275.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:364094091724:android:119f6484d0f23a860eed69",
+        "android_client_info": {
+          "package_name": "mn.io.bichil"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwIU6zGx9SPuBWFPJwi8F-Wq5rCER-F3A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
