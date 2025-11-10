@@ -36,8 +36,9 @@ class HomeController extends IOController {
     final response = await InfoApi().getBanner();
 
     if (response.isSuccess) {
-      banners.value =
-          response.data.listValue.map((e) => e['image'].stringValue).toList();
+      banners.value = response.data.listValue
+          .map((e) => e['image'].stringValue)
+          .toList();
       refresher.refreshCompleted();
       startAutoScroll();
     }
@@ -58,6 +59,10 @@ class HomeController extends IOController {
 
   void onTapLoan() {
     LoanRoute.toProductList();
+  }
+
+  void onTapDigitalLoan() {
+    LoanRoute.toDigitaLoanLimit();
   }
 
   void onTapSaving() {

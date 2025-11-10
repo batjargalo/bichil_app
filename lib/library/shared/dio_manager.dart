@@ -11,19 +11,19 @@ class DioManager {
     return _singleton;
   }
 
-  final _connectTimeout = const Duration(seconds: 60);
-  final _receiveTimeout = const Duration(seconds: 60);
+  final _connectTimeout = const Duration(seconds: 3600);
+  final _receiveTimeout = const Duration(seconds: 3600);
   final _headers = {
     Headers.acceptHeader: Headers.jsonContentType,
     Headers.contentTypeHeader: Headers.jsonContentType,
   };
 
   BaseOptions get option => BaseOptions(
-        baseUrl: domain,
-        connectTimeout: _connectTimeout,
-        receiveTimeout: _receiveTimeout,
-        headers: _headers,
-      );
+    baseUrl: domain,
+    connectTimeout: _connectTimeout,
+    receiveTimeout: _receiveTimeout,
+    headers: _headers,
+  );
 
   late Dio mainDio;
   late Dio customDio;

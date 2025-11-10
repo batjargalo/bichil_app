@@ -33,7 +33,7 @@ class LoanProductScreen extends GetView<LoanProductController> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
-                            Text("Барьцаагүй зээл", style: IOStyles.body2Bold),
+                            Text("Дижитал зээл", style: IOStyles.body2Bold),
                             const Spacer(),
                             Row(
                               children: [

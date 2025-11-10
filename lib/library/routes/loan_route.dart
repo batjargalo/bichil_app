@@ -98,25 +98,24 @@ class LoanRoute {
     );
   }
 
-  static toCalculatorForm({
-    LoanInfoModel? loan,
-    bool hasAppBar = true,
-  }) {
+  static toDigitaLoanLimit() {
+    return Get.to(
+      () => const DigitalLoanLimitScreen(),
+      binding: DigitalLoanLimitBinding(),
+    );
+  }
+
+  static toCalculatorForm({LoanInfoModel? loan, bool hasAppBar = true}) {
     return Get.to(
       () => const LoanCalculatorFormScreen(),
-      binding: LoanCalculatorFormBinding(
-        loan: loan,
-        hasAppBar: hasAppBar,
-      ),
+      binding: LoanCalculatorFormBinding(loan: loan, hasAppBar: hasAppBar),
     );
   }
 
   static toCalculatorResult({required LoanCalculatorModel model}) {
     return Get.to(
       () => const LoanCalculatorResultScreen(),
-      binding: LoanCalculatorResultBinding(
-        model: model,
-      ),
+      binding: LoanCalculatorResultBinding(model: model),
     );
   }
 
@@ -135,7 +134,10 @@ class LoanRoute {
   }
 
   static Future? toPledgeList({required List items}) {
-    return Get.to(() => const LoanPledgeListScreen(),
-        binding: LoanPledgeListBinding(), arguments: {'items': items});
+    return Get.to(
+      () => const LoanPledgeListScreen(),
+      binding: LoanPledgeListBinding(),
+      arguments: {'items': items},
+    );
   }
 }

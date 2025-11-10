@@ -16,11 +16,7 @@ class GoldTabScreen extends GetView<GoldTabController> {
           hasEye: false,
           onTapNotfication: controller.onTapNotfication,
         ),
-        body: const Center(
-          child: IOEmptyWidget(
-            text: 'Тун удахгүй...',
-          ),
-        ),
+        body: const Center(child: IOEmptyWidget(text: 'Тун удахгүй...')),
       ),
     );
   }

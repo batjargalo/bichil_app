@@ -78,9 +78,9 @@ class HomeScreen extends GetView<HomeController> {
                               child: HomeWidget(
                                 direction: Axis.vertical,
                                 icon: 'noncoll.png',
-                                title: 'Барьцаагүй зээл',
+                                title: 'Дижитал зээл',
                                 description: 'Хурдан болон хялбар зээл',
-                                onTap: controller.onTapGold,
+                                onTap: controller.onTapDigitalLoan,
                               ),
                             ),
                             const SizedBox(width: 7),

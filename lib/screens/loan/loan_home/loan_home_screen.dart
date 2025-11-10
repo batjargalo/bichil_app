@@ -15,7 +15,7 @@ class LoanHomeScreen extends GetView<LoanHomeController> {
       child: IOScaffold(
         appBar: IOAppBar(
           hasCorner: false,
-          titleText: 'Tab bar',
+          titleText: 'Зээл',
           bottom: IOTabBar(tabs: const ['Зээлийн бүтээгдэхүүн', 'Миний зээл']),
         ),
         body: const TabBarView(
