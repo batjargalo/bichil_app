@@ -34,11 +34,17 @@ class DigitalLoanLimitScreen extends GetView<DigitalLoanLimitController> {
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    SizedBox.square(dimension: 60, child: Image.asset('assets/images/noncoll.png')),
+                                    SizedBox.square(
+                                      dimension: 60,
+                                      child: Image.asset(
+                                        'assets/images/noncoll.png',
+                                      ),
+                                    ),
                                     const SizedBox(width: 12),
                                     Expanded(
                                       child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.stretch,
                                         children: [
                                           Text(
                                             'Зээлийн дээд эрх - ${controller.loanLimit.first.scoreLimit.toCurrency()}',
@@ -47,30 +53,52 @@ class DigitalLoanLimitScreen extends GetView<DigitalLoanLimitController> {
                                           const Spacer(),
                                           Row(
                                             children: [
-                                              SvgPicture.asset('assets/icons/clock.svg', width: 12, height: 12),
+                                              SvgPicture.asset(
+                                                'assets/icons/clock.svg',
+                                                width: 12,
+                                                height: 12,
+                                              ),
                                               const SizedBox(width: 4),
                                               Text(
                                                 "7 хоног ~ 12 сар",
-                                                style: IOStyles.caption2Bold.copyWith(color: IOColors.textTertiary),
+                                                style: IOStyles.caption2Bold
+                                                    .copyWith(
+                                                      color:
+                                                          IOColors.textTertiary,
+                                                    ),
                                               ),
                                             ],
                                           ),
                                           const Spacer(),
                                           Text(
                                             'Боломжит хэмжээ',
-                                            style: IOStyles.caption1Regular.copyWith(color: IOColors.brand500),
+                                            style: IOStyles.caption1Regular
+                                                .copyWith(
+                                                  color: IOColors.brand500,
+                                                ),
                                           ),
                                           Text(
-                                            controller.loanLimit.first.loanLimit.toCurrency(),
-                                            style: IOStyles.body2Semibold.copyWith(color: IOColors.textSecondary),
+                                            controller.loanLimit.first.loanLimit
+                                                .toCurrency(),
+                                            style: IOStyles.body2Semibold
+                                                .copyWith(
+                                                  color: IOColors.textSecondary,
+                                                ),
                                           ),
                                           Text(
                                             'Нийт авсан зээлийн тоо',
-                                            style: IOStyles.caption1Regular.copyWith(color: IOColors.brand500),
+                                            style: IOStyles.caption1Regular
+                                                .copyWith(
+                                                  color: IOColors.brand500,
+                                                ),
                                           ),
                                           Text(
-                                            controller.loanLimit.first.loanCount.toString(),
-                                            style: IOStyles.body2Semibold.copyWith(color: IOColors.textSecondary),
+                                            controller.loanLimit.first.loanCount
+                                                .toString(),
+                                            style: IOStyles.body2Semibold
+                                                .copyWith(
+                                                  color: IOColors.textSecondary,
+                                                ),
                                           ),
                                         ],
                                       ),
@@ -83,19 +111,37 @@ class DigitalLoanLimitScreen extends GetView<DigitalLoanLimitController> {
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: [
                                   controller.loanLimit.first.scoreLimit == 0
-                                      ? LoanPayInfoWidget(
-                                          editable: false,
-                                          title: 'Зээлийн эрх тогтоолгох хураамж',
-                                          isLoading: controller.limitChargeLoading.value,
-                                          initialValue: controller.chargeAmount.value,
-                                          onPay: (type) => controller.onPay(LoanLimitType.create, type),
+                                      ? Obx(
+                                          () => LoanPayInfoWidget(
+                                            editable: false,
+                                            title:
+                                                'Зээлийн эрх тогтоолгох хураамж',
+                                            isLoading: controller
+                                                .limitChargeLoading
+                                                .value,
+                                            initialValue:
+                                                controller.chargeAmount.value,
+                                            onPay: (type) => controller.onPay(
+                                              LoanLimitType.create,
+                                              type,
+                                            ),
+                                          ),
                                         )
-                                      : LoanPayInfoWidget(
-                                          editable: false,
-                                          title: 'Зээлийн эрх шинчлэх хураамж',
-                                          isLoading: controller.limitChargeLoading.value,
-                                          initialValue: controller.chargeAmount.value,
-                                          onPay: (type) => controller.onPay(LoanLimitType.change, type),
+                                      : Obx(
+                                          () => LoanPayInfoWidget(
+                                            editable: false,
+                                            title:
+                                                'Зээлийн эрх шинчлэх хураамж',
+                                            isLoading: controller
+                                                .limitChargeLoading
+                                                .value,
+                                            initialValue:
+                                                controller.chargeAmount.value,
+                                            onPay: (type) => controller.onPay(
+                                              LoanLimitType.change,
+                                              type,
+                                            ),
+                                          ),
                                         ),
                                 ],
                               ),
