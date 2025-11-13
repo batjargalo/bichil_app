@@ -9,9 +9,7 @@ class LoanPayInfoScreen extends GetView<LoanPayInfoController> {
   @override
   Widget build(BuildContext context) {
     return IOScaffold(
-      appBar: IOAppBar(
-        titleText: controller.titleText,
-      ),
+      appBar: IOAppBar(titleText: controller.titleText),
       body: Obx(
         () => controller.isInitialLoading.value
             ? const IOLoading()
@@ -19,10 +17,7 @@ class LoanPayInfoScreen extends GetView<LoanPayInfoController> {
                 absorbing: controller.isLoading.value,
                 child: SingleChildScrollView(
                   padding: const EdgeInsets.all(16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: _payments,
-                  ),
+                  child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: _payments),
                 ),
               ),
       ),
@@ -30,21 +25,25 @@ class LoanPayInfoScreen extends GetView<LoanPayInfoController> {
   }
 
   List<Widget> get _payments {
-    final scheduled = Obx(() => LoanPayInfoWidget(
-          editable: false,
-          isLoading: controller.scheduleLoading.value,
-          title: 'Хуваарийн дагуу төлөх дүн',
-          initialValue: controller.loan.nextSchdTotal,
-          onPay: (type) => controller.onPay(LoanPayType.schedule, type),
-        ));
-    final custom = Obx(() => LoanPayInfoWidget(
-          editable: true,
-          title: 'Өөр дүнгээр төлөх',
-          isLoading: controller.customLoading.value,
-          initialValue: controller.customAmount.value,
-          onChanged: controller.customAmount.call,
-          onPay: (type) => controller.onPay(LoanPayType.custom, type),
-        ));
+    final scheduled = Obx(
+      () => LoanPayInfoWidget(
+        editable: false,
+        isLoading: controller.scheduleLoading.value,
+        title: 'Хуваарийн дагуу төлөх дүн',
+        initialValue: controller.loan.nextSchdTotal,
+        onPay: (type) => controller.onPay(LoanPayType.schedule, type),
+      ),
+    );
+    final custom = Obx(
+      () => LoanPayInfoWidget(
+        editable: true,
+        title: 'Өөр дүнгээр төлөх',
+        isLoading: controller.customLoading.value,
+        initialValue: controller.customAmount.value,
+        onChanged: controller.customAmount.call,
+        onPay: (type) => controller.onPay(LoanPayType.custom, type),
+      ),
+    );
     final close = Obx(
       () => controller.checkedClose.value
           ? LoanPayInfoWidget(
@@ -54,12 +53,8 @@ class LoanPayInfoScreen extends GetView<LoanPayInfoController> {
               initialValue: controller.closeAmount.value,
               onPay: (type) => controller.onPay(LoanPayType.close, type),
             )
-          : IOButtonWidget(
-              model: controller.checkClose.value,
-              onPressed: controller.getCloseAmount,
-            ),
+          : IOButtonWidget(model: controller.checkClose.value, onPressed: controller.getCloseAmount),
     );
-
     final closeLine = Obx(
       () => controller.checkedClose.value
           ? LoanPayInfoWidget(
@@ -69,10 +64,7 @@ class LoanPayInfoScreen extends GetView<LoanPayInfoController> {
               initialValue: controller.closeAmount.value,
               onPay: (type) => controller.onPay(LoanPayType.closeLine, type),
             )
-          : IOButtonWidget(
-              model: controller.checkClose.value,
-              onPressed: controller.getCloseAmount,
-            ),
+          : IOButtonWidget(model: controller.checkClose.value, onPressed: controller.getCloseAmount),
     );
 
     if (controller.loan.canTakeLoan) {

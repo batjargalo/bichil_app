@@ -11,19 +11,12 @@ class DioManager {
     return _singleton;
   }
 
-  final _connectTimeout = const Duration(seconds: 3600);
-  final _receiveTimeout = const Duration(seconds: 3600);
-  final _headers = {
-    Headers.acceptHeader: Headers.jsonContentType,
-    Headers.contentTypeHeader: Headers.jsonContentType,
-  };
+  final _connectTimeout = const Duration(seconds: 60);
+  final _receiveTimeout = const Duration(seconds: 60);
+  final _headers = {Headers.acceptHeader: Headers.jsonContentType, Headers.contentTypeHeader: Headers.jsonContentType};
 
-  BaseOptions get option => BaseOptions(
-    baseUrl: domain,
-    connectTimeout: _connectTimeout,
-    receiveTimeout: _receiveTimeout,
-    headers: _headers,
-  );
+  BaseOptions get option =>
+      BaseOptions(baseUrl: domain, connectTimeout: _connectTimeout, receiveTimeout: _receiveTimeout, headers: _headers);
 
   late Dio mainDio;
   late Dio customDio;
@@ -41,8 +34,7 @@ class DioManager {
       InterceptorsWrapper(
         onRequest: (options, handler) async {
           if (HelperManager.isLogged) {
-            options.headers['Authorization'] =
-                'Bearer ${HelperManager.token.access}';
+            options.headers['Authorization'] = 'Bearer ${HelperManager.token.access}';
             handler.next(options);
           } else {
             handler.next(options);
@@ -52,9 +44,7 @@ class DioManager {
           final data = JSON(response.data);
           final status = data['status'].stringValue;
           if (status == 'unauthorized') {
-            final res = await UserApi().getAccess(
-              refresh: HelperManager.token.refresh,
-            );
+            final res = await UserApi().getAccess(refresh: HelperManager.token.refresh);
 
             if (res.data.exist('access')) {
               final token = HelperManager.token;

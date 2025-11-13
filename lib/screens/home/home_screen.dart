@@ -42,10 +42,7 @@ class HomeScreen extends GetView<HomeController> {
                                     padding: const EdgeInsets.all(16),
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(8),
-                                      child: IOImageNetworkWidget(
-                                        url: e,
-                                        fit: BoxFit.cover,
-                                      ),
+                                      child: IOImageNetworkWidget(url: e, fit: BoxFit.cover),
                                     ),
                                   ),
                                 ),
@@ -89,8 +86,7 @@ class HomeScreen extends GetView<HomeController> {
                                 direction: Axis.vertical,
                                 icon: 'loan.home.png',
                                 title: 'Барьцаатай зээл',
-                                description:
-                                    'Таны хэрэгцээнд нийцэх олон төрлийн зээл',
+                                description: 'Таны хэрэгцээнд нийцэх олон төрлийн зээл',
                                 onTap: controller.onTapLoan,
                               ),
                             ),
@@ -111,8 +107,7 @@ class HomeScreen extends GetView<HomeController> {
                         direction: Axis.horizontal,
                         icon: 'gold.home.png',
                         title: 'Алт',
-                        description:
-                            'Та алт худалдан авах, хэвлүүлэх, хуримтлуулах боломжтой',
+                        description: 'Та алт худалдан авах, хэвлүүлэх, хуримтлуулах боломжтой',
                         onTap: controller.onTapGold,
                       ),
                     ],

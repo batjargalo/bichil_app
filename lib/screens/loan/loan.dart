@@ -17,3 +17,4 @@ export 'loan_tab/loan_tab.dart';
 export 'loan_home/loan_home.dart';
 export 'loan_product/loan_product.dart';
 export 'digital_loan_limit/digital_loan_limit.dart';
+export 'digital_loan_create/digital_loan_create.dart';

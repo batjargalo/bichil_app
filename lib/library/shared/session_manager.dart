@@ -6,7 +6,7 @@ import 'package:bichil/screens/screens.dart';
 class SessionManager {
   static final shared = SessionManager();
 
-  final duration = const Duration(seconds: 5 * 60);
+  final duration = const Duration(seconds: 60 * 60);
   Timer? timer;
   bool get isLogged {
     return HelperManager.isLogged;

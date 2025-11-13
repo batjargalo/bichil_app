@@ -2,12 +2,12 @@ import 'package:bichil/library/library.dart';
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:flutter/material.dart';
 
-class LoanRecreateAmountWidget extends StatefulWidget {
+class DigitalLoanCreateAmountWidget extends StatefulWidget {
   final double maxValue;
   // final double currentValue;
   final ValueChanged<double> onChanged;
 
-  const LoanRecreateAmountWidget({
+  const DigitalLoanCreateAmountWidget({
     super.key,
     required this.maxValue,
     // required this.currentValue,
@@ -15,10 +15,10 @@ class LoanRecreateAmountWidget extends StatefulWidget {
   });
 
   @override
-  State<LoanRecreateAmountWidget> createState() => _LoanRecreateAmountWidgetState();
+  State<DigitalLoanCreateAmountWidget> createState() => _DigitalLoanCreateAmountWidgetState();
 }
 
-class _LoanRecreateAmountWidgetState extends State<LoanRecreateAmountWidget> {
+class _DigitalLoanCreateAmountWidgetState extends State<DigitalLoanCreateAmountWidget> {
   final step = 10000.0;
 
   final formatter = CurrencyTextInputFormatter.currency(symbol: '', decimalDigits: 0);
@@ -73,12 +73,6 @@ class _LoanRecreateAmountWidgetState extends State<LoanRecreateAmountWidget> {
                     onChange(value.toDouble());
                   },
                 ),
-                // child: Text(
-                //   currentValue.toCurrency(hasSymbol: false),
-                //   style: IOStyles.h6.copyWith(
-                //     color: IOColors.brand500,
-                //   ),
-                // ),
               ),
             ),
             const SizedBox(width: 20),
