@@ -1,11 +1,18 @@
 import 'package:bichil/library/library.dart';
+import 'package:bichil/screens/loan/digital_loan_limit/digital_loan_create_contract/digital_loan_create_contract_screen.dart';
 import 'package:bichil/screens/screens.dart';
 import 'package:get/get.dart';
 
 class TabBarController extends IOController {
   final tabItems = [
     TabBarModel(icon: 'home.svg', label: 'Нүүр', screen: const HomeScreen()),
-    TabBarModel(icon: 'gold.svg', label: 'Алт', screen: const GoldTabScreen()),
+    // TabBarModel(icon: 'gold.svg', label: 'Алт', screen: const GoldTabScreen()),
+    TabBarModel(
+      icon: 'gold.svg',
+      label: 'Алт',
+      screen: const DigitalLoanContractScreen(),
+    ),
+
     TabBarModel(
       icon: 'money.hand.svg',
       label: 'Зээл',

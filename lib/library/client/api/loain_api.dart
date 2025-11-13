@@ -17,13 +17,18 @@ class LoanApi extends IOClient {
     return sendPostRequest(url, data: data);
   }
 
-  Future<IOResponse> sendPhoneRequest({required int amount, required String phone}) async {
+  Future<IOResponse> sendPhoneRequest({
+    required int amount,
+    required String phone,
+  }) async {
     const url = '/api/product/request/loan/number';
     final data = {'requested_amount': amount, 'phone_number': phone};
     return sendPostRequest(url, data: data);
   }
 
-  Future<IOResponse> sendPropertyRequest({required Map<String, dynamic> data}) async {
+  Future<IOResponse> sendPropertyRequest({
+    required Map<String, dynamic> data,
+  }) async {
     const url = '/api/product/request/loan/property';
     return sendPostRequest(url, data: data);
   }
@@ -33,12 +38,16 @@ class LoanApi extends IOClient {
     return sendPostRequest(url, data: model.toMapFromLoan());
   }
 
-  Future<IOResponse> createFromSaving({required LoanRecreateModel model}) async {
+  Future<IOResponse> createFromSaving({
+    required LoanRecreateModel model,
+  }) async {
     const url = '/api/core/loan/loan-on-saving/';
     return sendPostRequest(url, data: model.toMapFromSaving());
   }
 
-  Future<IOResponse> createDigitalLoan({required DigitalLoanCreateModel model}) async {
+  Future<IOResponse> createDigitalLoan({
+    required DigitalLoanCreateModel model,
+  }) async {
     const url = '/api/core/loan/digital-loan/';
     return sendPostRequest(url, data: model.toMapFromSaving());
   }
@@ -60,7 +69,10 @@ class LoanApi extends IOClient {
     return sendPostRequest(url, data: data);
   }
 
-  Future<IOResponse> getPledgeInfo({required String code, required int sysNo}) async {
+  Future<IOResponse> getPledgeInfo({
+    required String code,
+    required int sysNo,
+  }) async {
     const url = '/api/polaris/pledge/info/';
     final data = {'accountNo': code, 'sysNo': sysNo};
     return sendPostRequest(url, data: data);
@@ -106,13 +118,19 @@ class LoanApi extends IOClient {
     return sendPostRequest(url, data: data);
   }
 
-  Future<IOResponse> payLoan({required String code, required double amount}) async {
+  Future<IOResponse> payLoan({
+    required String code,
+    required double amount,
+  }) async {
     const url = '/api/core/loan/pay/';
     final data = {'amount': amount, 'account_no': code};
     return sendPostRequest(url, data: data);
   }
 
-  Future<IOResponse> closeLoan({required String code, required double amount}) async {
+  Future<IOResponse> closeLoan({
+    required String code,
+    required double amount,
+  }) async {
     const url = '/api/core/loan/close/';
     final data = {'amount': amount, 'account_no': code};
     return sendPostRequest(url, data: data);
@@ -123,7 +141,10 @@ class LoanApi extends IOClient {
     return sendPostRequest(url, data: model.toMap(), hasToken: false);
   }
 
-  Future<IOResponse> getHistory({required int offset, required int limit}) async {
+  Future<IOResponse> getHistory({
+    required int offset,
+    required int limit,
+  }) async {
     const url = '/api/polaris/customer/loan/history/';
     final query = {'page_number': offset, 'page_size': limit};
     return sendPostRequest(url, query: query);
@@ -138,5 +159,10 @@ class LoanApi extends IOClient {
     const url = '/api/core/loan/digital-limit-charge-pay/';
     final data = {'amount': amount};
     return sendPostRequest(url, data: data);
+  }
+
+  Future<IOResponse> getDigitalLoanContract() {
+    const path = '/api/core/loan/contract';
+    return sendGetRequest(path);
   }
 }

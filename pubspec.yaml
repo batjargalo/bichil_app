@@ -65,6 +65,7 @@ dependencies:
   widget_to_marker:
   youtube_player_iframe:
   youtube_player_flutter:
+  hand_signature: ^3.1.0+2
 
 dev_dependencies:
   flutter_test:
