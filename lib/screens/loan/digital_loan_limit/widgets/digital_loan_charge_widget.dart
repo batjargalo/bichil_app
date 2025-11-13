@@ -3,7 +3,7 @@ import 'package:bichil/screens/screens.dart';
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:flutter/material.dart';
 
-class LoanPayInfoWidget extends StatelessWidget {
+class LoanLimitChargePayWidget extends StatelessWidget {
   final String title;
   final double initialValue;
   final bool editable;
@@ -11,7 +11,7 @@ class LoanPayInfoWidget extends StatelessWidget {
   final ValueChanged<double>? onChanged;
   final ValueChanged<PayType> onPay;
 
-  LoanPayInfoWidget({
+  LoanLimitChargePayWidget({
     super.key,
     required this.title,
     required this.initialValue,

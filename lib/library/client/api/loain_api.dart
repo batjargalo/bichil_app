@@ -135,7 +135,7 @@ class LoanApi extends IOClient {
   }
 
   Future<IOResponse> payLimitCharge({required double amount}) async {
-    const url = '/api/core/loan/pay/.......';
+    const url = '/api/core/loan/digital-limit-charge-pay/';
     final data = {'amount': amount};
     return sendPostRequest(url, data: data);
   }
