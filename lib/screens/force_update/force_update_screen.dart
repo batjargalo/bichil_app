@@ -8,7 +8,7 @@ class ForceUpdateScreen extends StatelessWidget {
   final ForceUpdateModel model;
   const ForceUpdateScreen({super.key, required this.model});
 
-  show() {
+  Future<dynamic> show() {
     return Get.bottomSheet(
       this,
       isDismissible: !model.forceUpdate,
@@ -22,9 +22,7 @@ class ForceUpdateScreen extends StatelessWidget {
     return Container(
       decoration: const BoxDecoration(
         color: IOColors.backgroundPrimary,
-        borderRadius: BorderRadius.vertical(
-          top: Radius.circular(16),
-        ),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
       ),
       child: SafeArea(
         child: Padding(
@@ -40,31 +38,18 @@ class ForceUpdateScreen extends StatelessWidget {
                   child: Container(
                     width: 40,
                     height: 4,
-                    decoration: BoxDecoration(
-                      color: IOColors.textTertiary,
-                      borderRadius: BorderRadius.circular(4),
-                    ),
+                    decoration: BoxDecoration(color: IOColors.textTertiary, borderRadius: BorderRadius.circular(4)),
                   ),
                 ),
               ),
               const SizedBox(height: 16),
-              const Text(
-                'Шинэчлэлүүд',
-                style: IOStyles.body1Bold,
-              ),
+              const Text('Шинэчлэлүүд', style: IOStyles.body1Bold),
               const SizedBox(height: 16),
-              Text(
-                model.message,
-                style: IOStyles.body1Regular,
-              ),
+              Text(model.message, style: IOStyles.body1Regular),
               const SizedBox(height: 32),
               IOButtonWidget(
                 onPressed: onTapUpdate,
-                model: IOButtonModel(
-                  label: 'Шинэчлэх',
-                  type: IOButtonType.primary,
-                  size: IOButtonSize.medium,
-                ),
+                model: IOButtonModel(label: 'Шинэчлэх', type: IOButtonType.primary, size: IOButtonSize.medium),
               ),
             ],
           ),
@@ -74,9 +59,6 @@ class ForceUpdateScreen extends StatelessWidget {
   }
 
   void onTapUpdate() {
-    launchUrlString(
-      model.url,
-      mode: LaunchMode.externalNonBrowserApplication,
-    );
+    launchUrlString(model.url, mode: LaunchMode.externalNonBrowserApplication);
   }
 }

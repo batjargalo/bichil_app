@@ -35,10 +35,7 @@ class SignUpOtpController extends IOController {
     Get.focusScope?.unfocus();
     isLoading.value = true;
 
-    final response = await UserApi().sendOtp(
-      phone: model.phone,
-      type: 'register',
-    );
+    final response = await UserApi().sendOtp(phone: model.phone, type: 'register');
 
     isLoading.value = false;
 
@@ -61,11 +58,7 @@ class SignUpOtpController extends IOController {
       val?.isLoading = true;
     });
 
-    final response = await UserApi().checkOtp(
-      phoneNumber: model.phone,
-      otp: otp.value,
-      token: model.otpToken,
-    );
+    final response = await UserApi().checkOtp(phoneNumber: model.phone, otp: otp.value, token: model.otpToken);
 
     isLoading.value = false;
     next.update((val) {
@@ -90,10 +83,7 @@ class SignUpOtpController extends IOController {
     model.info = info;
 
     if (result.exist('form')) {
-      final fields = result['form']
-          .listValue
-          .map((e) => SignUpInfoModel.fromJson(e))
-          .toList();
+      final fields = result['form'].listValue.map((e) => SignUpInfoModel.fromJson(e)).toList();
       model.fields = fields;
       AuthRoute.toSignUpInfo(model);
     } else {

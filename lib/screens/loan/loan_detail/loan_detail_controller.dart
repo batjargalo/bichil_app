@@ -6,31 +6,21 @@ class LoanDetailController extends IOController {
   final LoanInfoModel loan;
   final pledgeList = <LoanPledgeModel>[].obs;
   List<LoanDetailActionModel> get actions => [
-        if (loan.canTakeLoan) LoanDetailActionGetModel(title: 'Зээл авах'),
-        // LoanDetailActionCardModel(title: 'Карт холбох'),
-        LoanDetailActionRepaymentModel(title: 'Эргэн төлөлтийн хуваарь'),
-        LoanDetailActionStatementModel(title: 'Хуулга'),
-        // LoanDetailActionCalculateModel(title: 'Тооцоолуур'),
-      ];
+    if (loan.canTakeLoan) LoanDetailActionGetModel(title: 'Зээл авах'),
+    // LoanDetailActionCardModel(title: 'Карт холбох'),
+    LoanDetailActionRepaymentModel(title: 'Эргэн төлөлтийн хуваарь'),
+    LoanDetailActionStatementModel(title: 'Хуулга'),
+    // LoanDetailActionCalculateModel(title: 'Тооцоолуур'),
+  ];
 
-  List<LoanDetailActionModel> get pledge => [
-        LoanDetailActionPledgeModel(title: 'Барьцаа хөрөнгө'),
-      ];
+  List<LoanDetailActionModel> get pledge => [LoanDetailActionPledgeModel(title: 'Барьцаа хөрөнгө')];
 
   LoanDetailController({required this.loan});
-
-  @override
-  void onInit() {
-    super.onInit();
-    // getPledge();
-  }
 
   Future getPledge() async {
     final response = await LoanApi().getPledgeList(code: loan.acntCode);
     if (response.isSuccess) {
-      pledgeList.value = response.data.listValue
-          .map((e) => LoanPledgeModel.fromJson(e))
-          .toList();
+      pledgeList.value = response.data.listValue.map((e) => LoanPledgeModel.fromJson(e)).toList();
     }
   }
 

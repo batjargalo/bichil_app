@@ -7,19 +7,9 @@ class IODropdownWidget<T> extends StatelessWidget {
   final List<IODropdownSheetModel<T>> pickItems;
   final ValueChanged<IODropdownSheetModel<T>>? onSelect;
   final VoidCallback? onTap;
-  const IODropdownWidget({
-    super.key,
-    required this.model,
-    required this.pickItems,
-    this.onSelect,
-  }) : onTap = null;
+  const IODropdownWidget({super.key, required this.model, required this.pickItems, this.onSelect}) : onTap = null;
 
-  IODropdownWidget.custom({
-    super.key,
-    required this.model,
-    required this.onTap,
-  })  : pickItems = [],
-        onSelect = null;
+  IODropdownWidget.custom({super.key, required this.model, required this.onTap}) : pickItems = [], onSelect = null;
 
   @override
   Widget build(BuildContext context) {
@@ -33,10 +23,7 @@ class IODropdownWidget<T> extends StatelessWidget {
             width: 24,
             height: 24,
             fit: BoxFit.contain,
-            colorFilter: const ColorFilter.mode(
-              IOColors.textSecondary,
-              BlendMode.srcIn,
-            ),
+            colorFilter: const ColorFilter.mode(IOColors.textSecondary, BlendMode.srcIn),
           ),
         ),
       ),
@@ -44,11 +31,8 @@ class IODropdownWidget<T> extends StatelessWidget {
     );
   }
 
-  showBottomSheet() async {
-    final value = await IODropdownSheet<T>(
-      title: model.sheetTitle,
-      items: pickItems,
-    ).show();
+  Future<void> showBottomSheet() async {
+    final value = await IODropdownSheet<T>(title: model.sheetTitle, items: pickItems).show();
 
     if (value == null) return;
 

@@ -1,20 +1,21 @@
 import 'package:bichil/screens/screens.dart';
 import 'package:get/get.dart';
+import 'package:g_json/g_json.dart';
 
 class LoanRoute {
-  static toProductList() {
+  static Future<dynamic>? toProductList() {
     return Get.to(() => const LoanProductsScreen(), binding: LoanProductsBinding());
   }
 
-  static toCreateType({required HomeProductModel model}) {
+  static Future<dynamic>? toCreateType({required HomeProductModel model}) {
     return Get.to(() => const LoanCreateTypeScreen(), binding: LoanCreateTypeBinding(model: model));
   }
 
-  static toCreateForm({required LoanProductModel item}) {
+  static Future<dynamic>? toCreateForm({required LoanProductModel item}) {
     return Get.to(() => const LoanCreateFormScreen(), binding: LoanCreateFormBinding(item: item));
   }
 
-  static toCreateSavingAmount({required SavingDetailModel saving}) {
+  static Future<dynamic>? toCreateSavingAmount({required SavingDetailModel saving}) {
     return Get.to(
       () => const LoanCreateSavingConditionScreen(),
       binding: LoanCreateSavingConditionBinding(),
@@ -22,7 +23,10 @@ class LoanRoute {
     );
   }
 
-  static toCreateSavingConfirm({required SavingDetailModel saving, required LoanCreateSavingModel create}) {
+  static Future<dynamic>? toCreateSavingConfirm({
+    required SavingDetailModel saving,
+    required LoanCreateSavingModel create,
+  }) {
     return Get.to(
       () => const LoanCreateSavingConfirmScreen(),
       binding: LoanCreateSavingConfirmBinding(),
@@ -30,15 +34,15 @@ class LoanRoute {
     );
   }
 
-  static toCreateCar() {
+  static Future<dynamic>? toCreateCar() {
     return Get.to(() => const LoanCreateCarScreen(), binding: LoanCreateCarBinding());
   }
 
-  static toCreatePhone() {
+  static Future<dynamic>? toCreatePhone() {
     return Get.to(() => const LoanCreatePhoneScreen(), binding: LoanCreatePhoneBinding());
   }
 
-  static toCreateProperty() {
+  static Future<dynamic>? toCreateProperty() {
     return Get.to(() => const LoanCreatePropertyScreen(), binding: LoanCreatePropertyBinding());
   }
 
@@ -50,34 +54,34 @@ class LoanRoute {
     return Get.to(() => const DigitalLoanCreateAmountScreen(), binding: DigitalLoanCreateAmountBinding(item: item));
   }
 
-  static toDetail({required LoanInfoModel loan}) {
+  static Future<dynamic>? toDetail({required LoanInfoModel loan}) {
     return Get.to(() => const LoanDetailScreen(), binding: LoanDetailBinding(loan: loan));
   }
 
-  static toStatement({required LoanInfoModel loan}) {
+  static Future<dynamic>? toStatement({required LoanInfoModel loan}) {
     return Get.to(() => const LoanStatementScreen(), binding: LoanStatementBinding(loan: loan));
   }
 
-  static toSchedule({required LoanInfoModel loan}) {
+  static Future<dynamic>? toSchedule({required LoanInfoModel loan}) {
     return Get.to(() => const LoanScheduleScreen(), binding: LoanScheduleBinding(loan: loan));
   }
 
-  static toPayInfo({required LoanInfoModel loan}) {
+  static Future<dynamic>? toPayInfo({required LoanInfoModel loan}) {
     return Get.to(() => const LoanPayInfoScreen(), binding: LoanPayInfoBinding(loan: loan));
   }
 
-  static toDigitaLoanLimit() {
+  static Future<dynamic>? toDigitaLoanLimit() {
     return Get.to(() => const DigitalLoanLimitScreen(), binding: DigitalLoanLimitBinding());
   }
 
-  static toCalculatorForm({LoanInfoModel? loan, bool hasAppBar = true}) {
+  static Future<dynamic>? toCalculatorForm({LoanInfoModel? loan, bool hasAppBar = true}) {
     return Get.to(
       () => const LoanCalculatorFormScreen(),
       binding: LoanCalculatorFormBinding(loan: loan, hasAppBar: hasAppBar),
     );
   }
 
-  static toCalculatorResult({required LoanCalculatorModel model}) {
+  static Future<dynamic>? toCalculatorResult({required LoanCalculatorModel model}) {
     return Get.to(() => const LoanCalculatorResultScreen(), binding: LoanCalculatorResultBinding(model: model));
   }
 
@@ -91,5 +95,9 @@ class LoanRoute {
 
   static Future? toPledgeList({required List items}) {
     return Get.to(() => const LoanPledgeListScreen(), binding: LoanPledgeListBinding(), arguments: {'items': items});
+  }
+
+  static Future<JSON?>? toCustomerInfoDan() {
+    return Get.to(() => const DigitalLoanLimitDanScreen(), binding: DigitalLoanLimitDanBinding());
   }
 }

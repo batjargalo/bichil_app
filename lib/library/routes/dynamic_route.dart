@@ -2,12 +2,12 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:g_json/g_json.dart';
 
 class DynamicRoute {
-  static onNotification(NotificationResponse detail) {
+  static void onNotification(NotificationResponse detail) {
     final data = JSON.parse(detail.payload ?? '');
     handleAction(data);
   }
 
-  static handleAction(JSON data) {
+  static void handleAction(JSON data) {
     final action = data['action'].stringValue;
     // final id = data['action_id'].integerValue;
     // final url = data['url'].stringValue;

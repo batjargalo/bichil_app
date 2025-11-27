@@ -1,9 +1,9 @@
 import 'package:bichil/screens/screens.dart';
 import 'package:get/get.dart';
 
-class SignUpDanBinding extends Bindings {
+class DigitalLoanLimitDanBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => SignUpDanController());
+    Get.lazyPut(() => DigitalLoanLimitDanController());
   }
 }

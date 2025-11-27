@@ -91,8 +91,10 @@ class DigitalLoanLimitController extends IOController {
       LoanLimitType.change => 'эрх шинчлэх',
     };
     final successText = switch (payType) {
-      LoanLimitType.create => 'Таны зээлийн эрх тогтоох төлбөр ${amount.toCurrency()} амжилттай хийгдлээ',
-      LoanLimitType.change => 'Таны зээлийн эрх шинчлэх төлбөр ${amount.toCurrency()} амжилттай хийгдлээ',
+      LoanLimitType.create =>
+        'Таны зээлийн эрх тогтоолгох төлбөр ${amount.toCurrency()} амжилттай хийгдлээ. Бид цаашид таны зээлийн эрхийг тогтоохын тулд ДАН систем, Бүрэн скор системээс таны мэдээллийг авах болно.',
+      LoanLimitType.change =>
+        'Таны зээлийн эрх шинчлэх төлбөр ${amount.toCurrency()} амжилттай хийгдлээ. Бид цаашид таны зээлийн эрхийг тогтоохын тулд ДАН систем, Бүрэн скор системээс таны мэдээллийг авах болно.',
     };
     final info = [
       QpayInfoModel(title: 'Төрөл', value: typeText),
@@ -100,17 +102,33 @@ class DigitalLoanLimitController extends IOController {
       QpayInfoModel(title: 'Шимтгэл', value: fee.toCurrency()),
       QpayInfoModel(title: 'Нийт төлөх дүн', value: (fee + amount).toCurrency()),
     ];
-    final qpay = QpayScreenModel(title: 'Зэлийн эрх', invoice: invoice, info: info, urls: urls);
+    final qpay = QpayScreenModel(title: 'Зээлийн эрх', invoice: invoice, info: info, urls: urls);
     final result = await AppRoute.toQpay(model: qpay);
     if (result == null) return;
-    await AppRoute.toSuccess(title: 'Амжилттай', description: successText);
-    onBack();
+    await AppRoute.toSuccess(title: 'Амжилттай', description: successText, buttonText: "Үргэлжлүүлэх");
+    customerInfoDan();
   }
 
-  void onBack() {
-    Get.back();
-    if (Get.isRegistered<LoanTabController>()) {
-      Get.find<LoanTabController>().onRefresh();
-    }
+  Future customerInfoDan() async {
+    final result = await LoanRoute.toCustomerInfoDan();
+    if (result == null) return;
+
+    // if (result.exist('form')) {
+    //   final fields = result['form']
+    //       .listValue
+    //       .map((e) => SignUpInfoModel.fromJson(e))
+    //       .toList();
+    //   model.fields = fields;
+    //   AuthRoute.toSignUpInfo(model);
+    // } else {
+    //   AuthRoute.toSignUpPassword(model);
+    // }
   }
+
+  // void onBack() {
+  //   Get.back();
+  //   if (Get.isRegistered<LoanTabController>()) {
+  //     Get.find<LoanTabController>().onRefresh();
+  //   }
+  // }
 }

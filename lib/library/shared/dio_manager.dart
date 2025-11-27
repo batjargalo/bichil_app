@@ -29,7 +29,7 @@ class DioManager {
     addMainInterceptor();
   }
 
-  addMainInterceptor() async {
+  Future<void> addMainInterceptor() async {
     mainDio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) async {

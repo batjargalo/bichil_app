@@ -60,12 +60,10 @@ class Validator {
         pattern = r'^[0-9]{4}[а-яА-ЯөүӨҮёЁ]{3}$';
         break;
       case ValidatorType.email:
-        pattern =
-            r"^[a-zA-Z0-9.a-zA-Z0-9._%+-]{2,50}@[a-zA-Z0-9._-]+(?!.*\\.\\.)\.[a-zA-Z]{2,64}";
+        pattern = r"^[a-zA-Z0-9.a-zA-Z0-9._%+-]{2,50}@[a-zA-Z0-9._-]+(?!.*\\.\\.)\.[a-zA-Z]{2,64}";
         break;
       case ValidatorType.registerNumber:
-        pattern =
-            r'^[0-9]{2}(1[0-2]|0[1-9]|2[1-9]|3[0-2])(0[1-9]|[1-2][0-9]|3[0-1])[0-9]{2}$';
+        pattern = r'^[0-9]{2}(1[0-2]|0[1-9]|2[1-9]|3[0-2])(0[1-9]|[1-2][0-9]|3[0-1])[0-9]{2}$';
         break;
       case ValidatorType.cyrillic:
         pattern = r'^[а-яА-ЯөүӨҮёЁ-]{1,50}$';
@@ -87,7 +85,7 @@ class Validator {
     return regex.hasMatch(text);
   }
 
-  setValidation({
+  void setValidation({
     required TextEditingController controller,
     required ValueNotifier<IOTextfieldStatusModel> status,
   }) {

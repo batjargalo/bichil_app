@@ -4,6 +4,7 @@ export 'io_appbar.dart';
 export 'io_bottom_navigation.dart';
 export 'io_card_border.dart';
 export 'io_checkbox.dart';
+export 'io_confirm_screen.dart';
 export 'io_controller.dart';
 export 'io_dialog.dart';
 export 'io_dialog_warning.dart';

@@ -1,7 +1,4 @@
 import 'package:bichil/library/library.dart';
-import 'package:bichil/screens/loan/digital_loan_limit/digital_loan_create_contract/digital_loan_create_contract_binding.dart';
-import 'package:bichil/screens/loan/digital_loan_limit/digital_loan_signature/digital_loan_signature_binding.dart';
-import 'package:bichil/screens/loan/digital_loan_limit/digital_loan_signature/digital_loan_signature_screen.dart';
 import 'package:bichil/screens/screens.dart';
 import 'package:get/get.dart';
 
@@ -35,10 +32,7 @@ class DigitalLoanContractController extends IOController {
   }
 
   Future onTapNext() async {
-    return Get.to(
-      () => const DigitalLoanSignatureScreen(),
-      binding: DigitalLoanSignatureBinding(),
-    );
+    return Get.to(() => const DigitalLoanSignatureScreen(), binding: DigitalLoanSignatureBinding());
   }
 
   Future getData() async {

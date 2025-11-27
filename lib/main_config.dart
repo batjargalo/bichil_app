@@ -7,15 +7,9 @@ import 'package:g_json/g_json.dart';
 
 class MainConfig {
   static Future setOrientationConfig() async {
-    await SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-    ]);
+    await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
-    SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(
-        statusBarIconBrightness: Brightness.light,
-      ),
-    );
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(statusBarIconBrightness: Brightness.light));
   }
 
   static Future<void> setStoreConfig() async {
@@ -23,11 +17,10 @@ class MainConfig {
     await DeviceStoreManager.shared.init();
   }
 
-  static setFirebaseConfig() async {
+  static Future<void> setFirebaseConfig() async {
     await Firebase.initializeApp();
     await FirebaseMessaging.instance.requestPermission();
-    await FirebaseMessaging.instance
-        .setForegroundNotificationPresentationOptions(
+    await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
       alert: true,
       badge: true,
       sound: true,
@@ -44,26 +37,23 @@ class MainConfig {
     });
   }
 
-  static showAndroidMessage(RemoteMessage message) async {
+  static Future<void> showAndroidMessage(RemoteMessage message) async {
     const AndroidNotificationChannel channel = AndroidNotificationChannel(
       'high_importance_channel', // id
       'High Importance Notifications', // title
-      description:
-          'This channel is used for important notifications.', // description
+      description: 'This channel is used for important notifications.', // description
       importance: Importance.high,
     );
 
     final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-    const initializationSettingsAndroid =
-        AndroidInitializationSettings('@mipmap/ic_launcher');
+    const initializationSettingsAndroid = AndroidInitializationSettings('@mipmap/ic_launcher');
     const initializationSettings = InitializationSettings(
       android: initializationSettingsAndroid,
       iOS: DarwinInitializationSettings(),
     );
 
     await flutterLocalNotificationsPlugin
-        .resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin>()
+        .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
         ?.createNotificationChannel(channel);
 
     await flutterLocalNotificationsPlugin.initialize(
@@ -94,13 +84,12 @@ class MainConfig {
     }
   }
 
-  static Future<void> firebaseMessagingBackgroundHandler(
-      RemoteMessage message) async {
+  static Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
     await Firebase.initializeApp();
     MainConfig.showAndroidMessage(message);
   }
 
-  static onNotification(NotificationResponse detail) {
+  static void onNotification(NotificationResponse detail) {
     AppRoute.toNotification();
   }
 }

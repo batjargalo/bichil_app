@@ -2,19 +2,18 @@ import 'dart:typed_data';
 import 'package:bichil/library/library.dart';
 import 'package:bichil/screens/loan/digital_loan_limit/digital_loan_signature/digital_loan_signature_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
+// import 'package:flutter_svg/svg.dart';
+// import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
 import 'package:hand_signature/signature.dart';
 
-HandSignatureControl control = new HandSignatureControl();
+HandSignatureControl control = HandSignatureControl();
 ValueNotifier<String?> svg = ValueNotifier<String?>(null);
 ValueNotifier<ByteData?> rawImage = ValueNotifier<ByteData?>(null);
 ValueNotifier<Map?> savedState = ValueNotifier<Map?>(null);
 ValueNotifier<int> pageIndex = ValueNotifier<int>(0);
 
-class DigitalLoanSignatureScreen
-    extends GetView<DigitalLoanSignatureController> {
+class DigitalLoanSignatureScreen extends GetView<DigitalLoanSignatureController> {
   const DigitalLoanSignatureScreen({super.key});
 
   @override
@@ -40,10 +39,7 @@ class DigitalLoanSignatureScreen
                               child: Container(
                                 constraints: BoxConstraints.expand(),
                                 color: Colors.white,
-                                child: HandSignature(
-                                  control: control,
-                                  drawer: ShapeSignatureDrawer(),
-                                ),
+                                child: HandSignature(control: control, drawer: ShapeSignatureDrawer()),
                               ),
                             ),
                           ),

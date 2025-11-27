@@ -19,7 +19,7 @@ class LoanRecreateAmountWidget extends StatefulWidget {
 }
 
 class _LoanRecreateAmountWidgetState extends State<LoanRecreateAmountWidget> {
-  final step = 10000.0;
+  var step = 10000;
 
   final formatter = CurrencyTextInputFormatter.currency(symbol: '', decimalDigits: 0);
   final textController = TextEditingController();
@@ -32,6 +32,10 @@ class _LoanRecreateAmountWidgetState extends State<LoanRecreateAmountWidget> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       onChangeSlider(value);
     });
+
+    if (widget.maxValue < 10000) {
+      step = widget.maxValue.toInt();
+    }
   }
 
   @override

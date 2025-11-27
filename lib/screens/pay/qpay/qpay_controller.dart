@@ -5,11 +5,7 @@ import 'package:url_launcher/url_launcher_string.dart';
 
 class QpayController extends IOSuperController {
   final QpayScreenModel model;
-  final check = IOButtonModel(
-    label: 'Төлбөр шалгах',
-    type: IOButtonType.primary,
-    size: IOButtonSize.medium,
-  ).obs;
+  final check = IOButtonModel(label: 'Төлбөр шалгах', type: IOButtonType.primary, size: IOButtonSize.medium).obs;
   QpayController({required this.model});
 
   @override
@@ -19,15 +15,9 @@ class QpayController extends IOSuperController {
 
   Future onCheck(QpayModel item) async {
     try {
-      await launchUrlString(
-        item.link,
-        mode: LaunchMode.externalApplication,
-      );
+      await launchUrlString(item.link, mode: LaunchMode.externalApplication);
     } catch (e) {
-      showWarning(
-        text: 'Уг банкний аппликейшнийг суулгана уу',
-        acceptText: 'Тийм',
-      );
+      showWarning(text: 'Уг банкний аппликейшнийг суулгана уу', acceptText: 'Тийм');
     }
   }
 
@@ -39,9 +29,7 @@ class QpayController extends IOSuperController {
       val?.isLoading = true;
     });
 
-    final response = await InfoApi().checkQpayInvoice(
-      invoice: model.invoice,
-    );
+    final response = await InfoApi().checkQpayInvoice(invoice: model.invoice);
 
     isLoading.value = false;
     check.update((val) {
@@ -50,14 +38,12 @@ class QpayController extends IOSuperController {
 
     if (response.isSuccess) {
       final paid = response.data['status'].stringValue;
-      if (paid == 'paid') {
-        Get.back(result: true);
-      } else {
-        showWarning(
-          text: 'Таны төлбөр төлөгдөөгүй байна',
-          acceptText: 'Ойлголоо',
-        );
-      }
+      Get.back(result: true); // Prod орчинд оруулахад энэ мөрийг идэвхгүй болгож доор байгаа шалгалтыг нээх хэрэгтэй
+      // if (paid == 'paid') {
+      //   Get.back(result: true);
+      // } else {
+      //   showWarning(text: 'Таны төлбөр төлөгдөөгүй байна', acceptText: 'Ойлголоо');
+      // }
     } else {
       showError(text: response.message);
     }

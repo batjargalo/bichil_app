@@ -27,10 +27,7 @@ class _OtpWidgetState extends State<IOOtpWidget> {
       child: Stack(
         alignment: Alignment.centerLeft,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: digits,
-          ),
+          Row(mainAxisAlignment: MainAxisAlignment.start, children: digits),
           Opacity(
             opacity: 0,
             child: TextFormField(
@@ -46,7 +43,7 @@ class _OtpWidgetState extends State<IOOtpWidget> {
     );
   }
 
-  buildDigit() {
+  void buildDigit() {
     final temp = <Widget>[];
     final value = widget.model.value;
     for (int i = 0; i < widget.model.length; i++) {
@@ -79,13 +76,7 @@ class IOOtpDigitWidget extends StatelessWidget {
   final double size;
   final bool isSecure;
   final bool isCurrent;
-  const IOOtpDigitWidget({
-    super.key,
-    required this.size,
-    required this.isSecure,
-    required this.isCurrent,
-    this.value,
-  });
+  const IOOtpDigitWidget({super.key, required this.size, required this.isSecure, required this.isCurrent, this.value});
 
   @override
   Widget build(BuildContext context) {
@@ -97,30 +88,17 @@ class IOOtpDigitWidget extends StatelessWidget {
       decoration: BoxDecoration(
         color: IOColors.backgroundPrimary,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(
-          width: 1,
-          color: isCurrent ? IOColors.brand500 : IOColors.strokePrimary,
-        ),
+        border: Border.all(width: 1, color: isCurrent ? IOColors.brand500 : IOColors.strokePrimary),
       ),
       child: value == null
-          ? const Text(
-              '-',
-              style: IOStyles.body2Regular,
-            )
+          ? const Text('-', style: IOStyles.body2Regular)
           : isSecure
-              ? Container(
-                  width: 6,
-                  height: 6,
-                  decoration: const BoxDecoration(
-                    color: IOColors.brand500,
-                    shape: BoxShape.circle,
-                  ),
-                )
-              : Text(
-                  value!,
-                  textAlign: TextAlign.center,
-                  style: IOStyles.body1Bold,
-                ),
+          ? Container(
+              width: 6,
+              height: 6,
+              decoration: const BoxDecoration(color: IOColors.brand500, shape: BoxShape.circle),
+            )
+          : Text(value!, textAlign: TextAlign.center, style: IOStyles.body1Bold),
     );
   }
 }
