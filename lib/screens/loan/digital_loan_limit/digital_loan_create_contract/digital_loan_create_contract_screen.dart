@@ -10,91 +10,61 @@ class DigitalLoanContractScreen extends GetView<DigitalLoanContractController> {
 
   @override
   Widget build(BuildContext context) {
-    return IOScaffold(
-      appBar: IOAppBar(titleText: "Зээлийн гэрээ"),
-      body: Obx(
-        () => controller.isInitialLoading.value
-            ? const IOLoading()
-            : SingleChildScrollView(
-                padding: const EdgeInsets.all(16),
-                child: HtmlWidget(
-                  controller.html.value,
-                  textStyle: IOStyles.body2Regular,
-                ),
-              ),
-      ),
-      bottomSheet: IOBottomNavigationBar(
-        backgroundColor: IOColors.backgroundPrimary,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            IOGesture(
-              onTap: controller.isConfirmed.toggle,
-              child: Container(
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(width: 1, color: IOColors.brand100),
-                ),
-                child: Row(
-                  children: [
-                    SizedBox.square(
-                      dimension: 16,
-                      child: IOCheckbox(
-                        value: controller.isConfirmed.value,
-                        onChanged: controller.isConfirmed.call,
+    return Obx(
+      () => IOScaffold(
+        appBar: IOAppBar(titleText: 'Зээлийн гэрээ'),
+        body: SingleChildScrollView(
+          padding: const EdgeInsets.all(16),
+          child: HtmlWidget(
+            controller.html.value,
+            textStyle: IOStyles.body2Regular,
+          ),
+        ),
+        bottomNavigationBar: IOBottomNavigationBar(
+          backgroundColor: IOColors.backgroundPrimary,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              IOGesture(
+                onTap: controller.accepted.toggle,
+                child: Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(width: 1, color: IOColors.brand100),
+                  ),
+                  child: Row(
+                    children: [
+                      SizedBox.square(
+                        dimension: 16,
+                        child: IOCheckbox(
+                          value: controller.accepted.value,
+                          onChanged: controller.accepted.call,
+                        ),
                       ),
-                    ),
-                    const SizedBox(width: 16),
-                    const Text(
-                      'Би дээрх нөхцөлүүдийг зөвшөөрч байна.',
-                      style: IOStyles.caption1Regular,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            const SizedBox(height: 16),
-            IOGesture(
-              onTap: controller.isConfirmed.toggle,
-              child: Container(
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(width: 1, color: IOColors.brand100),
-                ),
-                child: Row(
-                  children: [
-                    SizedBox.square(
-                      dimension: 16,
-                      child: IOCheckbox(
-                        value: controller.isConfirmed.value,
-                        onChanged: controller.isConfirmed.call,
+                      const SizedBox(width: 16),
+                      const Text(
+                        'Би дээрх нөхцөлүүдийг зөвшөөрч байна.',
+                        style: IOStyles.caption1Regular,
                       ),
-                    ),
-                    const SizedBox(width: 16),
-                    const Text(
-                      'Би дээрх нөхцөлүүдийг зөвшөөрч байна.',
-                      style: IOStyles.caption1Regular,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            const SizedBox(height: 16),
-
-            Row(
-              children: [
-                Expanded(
-                  child: IOButtonWidget(
-                    model: controller.next.value,
-                    onPressed: controller.onTapNext,
+                    ],
                   ),
                 ),
-              ],
-            ),
-          ],
+              ),
+              const SizedBox(height: 16),
+              Row(
+                children: [
+                  Expanded(
+                    child: IOButtonWidget(
+                      model: controller.next.value,
+                      onPressed: controller.onTapNext,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

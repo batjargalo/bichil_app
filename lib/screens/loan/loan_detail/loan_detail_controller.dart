@@ -13,14 +13,40 @@ class LoanDetailController extends IOController {
     // LoanDetailActionCalculateModel(title: 'Тооцоолуур'),
   ];
 
-  List<LoanDetailActionModel> get pledge => [LoanDetailActionPledgeModel(title: 'Барьцаа хөрөнгө')];
+  List<LoanDetailActionModel> get pledge => [
+    LoanDetailActionPledgeModel(title: 'Барьцаа хөрөнгө'),
+  ];
 
   LoanDetailController({required this.loan});
 
+  @override
+  void onInit() {
+    super.onInit();
+    getPledge();
+  }
+
   Future getPledge() async {
-    final response = await LoanApi().getPledgeList(code: loan.acntCode);
-    if (response.isSuccess) {
-      pledgeList.value = response.data.listValue.map((e) => LoanPledgeModel.fromJson(e)).toList();
+    try {
+      isLoading.value = true;
+      final response = await LoanApi().getCollateralInfo(
+        accountCode: loan.acntCode,
+      );
+      final payload = response.data.listValue.isNotEmpty
+          ? response.data.listValue
+          : response.json.listValue;
+
+      pledgeList.clear();
+      if (payload.isEmpty) {
+        return;
+      }
+
+      pledgeList.addAll(
+        payload
+            .map((item) => LoanPledgeModel.fromJson(item))
+            .toList(growable: false),
+      );
+    } finally {
+      isLoading.value = false;
     }
   }
 

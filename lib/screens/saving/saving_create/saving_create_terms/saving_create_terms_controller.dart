@@ -34,11 +34,7 @@ class SavingCreateTermsController extends IOController {
   }
 
   void onTapContract() {
-    SavingRoute.toCreateContract(
-      type: contract,
-      item: create,
-      code: null,
-    );
+    SavingRoute.toCreateContract(type: contract, item: create, code: null);
   }
 
   Future onTapNext() async {

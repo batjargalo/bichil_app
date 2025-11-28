@@ -10,9 +10,7 @@ class LoanDetailScreen extends GetView<LoanDetailController> {
   @override
   Widget build(BuildContext context) {
     return IOScaffold(
-      appBar: IOAppBar(
-        titleText: 'Дэлгэрэнгүй',
-      ),
+      appBar: IOAppBar(titleText: 'Дэлгэрэнгүй'),
       body: SingleChildScrollView(
         padding: EdgeInsets.only(
           left: 16,
@@ -29,7 +27,12 @@ class LoanDetailScreen extends GetView<LoanDetailController> {
                 actions: controller.actions,
                 onTap: controller.onTapAction,
               ),
-              if (controller.pledgeList.isNotEmpty)
+              if (controller.isLoading.isTrue)
+                const Padding(
+                  padding: EdgeInsets.only(top: 16),
+                  child: IOLoading(),
+                )
+              else if (controller.pledgeList.isNotEmpty)
                 Padding(
                   padding: const EdgeInsets.only(top: 16),
                   child: LoanDetailListWidget(

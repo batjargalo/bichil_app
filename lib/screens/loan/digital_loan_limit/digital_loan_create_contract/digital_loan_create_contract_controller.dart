@@ -6,12 +6,12 @@ class DigitalLoanContractController extends IOController {
   final DigitalLoanLimitModel? item;
   final String? code;
   final html = ''.obs;
-
   DigitalLoanContractController({required this.item, required this.code});
   // final saving = Get.arguments['saving'] as SavingDetailModel;
   // final create = Get.arguments['create'] as LoanCreateSavingModel;
 
-  final isConfirmed = false.obs;
+  final accepted = false.obs;
+  int? contractId;
 
   final next = IOButtonModel(
     label: 'Үргэлжлүүлэх',
@@ -23,16 +23,20 @@ class DigitalLoanContractController extends IOController {
   @override
   void onInit() {
     super.onInit();
-    ever(isConfirmed, (value) {
+    ever(accepted, (e) {
       next.update((val) {
-        val?.isEnabled = value;
+        val?.isEnabled = e;
       });
     });
     getData();
   }
 
   Future onTapNext() async {
-    return Get.to(() => const DigitalLoanSignatureScreen(), binding: DigitalLoanSignatureBinding());
+    return Get.to(
+      () => const DigitalLoanSignatureScreen(isLoading: false),
+      binding: DigitalLoanSignatureBinding(),
+      arguments: {'contractId': contractId},
+    );
   }
 
   Future getData() async {
@@ -45,6 +49,7 @@ class DigitalLoanContractController extends IOController {
 
     if (response.isSuccess) {
       html.value = response.data['body'].stringValue;
+      contractId = response.data['contract_id'].integer;
     } else {
       Get.back();
       showError(text: response.message);

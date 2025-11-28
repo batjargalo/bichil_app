@@ -69,6 +69,15 @@ class LoanApi extends IOClient {
     return sendPostRequest(url, data: data);
   }
 
+  Future<IOResponse> getPledgeInfoByAccount({
+    required String sysNo,
+    required String acntCode,
+  }) async {
+    const url = '/api/polaris/pledge/info-by-account/';
+    final data = {'sysNo': sysNo, 'acntCode': acntCode};
+    return sendPostRequest(url, data: data);
+  }
+
   Future<IOResponse> getPledgeInfo({
     required String code,
     required int sysNo,
@@ -82,6 +91,17 @@ class LoanApi extends IOClient {
     const url = '/api/polaris/pledge/list/';
     final data = {'acntCode': code};
     return sendPostRequest(url, data: data);
+  }
+
+  Future<IOResponse> getPledgeOpenList() async {
+    const url = '/api/polaris/pledge/open/';
+    return sendPostRequest(url);
+  }
+
+  Future<IOResponse> getCollateralInfo({required String accountCode}) async {
+    final url = '$customCollateralDomain/api/payapp/getcollinfo/';
+    final query = {'acnt_code': accountCode};
+    return sendGetRequest(url, query: query);
   }
 
   Future<IOResponse> getLoanSavingRate({required String code}) async {
@@ -162,7 +182,16 @@ class LoanApi extends IOClient {
   }
 
   Future<IOResponse> getDigitalLoanContract() {
-    const path = '/api/core/loan/contract';
+    const path = '/api/core/loan/contract/';
     return sendGetRequest(path);
+  }
+
+  Future<IOResponse> sendSignature({
+    required String image,
+    required int contract,
+  }) async {
+    const url = '/api/core/loan/contract/';
+    final data = {'signature': image, 'contract_id': contract};
+    return sendPostRequest(url, data: data);
   }
 }
