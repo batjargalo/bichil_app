@@ -1,15 +1,12 @@
-import 'dart:convert';
-
 import 'package:bichil/library/library.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class DigitalLoanLimitDanController extends IOController {
   final webController = WebViewController();
-  final danUrl = '$domain/api/user/authorize';
+  final danUrl = '$domain/api/user/authorize?score=true';
   @override
   void onInit() {
     super.onInit();
@@ -37,7 +34,10 @@ class DigitalLoanLimitDanController extends IOController {
           },
         ),
       )
-      ..loadRequest(Uri.parse(danUrl), body: Uint8List.fromList(utf8.encode("score=true".replaceAll(" ", "+"))));
+      ..loadRequest(
+        Uri.parse(danUrl),
+        headers: {"Content-Type": "application/json", "Authorization": "Bearer ${HelperManager.token.access}"},
+      );
   }
 
   Future getData(String urlString) async {
