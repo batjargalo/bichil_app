@@ -100,4 +100,8 @@ class LoanRoute {
   static Future<JSON?>? toCustomerInfoDan() {
     return Get.to(() => const DigitalLoanLimitDanScreen(), binding: DigitalLoanLimitDanBinding());
   }
+
+  static Future<JSON?>? toDigitalLoanContract() {
+    return Get.to(() => const DigitalLoanContractScreen(), binding: DigitalLoanContractBinding(item: null, code: ''));
+  }
 }
