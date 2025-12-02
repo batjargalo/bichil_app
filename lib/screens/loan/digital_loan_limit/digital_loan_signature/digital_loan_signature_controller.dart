@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:convert';
 import 'package:bichil/library/library.dart';
+import 'package:bichil/screens/screens.dart';
 import 'package:get/get.dart';
 import 'package:hand_signature/signature.dart';
 import 'dart:typed_data';
@@ -82,8 +83,9 @@ class DigitalLoanSignatureController extends IOController {
 
     if (response.isSuccess) {
       html.value = response.data['body'].stringValue;
-      LoanRoute.toDigitaLoanLimit();
       onTapClear();
+      await showSuccess(text: 'Амжилттай илгээлээ');
+      IOPages.toHome();
     } else {
       Get.back();
       showError(text: response.message);

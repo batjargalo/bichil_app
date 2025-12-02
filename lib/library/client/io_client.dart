@@ -16,10 +16,9 @@ class IOClient {
     bool hasToken = true,
   }) async {
     try {
-      final response = await getDio(hasToken: hasToken).get(
-        path,
-        queryParameters: query,
-      );
+      final response = await getDio(
+        hasToken: hasToken,
+      ).get(path, queryParameters: query);
       return getResponse(response);
     } on DioException catch (error) {
       return getErrorResponse(error);
@@ -33,11 +32,9 @@ class IOClient {
     bool hasToken = true,
   }) async {
     try {
-      Response response = await getDio(hasToken: hasToken).post(
-        path,
-        data: data,
-        queryParameters: query,
-      );
+      Response response = await getDio(
+        hasToken: hasToken,
+      ).post(path, data: data, queryParameters: query);
       return getResponse(response);
     } on DioException catch (error) {
       return getErrorResponse(error);
@@ -50,8 +47,9 @@ class IOClient {
     bool hasToken = true,
   }) async {
     try {
-      Response response =
-          await getDio(hasToken: hasToken).put(path, data: data);
+      Response response = await getDio(
+        hasToken: hasToken,
+      ).put(path, data: data);
       return getResponse(response);
     } on DioException catch (error) {
       return getErrorResponse(error);
@@ -64,8 +62,9 @@ class IOClient {
     bool hasToken = true,
   }) async {
     try {
-      Response response =
-          await getDio(hasToken: hasToken).patch(path, data: data);
+      Response response = await getDio(
+        hasToken: hasToken,
+      ).patch(path, data: data);
       return getResponse(response);
     } on DioException catch (error) {
       return getErrorResponse(error);
@@ -78,8 +77,9 @@ class IOClient {
     bool hasToken = true,
   }) async {
     try {
-      Response response =
-          await getDio(hasToken: hasToken).delete(path, data: data);
+      Response response = await getDio(
+        hasToken: hasToken,
+      ).delete(path, data: data);
       return getResponse(response);
     } on DioException catch (error) {
       return getErrorResponse(error);
@@ -92,8 +92,9 @@ class IOClient {
     bool hasToken = true,
   }) async {
     try {
-      Response response =
-          await getDio(hasToken: hasToken).put(path, data: formData);
+      Response response = await getDio(
+        hasToken: hasToken,
+      ).put(path, data: formData);
       return getResponse(response);
     } on DioException catch (error) {
       return getErrorResponse(error);
@@ -109,7 +110,9 @@ class IOClient {
     Log.success(serverResponse.requestOptions.uri.toString(), debugName);
     Log.success('statusCode--> ${serverResponse.statusCode}', debugName);
     Log.success(
-        'headers--> ${serverResponse.requestOptions.headers}', debugName);
+      'headers--> ${serverResponse.requestOptions.headers}',
+      debugName,
+    );
     Log.success('data--> ${serverResponse.requestOptions.data}', debugName);
     Log.success('responseData--> ${serverResponse.data}', debugName);
 

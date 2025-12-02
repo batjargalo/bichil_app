@@ -26,8 +26,10 @@ class DigitalLoanLimitDanController extends IOController {
               launchUrlString(request.url);
               return NavigationDecision.prevent;
             }
-            if (request.url.startsWith('https://api.bichilglobus.mn/api/user/callback-dan')) {
-              // getData(request.url);
+            if (request.url.startsWith(
+              'https://api.bichilglobus.mn/api/user/callback-dan',
+            )) {
+              getData(request.url);
               LoanRoute.toDigitalLoanContract();
               return NavigationDecision.prevent;
             }
@@ -37,7 +39,10 @@ class DigitalLoanLimitDanController extends IOController {
       )
       ..loadRequest(
         Uri.parse(danUrl),
-        headers: {"Content-Type": "application/json", "Authorization": "Bearer ${HelperManager.token.access}"},
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer ${HelperManager.token.access}",
+        },
       );
   }
 

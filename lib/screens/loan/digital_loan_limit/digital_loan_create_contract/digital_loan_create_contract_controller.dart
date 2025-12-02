@@ -32,11 +32,7 @@ class DigitalLoanContractController extends IOController {
   }
 
   Future onTapNext() async {
-    return Get.to(
-      () => const DigitalLoanSignatureScreen(isLoading: false),
-      binding: DigitalLoanSignatureBinding(),
-      arguments: {'contractId': contractId},
-    );
+    LoanRoute.toDigitalLoanSignature(contractId: contractId);
   }
 
   Future getData() async {

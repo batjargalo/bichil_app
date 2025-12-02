@@ -14,7 +14,7 @@ class DigitalLoanContractScreen extends GetView<DigitalLoanContractController> {
       () => IOScaffold(
         appBar: IOAppBar(titleText: 'Зээлийн гэрээ'),
         body: SingleChildScrollView(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(5),
           child: HtmlWidget(
             controller.html.value,
             textStyle: IOStyles.body2Regular,
