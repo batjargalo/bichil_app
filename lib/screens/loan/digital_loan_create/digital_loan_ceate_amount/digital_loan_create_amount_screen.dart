@@ -60,7 +60,9 @@ class DigitalLoanCreateAmountScreen
                     const SizedBox(height: 16),
                     LoanDurationWidget(
                       onChanged: controller.term.call,
+                      setDuration: controller.setSelectedTerm,
                       amount: controller.amount.value,
+                      durations: controller.getDurationList(),
                     ),
                     const SizedBox(height: 16),
                     Row(
@@ -89,7 +91,7 @@ class DigitalLoanCreateAmountScreen
                         children: [
                           RowWidget(
                             title: 'Нийт төлөх дүн',
-                            value: 0.0.toCurrency(),
+                            value: controller.totalPayment.value.toCurrency(),
                             titleStyle: IOStyles.caption1SemiBold.copyWith(
                               color: IOColors.textSecondary,
                             ),
@@ -100,7 +102,7 @@ class DigitalLoanCreateAmountScreen
                           const SizedBox(height: 8),
                           RowWidget(
                             title: 'Сард төлөх дүн',
-                            value: 0.0.toCurrency(),
+                            value: controller.mountlyPayment.value.toCurrency(),
                             titleStyle: IOStyles.caption1SemiBold.copyWith(
                               color: IOColors.textSecondary,
                             ),
