@@ -27,7 +27,7 @@ class DigitalLoanLimitDanController extends IOController {
               return NavigationDecision.prevent;
             }
             if (request.url.startsWith('https://api.bichilglobus.mn/api/user/callback-dan')) {
-              // getData(request.url);
+              getData(request.url);
               LoanRoute.toDigitalLoanContract();
               return NavigationDecision.prevent;
             }
