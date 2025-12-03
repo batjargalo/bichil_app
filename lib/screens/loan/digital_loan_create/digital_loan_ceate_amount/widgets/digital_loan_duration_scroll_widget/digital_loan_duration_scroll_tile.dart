@@ -12,7 +12,10 @@ class LoanDurationWidgetTile extends StatelessWidget {
       child: Container(
         key: key,
         child: Center(
-          child: Text(duration, style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
+          child: Text(
+            duration,
+            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+          ),
         ),
       ),
     );
