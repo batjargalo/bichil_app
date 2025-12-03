@@ -8,7 +8,7 @@ plugins {
 android {
     signingConfigs {
         release {
-            storeFile file('/Volumes/Batja/Solution/PayApp/bichil_app/android/key/Untitled')
+            storeFile file('/Volumes/Data/Solution/bichil_app/android/key/Untitled')
             storePassword 'bichil_io'
             keyAlias 'key0'
             keyPassword 'bichil_io'

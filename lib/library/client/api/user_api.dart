@@ -16,9 +16,7 @@ class UserApi extends IOClient {
 
   Future<IOResponse> getAccess({required String refresh}) async {
     const path = '/api/token/refresh/';
-    final data = {
-      'refresh': refresh,
-    };
+    final data = {'refresh': refresh};
     return sendPostRequest(path, data: data, hasToken: false);
   }
 
@@ -32,10 +30,7 @@ class UserApi extends IOClient {
     required String type,
   }) async {
     const url = '/api/otp/send';
-    final data = {
-      'phone_number': phone,
-      'type': type,
-    };
+    final data = {'phone_number': phone, 'type': type};
     return sendPostRequest(url, data: data, hasToken: false);
   }
 
@@ -45,11 +40,7 @@ class UserApi extends IOClient {
     required String token,
   }) async {
     const url = '/api/otp/check';
-    final data = {
-      'phone_number': phoneNumber,
-      'otp': otp,
-      'otp_token': token,
-    };
+    final data = {'phone_number': phoneNumber, 'otp': otp, 'otp_token': token};
     return sendPostRequest(url, data: data, hasToken: false);
   }
 
@@ -58,10 +49,7 @@ class UserApi extends IOClient {
     required String newPass,
   }) async {
     const url = '/api/user/password/update/';
-    final data = {
-      'new_password': newPass,
-      'current_password': old,
-    };
+    final data = {'new_password': newPass, 'current_password': old};
     return sendPostRequest(url, data: data);
   }
 
@@ -70,10 +58,7 @@ class UserApi extends IOClient {
     required String token,
   }) async {
     const url = '/api/user/change/phonenumber/';
-    final data = {
-      'phone_number': phone,
-      'opt_token': token,
-    };
+    final data = {'phone_number': phone, 'opt_token': token};
     return sendPostRequest(url, data: data);
   }
 
@@ -82,20 +67,13 @@ class UserApi extends IOClient {
     required String account,
   }) {
     const url = '/api/user/bankaccount/';
-    final data = {
-      'bank_id': bankId,
-      'account_number': account,
-    };
+    final data = {'bank_id': bankId, 'account_number': account};
     return sendPostRequest(url, data: data);
   }
 
-  Future<IOResponse> changeEmail({
-    required String email,
-  }) {
+  Future<IOResponse> changeEmail({required String email}) {
     const url = '/api/user/email/update';
-    final data = {
-      'email': email,
-    };
+    final data = {'email': email};
     return sendPostRequest(url, data: data);
   }
 
@@ -104,10 +82,7 @@ class UserApi extends IOClient {
     required String password,
   }) async {
     const url = '/api/user/pin-code/create';
-    final data = {
-      'pin_code': pin,
-      'password': password,
-    };
+    final data = {'pin_code': pin, 'password': password};
     return sendPostRequest(url, data: data);
   }
 
@@ -156,11 +131,7 @@ class UserApi extends IOClient {
     required String type,
   }) async {
     const url = '/api/user/notification';
-    final query = {
-      'offset': offset,
-      'limit': limit,
-      'type': type,
-    };
+    final query = {'offset': offset, 'limit': limit, 'type': type};
     return sendGetRequest(url, query: query);
   }
 
