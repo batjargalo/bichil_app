@@ -4,7 +4,8 @@ import 'package:bichil/screens/screens.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class DigitalLoanCreateAmountScreen extends GetView<DigitalLoanCreateAmountController> {
+class DigitalLoanCreateAmountScreen
+    extends GetView<DigitalLoanCreateAmountController> {
   const DigitalLoanCreateAmountScreen({super.key});
 
   @override
@@ -22,7 +23,10 @@ class DigitalLoanCreateAmountScreen extends GetView<DigitalLoanCreateAmountContr
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    const Text('Зээлийн хэмжээгээ оруулна уу.', style: IOStyles.body1SemiBold),
+                    const Text(
+                      'Зээлийн хэмжээгээ оруулна уу.',
+                      style: IOStyles.body1SemiBold,
+                    ),
                     const SizedBox(height: 24),
                     LoanRecreateAmountWidget(
                       maxValue: controller.item.loanLimit,
@@ -34,17 +38,30 @@ class DigitalLoanCreateAmountScreen extends GetView<DigitalLoanCreateAmountContr
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Text('0₮', style: IOStyles.caption1SemiBold.copyWith(color: IOColors.textTertiary)),
+                        Text(
+                          '0₮',
+                          style: IOStyles.caption1SemiBold.copyWith(
+                            color: IOColors.textTertiary,
+                          ),
+                        ),
                         Text(
                           controller.item.loanLimit.toCurrency(),
-                          style: IOStyles.caption1SemiBold.copyWith(color: IOColors.textTertiary),
+                          style: IOStyles.caption1SemiBold.copyWith(
+                            color: IOColors.textTertiary,
+                          ),
                         ),
                       ],
                     ),
                     const SizedBox(height: 16),
-                    const Text('Зээлийн хугацаагаа сонгоно уу.', style: IOStyles.body1SemiBold),
+                    const Text(
+                      'Зээлийн хугацаагаа сонгоно уу.',
+                      style: IOStyles.body1SemiBold,
+                    ),
                     const SizedBox(height: 16),
-                    LoanDurationWidget(onChanged: controller.term.call),
+                    LoanDurationWidget(
+                      onChanged: controller.term.call,
+                      amount: controller.amount.value,
+                    ),
                     const SizedBox(height: 16),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -52,12 +69,16 @@ class DigitalLoanCreateAmountScreen extends GetView<DigitalLoanCreateAmountContr
                       children: [
                         Text(
                           'Эргэн төлөлтийн мэдээлэл',
-                          style: IOStyles.body2Semibold.copyWith(color: IOColors.textPrimary),
+                          style: IOStyles.body2Semibold.copyWith(
+                            color: IOColors.textPrimary,
+                          ),
                         ),
                         Text(
                           'Хүү - 4%',
                           // 'Хүү - ${controller.item.loanLimit}%',
-                          style: IOStyles.caption1SemiBold.copyWith(color: IOColors.textSecondary),
+                          style: IOStyles.caption1SemiBold.copyWith(
+                            color: IOColors.textSecondary,
+                          ),
                         ),
                       ],
                     ),
@@ -69,21 +90,32 @@ class DigitalLoanCreateAmountScreen extends GetView<DigitalLoanCreateAmountContr
                           RowWidget(
                             title: 'Нийт төлөх дүн',
                             value: 0.0.toCurrency(),
-                            titleStyle: IOStyles.caption1SemiBold.copyWith(color: IOColors.textSecondary),
-                            valueStyle: IOStyles.body2Bold.copyWith(color: IOColors.brand500),
+                            titleStyle: IOStyles.caption1SemiBold.copyWith(
+                              color: IOColors.textSecondary,
+                            ),
+                            valueStyle: IOStyles.body2Bold.copyWith(
+                              color: IOColors.brand500,
+                            ),
                           ),
                           const SizedBox(height: 8),
                           RowWidget(
                             title: 'Сард төлөх дүн',
                             value: 0.0.toCurrency(),
-                            titleStyle: IOStyles.caption1SemiBold.copyWith(color: IOColors.textSecondary),
-                            valueStyle: IOStyles.body2Bold.copyWith(color: IOColors.brand500),
+                            titleStyle: IOStyles.caption1SemiBold.copyWith(
+                              color: IOColors.textSecondary,
+                            ),
+                            valueStyle: IOStyles.body2Bold.copyWith(
+                              color: IOColors.brand500,
+                            ),
                           ),
                         ],
                       ),
                     ),
                     const Spacer(),
-                    IOButtonWidget(model: controller.button.value, onPressed: controller.onTapNext),
+                    IOButtonWidget(
+                      model: controller.button.value,
+                      onPressed: controller.onTapNext,
+                    ),
                   ],
                 ),
               ),
