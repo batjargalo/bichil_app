@@ -22,11 +22,11 @@ class DigitalLoanLimitDanController extends IOController {
             isInitialLoading.value = false;
           },
           onNavigationRequest: (NavigationRequest request) {
-            // if (request.url.startsWith('sms:')) {
-            //   launchUrlString(request.url);
-            //   return NavigationDecision.prevent;
-            // }
-            if (request.url.startsWith('https://api.bichilglobus.mn/. /user/callback-dan')) {
+            if (request.url.startsWith('sms:')) {
+              launchUrlString(request.url);
+              return NavigationDecision.prevent;
+            }
+            if (request.url.startsWith('https://api.bichilglobus.mn/api/user/callback-dan')) {
               getData(request.url);
               return NavigationDecision.prevent;
             }
@@ -47,8 +47,9 @@ class DigitalLoanLimitDanController extends IOController {
       final response = await Dio().get(urlString);
       final res = IOClient.getResponse(response);
       if (res.isSuccess) {
+        Get.back();
         LoanRoute.toDigitalLoanContract();
-        Get.back(result: res.data);
+        // Get.back(result: res.data);
       } else {
         Get.back();
         showError(text: res.message);
