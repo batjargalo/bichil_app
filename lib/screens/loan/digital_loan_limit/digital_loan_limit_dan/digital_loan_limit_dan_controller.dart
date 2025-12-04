@@ -47,8 +47,8 @@ class DigitalLoanLimitDanController extends IOController {
       final response = await Dio().get(urlString);
       final res = IOClient.getResponse(response);
       if (res.isSuccess) {
-        Get.back();
         LoanRoute.toDigitalLoanContract();
+        Get.back(result: res.data);
       } else {
         Get.back();
         showError(text: res.message);
