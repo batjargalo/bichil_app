@@ -27,8 +27,7 @@ class DigitalLoanLimitDanController extends IOController {
               return NavigationDecision.prevent;
             }
             if (request.url.startsWith('https://api.bichilglobus.mn/api/user/callback-dan')) {
-              getData(request.url);
-              LoanRoute.toDigitalLoanContract();
+              getData('https://api.bichilglobus.mn/api/user/callback-dan');
               return NavigationDecision.prevent;
             }
             return NavigationDecision.navigate;
@@ -48,10 +47,12 @@ class DigitalLoanLimitDanController extends IOController {
       final response = await Dio().get(urlString);
       final res = IOClient.getResponse(response);
       if (res.isSuccess) {
+        LoanRoute.toDigitalLoanContract();
         Get.back(result: res.data);
       } else {
         Get.back();
-        showError(text: res.message);
+        // LoanRoute.toDigitalLoanContract();
+        // showError(text: res.message);
       }
     } on DioException catch (error) {
       final response = IOClient.getErrorResponse(error);
