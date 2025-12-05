@@ -57,7 +57,7 @@ class LoanProductScreen extends GetView<LoanProductController> {
                               style: IOStyles.caption1Regular.copyWith(color: IOColors.brand500),
                             ),
                             Text(
-                              "${(5 - (controller.loanLimit.isNotEmpty ? controller.loanLimit!.first.loanCount : 0)).toString()} хүртэл",
+                              "${(5 - (controller.loanLimit.isNotEmpty ? controller.loanLimit.first.loanCount : 0)).toString()} хүртэл",
                               style: IOStyles.body2Semibold.copyWith(color: IOColors.textSecondary),
                             ),
                             const Spacer(),
