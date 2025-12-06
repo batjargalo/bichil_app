@@ -1,7 +1,5 @@
-import 'dart:io';
 import 'dart:convert';
 import 'package:bichil/library/library.dart';
-import 'package:bichil/screens/screens.dart';
 import 'package:get/get.dart';
 import 'package:hand_signature/signature.dart';
 import 'dart:typed_data';
@@ -60,25 +58,15 @@ class DigitalLoanSignatureController extends IOController {
   Future onTapSend() async {
     final args = Get.arguments as Map<String, dynamic>?;
     final contractId = args?['contractId'];
-    rawImage.value = await control.toImage(
-      color: Colors.black,
-      background: Colors.white,
-      fit: true,
-    );
+    rawImage.value = await control.toImage(color: Colors.black, background: Colors.white, fit: true);
     List<int> imageBytes = rawImage.value?.buffer.asUint8List() ?? [];
     String base64Image = base64Encode(imageBytes);
-    sendSignature(
-      image: "data:image/png;base64,$base64Image",
-      contractId: contractId,
-    );
+    sendSignature(image: "data:image/png;base64,$base64Image", contractId: contractId);
   }
 
   Future sendSignature({required String image, required int contractId}) async {
     isInitialLoading.value = true;
-    final response = await LoanApi().sendSignature(
-      image: image,
-      contract: contractId,
-    );
+    final response = await LoanApi().sendSignature(image: image, contract: contractId);
     isInitialLoading.value = false;
 
     if (response.isSuccess) {
