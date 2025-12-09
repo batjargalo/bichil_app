@@ -2,7 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>
@@ -61,14 +60,13 @@
 		<key>NSExceptionDomains</key>
 		<dict/>
 	</dict>
-
 	<key>NSFaceIDUsageDescription</key>
 	<string>Түргэн нэврэх үед ашиглах тул та зөвшөөрнө үү</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Тантай ойр салбарын байршлыг харуулахад ашиглах тул та зөвшөөрнө үү</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Тантай ойр салбарын байршлыг харуулахад ашиглах тул та зөвшөөрнө үү</string>
 	<key>NSLocationUsageDescription</key>
-	<string>Тантай ойр салбарын байршлыг харуулахад ашиглах тул та зөвшөөрнө үү</string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Тантай ойр салбарын байршлыг харуулахад ашиглах тул та зөвшөөрнө үү</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Тантай ойр салбарын байршлыг харуулахад ашиглах тул та зөвшөөрнө үү</string>
@@ -85,15 +83,13 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
-		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
 </dict>
 </plist>

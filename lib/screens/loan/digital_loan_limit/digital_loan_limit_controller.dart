@@ -10,6 +10,7 @@ class DigitalLoanLimitController extends IOController {
   final titleText = 'Дижитал зээлийн эрх';
   final refresher = RefreshController();
   final products = <LoanProductModel>[].obs;
+  final limit = <LoanLimitModel>{}.obs;
   final loanLimit = <DigitalLoanLimitModel>{}.obs;
 
   final chargeAmount = 0.0.obs;
@@ -58,11 +59,7 @@ class DigitalLoanLimitController extends IOController {
     limitChargeLoading.value = false;
 
     if (response.isSuccess) {
-      onResult(
-        data: response.data,
-        amount: amount,
-        payType: LoanLimitType.create,
-      );
+      onResult(data: response.data, amount: amount, payType: LoanLimitType.create);
     } else {
       showError(text: response.message);
     }
@@ -86,16 +83,10 @@ class DigitalLoanLimitController extends IOController {
     }
   }
 
-  Future onResult({
-    required JSON data,
-    required double amount,
-    required LoanLimitType payType,
-  }) async {
+  Future onResult({required JSON data, required double amount, required LoanLimitType payType}) async {
     final fee = data['fee'].ddoubleValue;
     final invoice = data['local_invoice_number'].stringValue;
-    final urls = data['urls'].listValue
-        .map((e) => QpayModel.fromJson(e))
-        .toList();
+    final urls = data['urls'].listValue.map((e) => QpayModel.fromJson(e)).toList();
     final typeText = switch (payType) {
       LoanLimitType.create => 'Эрх тогтоох',
       LoanLimitType.change => 'эрх шинчлэх',
@@ -110,24 +101,12 @@ class DigitalLoanLimitController extends IOController {
       QpayInfoModel(title: 'Төрөл', value: typeText),
       QpayInfoModel(title: 'Төлөх мөнгөн дүн', value: amount.toCurrency()),
       QpayInfoModel(title: 'Шимтгэл', value: fee.toCurrency()),
-      QpayInfoModel(
-        title: 'Нийт төлөх дүн',
-        value: (fee + amount).toCurrency(),
-      ),
+      QpayInfoModel(title: 'Нийт төлөх дүн', value: (fee + amount).toCurrency()),
     ];
-    final qpay = QpayScreenModel(
-      title: 'Зээлийн эрх',
-      invoice: invoice,
-      info: info,
-      urls: urls,
-    );
+    final qpay = QpayScreenModel(title: 'Зээлийн эрх', invoice: invoice, info: info, urls: urls);
     final result = await AppRoute.toQpay(model: qpay);
     if (result == null) return;
-    await AppRoute.toSuccess(
-      title: 'Амжилттай',
-      description: successText,
-      buttonText: "Үргэлжлүүлэх",
-    );
+    await AppRoute.toSuccess(title: 'Амжилттай', description: successText, buttonText: "Үргэлжлүүлэх");
     customerInfoDan();
   }
 

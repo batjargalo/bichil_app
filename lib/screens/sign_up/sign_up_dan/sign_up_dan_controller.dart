@@ -6,7 +6,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 class SignUpDanController extends IOController {
   final webController = WebViewController();
-  final danUrl = '$domain/api/user/authorize';
+  final danUrl = '$domain/api/user/authorize?regis=true';
   @override
   void onInit() {
     super.onInit();
