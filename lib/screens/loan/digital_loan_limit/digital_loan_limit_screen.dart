@@ -80,14 +80,14 @@ class DigitalLoanLimitScreen extends GetView<DigitalLoanLimitController> {
                                 ),
                               ),
                               SizedBox(height: 50),
-                              IOButtonWidget(
-                                // onPressed: controller.onDigitalCreateLoan,
-                                model: IOButtonModel(
-                                  label: 'Зээл авах',
-                                  type: IOButtonType.primary,
-                                  size: IOButtonSize.small,
-                                ),
-                              ),
+                              // IOButtonWidget(
+                              //   // onPressed: controller.onDigitalCreateLoan,
+                              //   model: IOButtonModel(
+                              //     label: 'Зээл авах',
+                              //     type: IOButtonType.primary,
+                              //     size: IOButtonSize.small,
+                              //   ),
+                              // ),
                               SizedBox(height: 10),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
