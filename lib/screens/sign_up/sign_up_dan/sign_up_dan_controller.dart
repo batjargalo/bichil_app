@@ -26,7 +26,7 @@ class SignUpDanController extends IOController {
               launchUrlString(request.url);
               return NavigationDecision.prevent;
             }
-            if (request.url.startsWith('$domain/api/user/callback-dan')) {
+            if (request.url.startsWith('https://api.bichilglobus.mn/api/user/callback-dan')) {
               getData(request.url);
               return NavigationDecision.prevent;
             }
