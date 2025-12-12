@@ -1,4 +1,4 @@
-const environment = Environment.test;
+const environment = Environment.staging;
 String get domain => environment.domain;
 
 // const domain = 'https://api.bichilglobus.mn';
@@ -15,7 +15,7 @@ const kBiometricWithUser = 'kBiometricWithUser';
 const kNotificationCount = 'kNotificationCount';
 
 enum Environment {
-  test(domain: 'http://192.168.88.88:8000'),
+  test(domain: 'http://192.168.88.87:8000'),
   staging(domain: 'https://testapi.bichilglobus.mn'),
   prod(domain: 'https://api.bichilglobus.mn');
 
