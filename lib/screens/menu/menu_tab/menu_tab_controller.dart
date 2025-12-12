@@ -7,42 +7,42 @@ class MenuTabController extends IOController {
   final isBiometricEnabled = HelperManager.isSavedBiometricOnUser.obs;
 
   List get items => [
-        if (isLogged)
-          MenuTabModel(
-            title: 'Хэрэглэгчийн мэдээлэл',
-            items: [
-              // MenuTabItemModel(type: MenuTabItemType.contract),
-              MenuTabItemModel(type: MenuTabItemType.loanHistory),
-              MenuTabItemModel(type: MenuTabItemType.savingHistory),
-              // MenuTabItemModel(type: MenuTabItemType.insurane),
-            ],
-          ),
-        if (isLogged)
-          MenuTabModel(
-            title: 'Тохиргоо',
-            items: [
-              MenuTabItemModel(type: MenuTabItemType.changePassword),
-              MenuTabItemModel(type: MenuTabItemType.changePin),
-              if (BiometricManager.shared.isAutenticated)
-                MenuTabItemModel(
-                  type: MenuTabItemType.biometric,
-                  value: isBiometricEnabled.value,
-                ),
-            ],
-          ),
-        MenuTabModel(
-          title: 'Бусад',
-          items: [
-            MenuTabItemModel(type: MenuTabItemType.news),
-            MenuTabItemModel(type: MenuTabItemType.operator),
-            MenuTabItemModel(type: MenuTabItemType.branch),
-            MenuTabItemModel(type: MenuTabItemType.calculator),
-            MenuTabItemModel(type: MenuTabItemType.faq),
-            MenuTabItemModel(type: MenuTabItemType.terms),
-            MenuTabItemModel(type: MenuTabItemType.policy),
-          ],
-        ),
-      ];
+    if (isLogged)
+      MenuTabModel(
+        title: 'Хэрэглэгчийн мэдээлэл',
+        items: [
+          MenuTabItemModel(type: MenuTabItemType.contract),
+          MenuTabItemModel(type: MenuTabItemType.loanHistory),
+          MenuTabItemModel(type: MenuTabItemType.savingHistory),
+          // MenuTabItemModel(type: MenuTabItemType.insurane),
+        ],
+      ),
+    if (isLogged)
+      MenuTabModel(
+        title: 'Тохиргоо',
+        items: [
+          MenuTabItemModel(type: MenuTabItemType.changePassword),
+          MenuTabItemModel(type: MenuTabItemType.changePin),
+          if (BiometricManager.shared.isAutenticated)
+            MenuTabItemModel(
+              type: MenuTabItemType.biometric,
+              value: isBiometricEnabled.value,
+            ),
+        ],
+      ),
+    MenuTabModel(
+      title: 'Бусад',
+      items: [
+        MenuTabItemModel(type: MenuTabItemType.news),
+        MenuTabItemModel(type: MenuTabItemType.operator),
+        MenuTabItemModel(type: MenuTabItemType.branch),
+        MenuTabItemModel(type: MenuTabItemType.calculator),
+        MenuTabItemModel(type: MenuTabItemType.faq),
+        MenuTabItemModel(type: MenuTabItemType.terms),
+        MenuTabItemModel(type: MenuTabItemType.policy),
+      ],
+    ),
+  ];
 
   final logoutButton = IOButtonModel(
     label: 'Системээс гарах',
@@ -71,6 +71,7 @@ class MenuTabController extends IOController {
   void onTapItem(MenuTabItemType type, bool? value) {
     switch (type) {
       case MenuTabItemType.contract:
+        LoanRoute.toSignedContract();
         break;
       case MenuTabItemType.loanHistory:
         LoanRoute.toHistoryList();
