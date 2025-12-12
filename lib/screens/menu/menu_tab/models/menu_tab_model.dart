@@ -2,20 +2,14 @@ class MenuTabModel {
   final String title;
   final List<MenuTabItemModel> items;
 
-  MenuTabModel({
-    required this.title,
-    required this.items,
-  });
+  MenuTabModel({required this.title, required this.items});
 }
 
 class MenuTabItemModel {
   final MenuTabItemType type;
   bool? value;
 
-  MenuTabItemModel({
-    required this.type,
-    this.value,
-  });
+  MenuTabItemModel({required this.type, this.value});
 }
 
 enum MenuTabItemType {

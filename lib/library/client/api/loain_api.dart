@@ -194,4 +194,9 @@ class LoanApi extends IOClient {
     final data = {'signature': image, 'contract_id': contract};
     return sendPostRequest(url, data: data);
   }
+
+  Future<IOResponse> getDigitalSignedContract() {
+    const path = '/api/core/loan/contractlist/';
+    return sendGetRequest(path);
+  }
 }
