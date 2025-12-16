@@ -174,6 +174,12 @@ class DigitalLoanCreateAmountController extends IOController {
       if (Get.isRegistered<LoanTabController>()) {
         Get.find<LoanTabController>().onRefresh();
       }
+    } else if (response.message == "Та гүйлгээний нууц үгээ тохируулна уу") {
+      toWarning(
+        titleText: 'Анхаарна уу?',
+        text: response.message,
+        buttonText: 'Нууц үг үүсгэх',
+      );
     } else {
       showError(text: response.message);
     }
