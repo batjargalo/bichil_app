@@ -35,13 +35,11 @@ class PinCheckScreen extends StatelessWidget {
               ),
               const SizedBox(height: 24),
               const Text(
-                'Гүйлгээний нууц үг',
+                'Та гүйлгээний нууц үгээ хийнэ үү',
                 style: IOStyles.body2Bold,
               ),
               const SizedBox(height: 24),
-              IOOtpWidget(
-                model: controller.pin,
-              ),
+              IOOtpWidget(model: controller.pin),
               const SizedBox(height: 16),
               GestureDetector(
                 onTap: controller.onForgot,

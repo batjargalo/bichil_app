@@ -8,6 +8,18 @@ class LoanProductController extends IOController {
   final products = <LoanProductModel>[].obs;
   final loanLimit = <LoanLimitModel>{}.obs;
 
+  final takeLoan = IOButtonModel(
+    label: 'Зээл авах',
+    type: IOButtonType.primary,
+    size: IOButtonSize.small,
+  ).obs;
+
+  final signContract = IOButtonModel(
+    label: 'Гэрээ байгуулах',
+    type: IOButtonType.primary,
+    size: IOButtonSize.small,
+  ).obs;
+
   @override
   void onInit() {
     super.onInit();
@@ -35,8 +47,16 @@ class LoanProductController extends IOController {
         showWarning(text: "Таны зээлийн тоо олгох хязгаарт хүрсэн байна.");
       }
     } else {
-      showWarning(text: "Зээлийн боломжит эрх байхгүй байна. Та зээлийн эрхээ шинэчилнэ үү.");
+      showWarning(
+        text:
+            "Зээлийн боломжит эрх байхгүй байна. Та зээлийн эрхээ шинэчилнэ үү.",
+      );
     }
+  }
+
+  void onSignContract() {
+    Get.back();
+    LoanRoute.toDigitalLoanContract();
   }
 
   Future getLoanLimit(bool isInitial) async {
@@ -59,7 +79,9 @@ class LoanProductController extends IOController {
     refresher.refreshCompleted();
 
     if (response.isSuccess) {
-      products.value = response.data.listValue.map((e) => LoanProductModel.fromJson(e)).toList();
+      products.value = response.data.listValue
+          .map((e) => LoanProductModel.fromJson(e))
+          .toList();
     } else {
       Get.back();
       showError(text: response.message);
