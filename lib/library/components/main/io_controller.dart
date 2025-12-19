@@ -78,6 +78,19 @@ class IOController extends GetxController {
     ).show();
   }
 
+  Future<bool?> toWarningEmail({
+    required String text,
+    String? titleText,
+    String? buttonText,
+  }) {
+    return IOWarningEmail(
+      type: IOWarningEmailType.warning,
+      titleText: titleText,
+      bodyText: text,
+      acceptText: buttonText ?? 'Хаах',
+    ).show();
+  }
+
   @override
   void onInit() {
     super.onInit();

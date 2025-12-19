@@ -10,9 +10,7 @@ class ChangeEmailScreen extends GetView<ChangeEmailController> {
   Widget build(BuildContext context) {
     return Obx(
       () => IOScaffold(
-        appBar: IOAppBar(
-          titleText: 'Дансны дугаар',
-        ),
+        appBar: IOAppBar(titleText: 'Имэйл хаяг солих'),
         body: AbsorbPointer(
           absorbing: controller.isLoading.value,
           child: GestureDetector(
@@ -30,9 +28,7 @@ class ChangeEmailScreen extends GetView<ChangeEmailController> {
                     model: controller.save.value,
                     onPressed: controller.onTapSave,
                   ),
-                  SizedBox(
-                    height: Get.mediaQuery.padding.bottom,
-                  )
+                  SizedBox(height: Get.mediaQuery.padding.bottom),
                 ],
               ),
             ),
