@@ -76,6 +76,13 @@ class DigitalLoanLimitController extends IOController {
         amount: amount,
         payType: LoanLimitType.create,
       );
+    } else if (response.message ==
+        "Та өөрийн ашигладаг мэйл хаягаа бүртгүүлнэ үү") {
+      toWarningEmail(
+        titleText: 'Анхаарна уу?',
+        text: response.message,
+        buttonText: 'Мэйл хаяг бүртгүүлэх',
+      );
     } else {
       showError(text: response.message);
     }

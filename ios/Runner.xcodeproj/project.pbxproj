@@ -495,10 +495,14 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 <<<<<<< HEAD
+				CURRENT_PROJECT_VERSION = 27;
+=======
+<<<<<<< HEAD
 				CURRENT_PROJECT_VERSION = 25;
 =======
 				CURRENT_PROJECT_VERSION = 26;
 >>>>>>> e436289472cd93b56363cfd463a1f267d79dfeba
+>>>>>>> d3bc22aa3dcaccb654adddf07085cf12b8f202ae
 				DEVELOPMENT_TEAM = 2NG75M38PS;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
@@ -685,10 +689,14 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 <<<<<<< HEAD
+				CURRENT_PROJECT_VERSION = 27;
+=======
+<<<<<<< HEAD
 				CURRENT_PROJECT_VERSION = 25;
 =======
 				CURRENT_PROJECT_VERSION = 26;
 >>>>>>> e436289472cd93b56363cfd463a1f267d79dfeba
+>>>>>>> d3bc22aa3dcaccb654adddf07085cf12b8f202ae
 				DEVELOPMENT_TEAM = 2NG75M38PS;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
@@ -715,10 +723,14 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 <<<<<<< HEAD
+				CURRENT_PROJECT_VERSION = 27;
+=======
+<<<<<<< HEAD
 				CURRENT_PROJECT_VERSION = 25;
 =======
 				CURRENT_PROJECT_VERSION = 26;
 >>>>>>> e436289472cd93b56363cfd463a1f267d79dfeba
+>>>>>>> d3bc22aa3dcaccb654adddf07085cf12b8f202ae
 				DEVELOPMENT_TEAM = 2NG75M38PS;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
