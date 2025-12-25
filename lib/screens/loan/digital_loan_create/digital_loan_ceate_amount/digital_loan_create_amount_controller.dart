@@ -138,6 +138,21 @@ class DigitalLoanCreateAmountController extends IOController {
       );
       return;
     }
+    final userRelated = await UserApi().getUserRelated();
+    if (userRelated.isSuccess) {
+      final relatedData = userRelated.data;
+      if (relatedData.listValue.length < 3) {
+        toWarningUserInfo(
+          titleText: 'Анхаарна уу?',
+          text: "Та өөрийн ойр дотны 3 хүний мэдээллийг оруулна уу.",
+          buttonText: 'Бүртгэлээ шинэчлэх',
+        );
+        return;
+      }
+    } else {
+      showError(text: userRelated.message);
+      return;
+    }
     if (amount.value > item.loanLimit) {
       showError(text: '${item.loanLimit}-с ихгүй утга оруулна уу');
       return;

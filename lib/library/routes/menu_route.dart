@@ -16,14 +16,23 @@ class MenuRoute {
   }
 
   static Future<bool?>? toChangeEmail() {
-    return Get.to(() => const ChangeEmailScreen(), binding: ChangeEmailBinding());
+    return Get.to(
+      () => const ChangeEmailScreen(),
+      binding: ChangeEmailBinding(),
+    );
   }
 
   static void toChangePhoneNumber() {
-    Get.to(() => const ChangePhoneNumberScreen(), binding: ChangePhoneNumberBinding());
+    Get.to(
+      () => const ChangePhoneNumberScreen(),
+      binding: ChangePhoneNumberBinding(),
+    );
   }
 
-  static void toChangePhoneOtp({required String phone, required String otpToken}) {
+  static void toChangePhoneOtp({
+    required String phone,
+    required String otpToken,
+  }) {
     Get.to(
       () => const ChangePhoneOtpScreen(),
       binding: ChangePhoneOtpBinding(phone: phone, otpToken: otpToken),
@@ -31,7 +40,10 @@ class MenuRoute {
   }
 
   static void toChangePassword() {
-    Get.to(() => const ChangePasswordScreen(), binding: ChangePasswordBinding());
+    Get.to(
+      () => const ChangePasswordScreen(),
+      binding: ChangePasswordBinding(),
+    );
   }
 
   static Future<String?>? toChangePin() {
@@ -62,7 +74,10 @@ class MenuRoute {
   }
 
   static void toTerms() {
-    toWeb(title: MenuTabItemType.terms.title, url: '$domain/api/info/service-terms');
+    toWeb(
+      title: MenuTabItemType.terms.title,
+      url: '$domain/api/info/service-terms',
+    );
   }
 
   static void toNewsPage() {
@@ -70,10 +85,23 @@ class MenuRoute {
   }
 
   static void toNewsDetail({required NewsModel news}) {
-    Get.to(() => const NewsDetailScreen(), binding: NewsDetailBinding(news: news));
+    Get.to(
+      () => const NewsDetailScreen(),
+      binding: NewsDetailBinding(news: news),
+    );
   }
 
   static void toVideoDetail({required VideoListModel video}) {
-    Get.to(() => const VideoDetailScreen(), binding: VideoDetailBinding(video: video));
+    Get.to(
+      () => const VideoDetailScreen(),
+      binding: VideoDetailBinding(video: video),
+    );
+  }
+
+  static void toChangeRelate({required UserRelatedModel person}) {
+    Get.to(
+      () => const ChangeRelateScreen(),
+      binding: ChangeRelateBinding(person: person),
+    );
   }
 }
