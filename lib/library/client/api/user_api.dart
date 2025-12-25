@@ -145,4 +145,30 @@ class UserApi extends IOClient {
     final data = {'id': id};
     return sendPostRequest(url, data: data);
   }
+
+  Future<IOResponse> getUserRelated() {
+    const path = '/api/user/related/';
+    return sendGetRequest(path);
+  }
+
+  Future<IOResponse> addRelate({
+    required String name,
+    required String phone,
+    required String relation,
+  }) {
+    const url = '/api/user/related/';
+    final data = {'name': name, 'phone': phone, 'relation': relation};
+    return sendPostRequest(url, data: data);
+  }
+
+  Future<IOResponse> changeRelate({
+    int? id,
+    required String name,
+    required String phone,
+    required String relation,
+  }) {
+    const url = '/api/user/related/';
+    final data = {"id": id, 'name': name, 'phone': phone, 'relation': relation};
+    return sendPutRequest(url, data: data);
+  }
 }
