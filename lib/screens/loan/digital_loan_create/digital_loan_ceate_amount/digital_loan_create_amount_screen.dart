@@ -53,17 +53,21 @@ class DigitalLoanCreateAmountScreen
                       ],
                     ),
                     const SizedBox(height: 16),
-                    const Text(
-                      'Зээлийн хугацаагаа сонгоно уу.',
-                      style: IOStyles.body1SemiBold,
-                    ),
+                    controller.amount.value == 0
+                        ? const SizedBox.shrink()
+                        : const Text(
+                            'Зээлийн хугацаагаа сонгоно уу.',
+                            style: IOStyles.body1SemiBold,
+                          ),
                     const SizedBox(height: 16),
-                    LoanDurationWidget(
-                      onChanged: controller.term.call,
-                      setDuration: controller.setSelectedTerm,
-                      amount: controller.amount.value,
-                      durations: controller.getDurationList(),
-                    ),
+                    controller.amount.value == 0
+                        ? const SizedBox.shrink()
+                        : LoanDurationWidget(
+                            onChanged: controller.term.call,
+                            setDuration: controller.setSelectedTerm,
+                            amount: controller.amount.value,
+                            durations: controller.getDurationList(),
+                          ),
                     const SizedBox(height: 16),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -75,13 +79,13 @@ class DigitalLoanCreateAmountScreen
                             color: IOColors.textPrimary,
                           ),
                         ),
-                        Text(
-                          'Хүү - 4%',
-                          // 'Хүү - ${controller.item.loanLimit}%',
-                          style: IOStyles.caption1SemiBold.copyWith(
-                            color: IOColors.textSecondary,
-                          ),
-                        ),
+                        // Text(
+                        //   'Хүү - 4%',
+                        //   // 'Хүү - ${controller.item.loanLimit}%',
+                        //   style: IOStyles.caption1SemiBold.copyWith(
+                        //     color: IOColors.textSecondary,
+                        //   ),
+                        // ),
                       ],
                     ),
                     const SizedBox(height: 8),

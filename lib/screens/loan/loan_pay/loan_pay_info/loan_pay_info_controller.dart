@@ -9,7 +9,9 @@ class LoanPayInfoController extends IOController {
 
   final customAmount = 0.0.obs;
   final closeAmount = 0.0.obs;
+  final extensionAmount = 0.0.obs;
   final checkedClose = false.obs;
+  final checkLoanExtension = false.obs;
   final scheduleLoading = false.obs;
   final customLoading = false.obs;
   final closeLoading = false.obs;
@@ -19,7 +21,11 @@ class LoanPayInfoController extends IOController {
     type: IOButtonType.primary,
     size: IOButtonSize.medium,
   ).obs;
-
+  final loanExtension = IOButtonModel(
+    label: 'Зээл сунгах',
+    type: IOButtonType.primary,
+    size: IOButtonSize.medium,
+  ).obs;
   LoanPayInfoController({required this.loan});
 
   bool get isExpired => loan.isExpired;
@@ -37,9 +43,7 @@ class LoanPayInfoController extends IOController {
     checkClose.update((val) {
       val?.isLoading = true;
     });
-    final response = await LoanApi().getLoanCloseAmount(
-      code: loan.acntCode,
-    );
+    final response = await LoanApi().getLoanCloseAmount(code: loan.acntCode);
     isInitialLoading.value = false;
     checkClose.update((val) {
       val?.isLoading = false;
@@ -48,6 +52,25 @@ class LoanPayInfoController extends IOController {
     if (response.isSuccess) {
       checkedClose.value = true;
       closeAmount.value = response.data['totalBal'].ddoubleValue;
+    } else {
+      showError(text: response.message);
+    }
+  }
+
+  Future getExtensionAmount() async {
+    isInitialLoading.value = true;
+    loanExtension.update((val) {
+      val?.isLoading = true;
+    });
+    final response = await LoanApi().getLoanCloseAmount(code: loan.acntCode);
+    isInitialLoading.value = false;
+    loanExtension.update((val) {
+      val?.isLoading = false;
+    });
+
+    if (response.isSuccess) {
+      checkLoanExtension.value = true;
+      extensionAmount.value = response.data['totalBal'].ddoubleValue;
     } else {
       showError(text: response.message);
     }
@@ -68,6 +91,40 @@ class LoanPayInfoController extends IOController {
       case LoanPayType.closeLine:
         onCloseLineLoan();
         break;
+      case LoanPayType.extension:
+        onExtensionLoan();
+        break;
+    }
+  }
+
+  Future onExtensionLoan() async {
+    final result = await showWarning(
+      text: 'Та сунгалт хийхдээ итгэлтэй байна уу',
+      acceptText: 'Тийм',
+      cancelText: 'Хаах',
+    );
+    if (result == null) return;
+    final amount = loan.nextSchdTotal;
+
+    isLoading.value = true;
+    checkLoanExtension.value = true;
+
+    final response = await LoanApi().payLoan(
+      code: loan.acntCode,
+      amount: amount,
+    );
+
+    isLoading.value = false;
+    checkLoanExtension.value = false;
+
+    if (response.isSuccess) {
+      onResult(
+        data: response.data,
+        amount: amount,
+        payType: LoanPayType.extension,
+      );
+    } else {
+      showError(text: response.message);
     }
   }
 
@@ -185,11 +242,7 @@ class LoanPayInfoController extends IOController {
     closeLoading.value = false;
 
     if (response.isSuccess) {
-      onResult(
-        data: response.data,
-        amount: amount,
-        payType: LoanPayType.close,
-      );
+      onResult(data: response.data, amount: amount, payType: LoanPayType.close);
     } else {
       showError(text: response.message);
     }
@@ -209,12 +262,14 @@ class LoanPayInfoController extends IOController {
   }) async {
     final fee = data['fee'].ddoubleValue;
     final invoice = data['local_invoice_number'].stringValue;
-    final urls =
-        data['urls'].listValue.map((e) => QpayModel.fromJson(e)).toList();
+    final urls = data['urls'].listValue
+        .map((e) => QpayModel.fromJson(e))
+        .toList();
     final typeText = switch (payType) {
       LoanPayType.schedule => 'Хуваарийн дагуу төлөх',
       LoanPayType.custom => 'Өөр дүнгээр төлөх',
       LoanPayType.close || LoanPayType.closeLine => 'Зээл хаах',
+      LoanPayType.extension => 'Зээл сунгах',
     };
     final successText = switch (payType) {
       LoanPayType.schedule =>
@@ -222,22 +277,14 @@ class LoanPayInfoController extends IOController {
       LoanPayType.custom =>
         'Таны зээлийн төлөлт ${amount.toCurrency()} амжилттай хийгдлээ',
       LoanPayType.close ||
-      LoanPayType.closeLine =>
-        'Таны зээлийн төлөлт амжилттай хийгдэж хаагдлаа',
+      LoanPayType.closeLine => 'Таны зээлийн төлөлт амжилттай хийгдэж хаагдлаа',
+      LoanPayType.extension =>
+        'Таны зээлийн сунгалт ${amount.toCurrency()} амжилттай хийгдлээ',
     };
     final info = [
-      QpayInfoModel(
-        title: 'Төрөл',
-        value: typeText,
-      ),
-      QpayInfoModel(
-        title: 'Төлөх мөнгөн дүн',
-        value: amount.toCurrency(),
-      ),
-      QpayInfoModel(
-        title: 'Шимтгэл',
-        value: fee.toCurrency(),
-      ),
+      QpayInfoModel(title: 'Төрөл', value: typeText),
+      QpayInfoModel(title: 'Төлөх мөнгөн дүн', value: amount.toCurrency()),
+      QpayInfoModel(title: 'Шимтгэл', value: fee.toCurrency()),
       QpayInfoModel(
         title: 'Нийт төлөх дүн',
         value: (fee + amount).toCurrency(),
@@ -253,12 +300,9 @@ class LoanPayInfoController extends IOController {
     final result = await AppRoute.toQpay(model: qpay);
     if (result == null) return;
 
-    await AppRoute.toSuccess(
-      title: 'Амжилттай',
-      description: successText,
-    );
+    await AppRoute.toSuccess(title: 'Амжилттай', description: successText);
     onBack();
   }
 }
 
-enum LoanPayType { schedule, custom, close, closeLine }
+enum LoanPayType { schedule, custom, close, closeLine, extension }

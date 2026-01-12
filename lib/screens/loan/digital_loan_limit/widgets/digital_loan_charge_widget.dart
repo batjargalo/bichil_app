@@ -21,56 +21,34 @@ class LoanLimitChargePayWidget extends StatelessWidget {
     this.onChanged,
   });
 
-  final formatter = CurrencyTextInputFormatter.currency(symbol: '₮', decimalDigits: 2);
+  final formatter = CurrencyTextInputFormatter.currency(
+    symbol: '₮',
+    decimalDigits: 2,
+  );
 
   @override
   Widget build(BuildContext context) {
     return IOCardBorderWidget(
       child: Column(
         children: [
-          const SizedBox(height: 16),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Text(title, style: IOStyles.body2Regular.copyWith(color: IOColors.textSecondary)),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: TextFormField(
-              enabled: editable,
-              initialValue: formatter.formatDouble(initialValue),
-              cursorColor: IOColors.brand500,
-              style: IOStyles.h6.copyWith(color: IOColors.brand500),
-              textAlign: TextAlign.center,
-              keyboardType: TextInputType.number,
-              decoration: const InputDecoration(border: InputBorder.none),
-              inputFormatters: [formatter],
-              onChanged: (value) {
-                onChanged?.call(formatter.getUnformattedValue().toDouble());
-              },
-            ),
-          ),
-          const Divider(height: 1, thickness: 1),
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: SizedBox(
-              height: 40,
-              child: isLoading
-                  ? const IOLoading()
-                  : Row(
-                      children: [
-                        Expanded(
-                          child: IOButtonWidget(
-                            onPressed: () => onPay(PayType.qpay),
-                            model: IOButtonModel(
-                              label: 'Qpay-р төлөх',
-                              type: IOButtonType.secondary,
-                              size: IOButtonSize.small,
-                            ),
+          SizedBox(
+            height: 40,
+            child: isLoading
+                ? const IOLoading()
+                : Row(
+                    children: [
+                      Expanded(
+                        child: IOButtonWidget(
+                          onPressed: () => onPay(PayType.qpay),
+                          model: IOButtonModel(
+                            label: title,
+                            type: IOButtonType.secondary,
+                            size: IOButtonSize.small,
                           ),
                         ),
-                      ],
-                    ),
-            ),
+                      ),
+                    ],
+                  ),
           ),
         ],
       ),

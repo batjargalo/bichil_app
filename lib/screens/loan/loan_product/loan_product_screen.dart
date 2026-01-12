@@ -78,25 +78,24 @@ class LoanProductScreen extends GetView<LoanProductController> {
                               ),
                             ),
                             const Spacer(),
-                            // controller.loanLimit.first.loanLimit < 0
-                            // ?
-                            controller.loanLimit.first.contract
-                                ? IOButtonWidget(
-                                    onPressed: controller.onCreateLoan,
-                                    model: controller.takeLoan.value,
-                                  )
+                            controller.loanLimit.first.loanLimit != 0
+                                ? (controller.loanLimit.first.contract
+                                      ? IOButtonWidget(
+                                          onPressed: controller.onCreateLoan,
+                                          model: controller.takeLoan.value,
+                                        )
+                                      : IOButtonWidget(
+                                          onPressed: controller.onSignContract,
+                                          model: controller.signContract.value,
+                                        ))
                                 : IOButtonWidget(
-                                    onPressed: controller.onSignContract,
-                                    model: controller.signContract.value,
+                                    onPressed: controller.onScoreCal,
+                                    model: IOButtonModel(
+                                      label: 'Зээлийн эрх тогтоох',
+                                      type: IOButtonType.primary,
+                                      size: IOButtonSize.small,
+                                    ),
                                   ),
-                            // : IOButtonWidget(
-                            //     onPressed: () {},
-                            //     model: IOButtonModel(
-                            //       label: 'Зээлийн эрх шинчлэх',
-                            //       type: IOButtonType.primary,
-                            //       size: IOButtonSize.small,
-                            //     ),
-                            //   ),
                           ],
                         ),
                       ),

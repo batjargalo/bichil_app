@@ -34,14 +34,13 @@ class HomeController extends IOController {
 
   Future getBanner() async {
     final response = await InfoApi().getBanner();
-
     if (response.isSuccess) {
       banners.value = response.data.listValue
           .map((e) => e['image'].stringValue)
           .toList();
-      refresher.refreshCompleted();
       startAutoScroll();
     }
+    refresher.refreshCompleted();
   }
 
   void startAutoScroll() {
