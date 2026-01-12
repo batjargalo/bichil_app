@@ -38,7 +38,10 @@ class ForceUpdateScreen extends StatelessWidget {
                   child: Container(
                     width: 40,
                     height: 4,
-                    decoration: BoxDecoration(color: IOColors.textTertiary, borderRadius: BorderRadius.circular(4)),
+                    decoration: BoxDecoration(
+                      color: IOColors.textTertiary,
+                      borderRadius: BorderRadius.circular(4),
+                    ),
                   ),
                 ),
               ),
@@ -49,7 +52,11 @@ class ForceUpdateScreen extends StatelessWidget {
               const SizedBox(height: 32),
               IOButtonWidget(
                 onPressed: onTapUpdate,
-                model: IOButtonModel(label: 'Шинэчлэх', type: IOButtonType.primary, size: IOButtonSize.medium),
+                model: IOButtonModel(
+                  label: 'Шинэчлэх',
+                  type: IOButtonType.primary,
+                  size: IOButtonSize.medium,
+                ),
               ),
             ],
           ),

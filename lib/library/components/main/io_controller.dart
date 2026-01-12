@@ -91,6 +91,19 @@ class IOController extends GetxController {
     ).show();
   }
 
+  Future<bool?> toWarningUserInfo({
+    required String text,
+    String? titleText,
+    String? buttonText,
+  }) {
+    return IOWarningUserInfo(
+      type: IOWarningUserInfoType.warning,
+      titleText: titleText,
+      bodyText: text,
+      acceptText: buttonText ?? 'Хаах',
+    ).show();
+  }
+
   @override
   void onInit() {
     super.onInit();

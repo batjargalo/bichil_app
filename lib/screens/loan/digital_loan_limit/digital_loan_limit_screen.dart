@@ -21,7 +21,12 @@ class DigitalLoanLimitScreen extends GetView<DigitalLoanLimitController> {
                 child: Column(
                   children: [
                     SizedBox(
-                      height: 450,
+                      height:
+                          MediaQuery.of(context).size.height -
+                          MediaQuery.of(context).padding.top -
+                          MediaQuery.of(context).padding.bottom -
+                          MediaQuery.of(context).viewInsets.bottom -
+                          kToolbarHeight,
                       child: Padding(
                         padding: const EdgeInsets.all(16),
                         child: IOCardBorderWidget(
@@ -31,93 +36,109 @@ class DigitalLoanLimitScreen extends GetView<DigitalLoanLimitController> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
-                              Expanded(
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    SizedBox.square(
-                                      dimension: 60,
-                                      child: Image.asset(
-                                        'assets/images/noncoll.png',
-                                      ),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  SizedBox.square(
+                                    dimension: 60,
+                                    child: Image.asset(
+                                      'assets/images/noncoll.png',
                                     ),
-                                    const SizedBox(width: 12),
-
-                                    Expanded(
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.stretch,
-                                        children: [
-                                          Text(
-                                            'Зээлийн дээд эрх - ${controller.loanLimit.first.scoreLimit.toCurrency()}',
-                                            style: IOStyles.body2Bold,
+                                  ),
+                                  const SizedBox(width: 12),
+                                  controller.loanLimit.first.scoreLimit == 0
+                                      ? Flexible(
+                                          child: Text(
+                                            controller.loanLimitText.value,
+                                            style: IOStyles.body1Medium,
+                                            overflow: TextOverflow.clip,
+                                            softWrap: true,
                                           ),
-                                          const Spacer(),
-                                          Row(
+                                        )
+                                      : Expanded(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.stretch,
                                             children: [
-                                              SvgPicture.asset(
-                                                'assets/icons/clock.svg',
-                                                width: 12,
-                                                height: 12,
-                                              ),
-                                              const SizedBox(width: 4),
                                               Text(
-                                                "7 хоног ~ 12 сар",
-                                                style: IOStyles.caption2Bold
+                                                'Зээлийн дээд эрх - ${controller.loanLimit.first.scoreLimit.toCurrency()}',
+                                                style: IOStyles.body2Bold,
+                                              ),
+                                              Row(
+                                                children: [
+                                                  SvgPicture.asset(
+                                                    'assets/icons/clock.svg',
+                                                    width: 12,
+                                                    height: 12,
+                                                  ),
+                                                  const SizedBox(width: 4),
+                                                  Text(
+                                                    "7 хоног ~ 12 сар",
+                                                    style: IOStyles.caption2Bold
+                                                        .copyWith(
+                                                          color: IOColors
+                                                              .textTertiary,
+                                                        ),
+                                                  ),
+                                                ],
+                                              ),
+                                              Text(
+                                                'Боломжит хэмжээ',
+                                                style: IOStyles.caption1Regular
                                                     .copyWith(
-                                                      color:
-                                                          IOColors.textTertiary,
+                                                      color: IOColors.brand500,
+                                                    ),
+                                              ),
+                                              Text(
+                                                controller
+                                                    .loanLimit
+                                                    .first
+                                                    .loanLimit
+                                                    .toCurrency(),
+                                                style: IOStyles.body2Semibold
+                                                    .copyWith(
+                                                      color: IOColors
+                                                          .textSecondary,
+                                                    ),
+                                              ),
+                                              Text(
+                                                'Нийт авсан зээлийн тоо',
+                                                style: IOStyles.caption1Regular
+                                                    .copyWith(
+                                                      color: IOColors.brand500,
+                                                    ),
+                                              ),
+                                              Text(
+                                                controller
+                                                    .loanLimit
+                                                    .first
+                                                    .loanCount
+                                                    .toString(),
+                                                style: IOStyles.body2Semibold
+                                                    .copyWith(
+                                                      color: IOColors
+                                                          .textSecondary,
                                                     ),
                                               ),
                                             ],
                                           ),
-                                          const Spacer(),
-                                          Text(
-                                            'Боломжит хэмжээ',
-                                            style: IOStyles.caption1Regular
-                                                .copyWith(
-                                                  color: IOColors.brand500,
-                                                ),
-                                          ),
-                                          Text(
-                                            controller.loanLimit.first.loanLimit
-                                                .toCurrency(),
-                                            style: IOStyles.body2Semibold
-                                                .copyWith(
-                                                  color: IOColors.textSecondary,
-                                                ),
-                                          ),
-                                          Text(
-                                            'Нийт авсан зээлийн тоо',
-                                            style: IOStyles.caption1Regular
-                                                .copyWith(
-                                                  color: IOColors.brand500,
-                                                ),
-                                          ),
-                                          Text(
-                                            controller.loanLimit.first.loanCount
-                                                .toString(),
-                                            style: IOStyles.body2Semibold
-                                                .copyWith(
-                                                  color: IOColors.textSecondary,
-                                                ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                        ),
+                                ],
                               ),
-                              SizedBox(height: 50),
-                              controller.loanLimit.first.contract
-                                  ? IOButtonWidget(
-                                      onPressed: controller.onCreateLoan,
-                                      model: controller.takeLoan.value,
-                                    )
-                                  : IOButtonWidget(
-                                      onPressed: controller.onSignContract,
-                                      model: controller.signContract.value,
-                                    ),
+                              SizedBox(height: 25),
+                              controller.loanLimit.first.scoreLimit != 0
+                                  ? (controller.loanLimit.first.contract
+                                        ? IOButtonWidget(
+                                            onPressed: controller.onCreateLoan,
+                                            model: controller.takeLoan.value,
+                                          )
+                                        : IOButtonWidget(
+                                            onPressed:
+                                                controller.onSignContract,
+                                            model:
+                                                controller.signContract.value,
+                                          ))
+                                  : SizedBox(height: 10),
 
                               SizedBox(height: 10),
                               Column(
@@ -127,8 +148,7 @@ class DigitalLoanLimitScreen extends GetView<DigitalLoanLimitController> {
                                       ? Obx(
                                           () => LoanLimitChargePayWidget(
                                             editable: false,
-                                            title:
-                                                'Зээлийн эрх тогтоолгох хураамж',
+                                            title: 'Зээлийн эрх тогтоолгох',
                                             isLoading: controller
                                                 .limitChargeLoading
                                                 .value,
@@ -143,8 +163,7 @@ class DigitalLoanLimitScreen extends GetView<DigitalLoanLimitController> {
                                       : Obx(
                                           () => LoanLimitChargePayWidget(
                                             editable: false,
-                                            title:
-                                                'Зээлийн эрх шинэчлэх хураамж',
+                                            title: 'Зээлийн эрх шинэчлэх',
                                             isLoading: controller
                                                 .limitChargeLoading
                                                 .value,

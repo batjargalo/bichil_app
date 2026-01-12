@@ -58,28 +58,26 @@ class DigitalLoanCreateAmountController extends IOController {
     {'label': '6 сар', 'value': 5},
     {'label': '9 сар', 'value': 6},
   ];
-  static const List<Map<String, dynamic>> duration5 = [
-    {'label': '7 хоног', 'value': 0},
-    {'label': '14 хоног', 'value': 1},
-    {'label': '21 хоног', 'value': 2},
-    {'label': '1 сар', 'value': 3},
-    {'label': '3 сар', 'value': 4},
-    {'label': '6 сар', 'value': 5},
-    {'label': '9 сар', 'value': 6},
-    {'label': '1 жил', 'value': 7},
-  ];
+  // static const List<Map<String, dynamic>> duration5 = [
+  //   {'label': '7 хоног', 'value': 0},
+  //   {'label': '14 хоног', 'value': 1},
+  //   {'label': '21 хоног', 'value': 2},
+  //   {'label': '1 сар', 'value': 3},
+  //   {'label': '3 сар', 'value': 4},
+  //   {'label': '6 сар', 'value': 5},
+  //   {'label': '9 сар', 'value': 6},
+  //   {'label': '1 жил', 'value': 7},
+  // ];
   List<Map<String, dynamic>> getDurationList() {
     switch (amount.value) {
-      case <= 500000:
+      case <= 700000:
         return duration1;
-      case <= 1500000:
+      case <= 2000000:
         return duration2;
-      case <= 2500000:
+      case <= 3000000:
         return duration3;
-      case <= 3500000:
-        return duration4;
       default:
-        return duration5;
+        return duration4;
     }
   }
 
@@ -136,6 +134,21 @@ class DigitalLoanCreateAmountController extends IOController {
         text:
             'Зээл авах боломжгүй байна. Та зээлийн боломжит үлдэгдлээ нэмснээр зээл авах боломжтой болно.',
       );
+      return;
+    }
+    final userRelated = await UserApi().getUserRelated();
+    if (userRelated.isSuccess) {
+      final relatedData = userRelated.data;
+      if (relatedData.listValue.length < 3) {
+        toWarningUserInfo(
+          titleText: 'Анхаарна уу?',
+          text: "Та өөрийн ойр дотны 3 хүний мэдээллийг оруулна уу.",
+          buttonText: 'Бүртгэлээ шинэчлэх',
+        );
+        return;
+      }
+    } else {
+      showError(text: userRelated.message);
       return;
     }
     if (amount.value > item.loanLimit) {

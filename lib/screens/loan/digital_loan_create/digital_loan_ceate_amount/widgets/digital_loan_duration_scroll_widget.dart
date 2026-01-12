@@ -44,8 +44,10 @@ class _LoanDurationWidgetSate extends State<LoanDurationWidget> {
         childDelegate: ListWheelChildBuilderDelegate(
           childCount: widget.durations.length,
           builder: (context, index) {
+            bool isSelected = index == _controller.selectedItem;
             return LoanDurationWidgetTile(
               duration: widget.durations[index]["label"],
+              isSelected: isSelected,
             );
           },
         ),

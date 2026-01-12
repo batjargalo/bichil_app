@@ -7,6 +7,7 @@ class LoanProductController extends IOController {
   final refresher = RefreshController();
   final products = <LoanProductModel>[].obs;
   final loanLimit = <LoanLimitModel>{}.obs;
+  var loanLimitText = ''.obs;
 
   final takeLoan = IOButtonModel(
     label: 'Зээл авах',
@@ -59,6 +60,11 @@ class LoanProductController extends IOController {
     LoanRoute.toDigitalLoanContract();
   }
 
+  void onScoreCal() {
+    Get.back();
+    LoanRoute.toDigitaLoanLimit();
+  }
+
   Future getLoanLimit(bool isInitial) async {
     if (isInitial) isInitialLoading.value = true;
     final response = await LoanApi().getLoanLimits();
@@ -66,6 +72,7 @@ class LoanProductController extends IOController {
     refresher.refreshCompleted();
     if (response.isSuccess) {
       loanLimit.assignAll({LoanLimitModel.fromJson(response.data)});
+      loanLimitText = response.message.obs;
     } else {
       Get.back();
       showError(text: response.message);

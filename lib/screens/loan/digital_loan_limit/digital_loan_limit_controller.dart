@@ -12,7 +12,7 @@ class DigitalLoanLimitController extends IOController {
   final products = <LoanProductModel>[].obs;
   final limit = <LoanLimitModel>{}.obs;
   final loanLimit = <LoanLimitModel>{}.obs;
-
+  var loanLimitText = ''.obs;
   final chargeAmount = 0.0.obs;
   final limitChargeLoading = false.obs;
 
@@ -100,6 +100,7 @@ class DigitalLoanLimitController extends IOController {
 
     if (response.isSuccess) {
       loanLimit.assignAll({LoanLimitModel.fromJson(response.data)});
+      loanLimitText = response.message.obs;
     } else {
       Get.back();
       showError(text: response.message);

@@ -13,3 +13,4 @@ export 'user_delete/user_delete.dart';
 export 'user_info/user_info.dart';
 export 'webview/webview.dart';
 export 'contract/contract.dart';
+export 'change_relate/change_relate.dart';

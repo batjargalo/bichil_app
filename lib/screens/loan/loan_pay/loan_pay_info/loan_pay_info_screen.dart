@@ -17,7 +17,15 @@ class LoanPayInfoScreen extends GetView<LoanPayInfoController> {
                 absorbing: controller.isLoading.value,
                 child: SingleChildScrollView(
                   padding: const EdgeInsets.all(16),
-                  child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: _payments),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      ...(controller.checkLoanExtension.value
+                          ? [const SizedBox.shrink()]
+                          : _payments),
+                      ..._extension,
+                    ],
+                  ),
                 ),
               ),
       ),
@@ -53,7 +61,10 @@ class LoanPayInfoScreen extends GetView<LoanPayInfoController> {
               initialValue: controller.closeAmount.value,
               onPay: (type) => controller.onPay(LoanPayType.close, type),
             )
-          : IOButtonWidget(model: controller.checkClose.value, onPressed: controller.getCloseAmount),
+          : IOButtonWidget(
+              model: controller.checkClose.value,
+              onPressed: controller.getCloseAmount,
+            ),
     );
     final closeLine = Obx(
       () => controller.checkedClose.value
@@ -64,7 +75,10 @@ class LoanPayInfoScreen extends GetView<LoanPayInfoController> {
               initialValue: controller.closeAmount.value,
               onPay: (type) => controller.onPay(LoanPayType.closeLine, type),
             )
-          : IOButtonWidget(model: controller.checkClose.value, onPressed: controller.getCloseAmount),
+          : IOButtonWidget(
+              model: controller.checkClose.value,
+              onPressed: controller.getCloseAmount,
+            ),
     );
 
     if (controller.loan.canTakeLoan) {
@@ -88,5 +102,30 @@ class LoanPayInfoScreen extends GetView<LoanPayInfoController> {
         const SizedBox(height: 16),
       ];
     }
+  }
+
+  List<Widget> get _extension {
+    final extension = Obx(
+      () => controller.checkLoanExtension.value
+          ? LoanPayInfoWidget(
+              editable: false,
+              title: 'Зээл сунгах дүн',
+              isLoading: controller.scheduleLoading.value,
+              initialValue: controller.extensionAmount.value,
+              onPay: (type) => controller.onPay(LoanPayType.extension, type),
+            )
+          : IOButtonWidget(
+              model: controller.loanExtension.value,
+              onPressed: controller.getExtensionAmount,
+            ),
+    );
+
+    if (DateTime.now().isSameDay(
+          DateTime.parse(controller.loan.nextSchdDate),
+        ) ||
+        DateTime.now().isBefore(DateTime.parse(controller.loan.nextSchdDate))) {
+      return [extension];
+    }
+    return [];
   }
 }
