@@ -42,6 +42,7 @@ class DigitalLoanLimitScreen extends GetView<DigitalLoanLimitController> {
                                       ),
                                     ),
                                     const SizedBox(width: 12),
+
                                     Expanded(
                                       child: Column(
                                         crossAxisAlignment:
@@ -108,14 +109,16 @@ class DigitalLoanLimitScreen extends GetView<DigitalLoanLimitController> {
                                 ),
                               ),
                               SizedBox(height: 50),
-                              IOButtonWidget(
-                                onPressed: controller.onCreateLoan,
-                                model: IOButtonModel(
-                                  label: 'Зээл авах',
-                                  type: IOButtonType.primary,
-                                  size: IOButtonSize.small,
-                                ),
-                              ),
+                              controller.loanLimit.first.contract
+                                  ? IOButtonWidget(
+                                      onPressed: controller.onCreateLoan,
+                                      model: controller.takeLoan.value,
+                                    )
+                                  : IOButtonWidget(
+                                      onPressed: controller.onSignContract,
+                                      model: controller.signContract.value,
+                                    ),
+
                               SizedBox(height: 10),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -141,7 +144,7 @@ class DigitalLoanLimitScreen extends GetView<DigitalLoanLimitController> {
                                           () => LoanLimitChargePayWidget(
                                             editable: false,
                                             title:
-                                                'Зээлийн эрх шинчлэх хураамж',
+                                                'Зээлийн эрх шинэчлэх хураамж',
                                             isLoading: controller
                                                 .limitChargeLoading
                                                 .value,

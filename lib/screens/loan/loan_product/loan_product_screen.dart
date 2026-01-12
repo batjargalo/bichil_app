@@ -38,39 +38,57 @@ class LoanProductScreen extends GetView<LoanProductController> {
                             const Spacer(),
                             Row(
                               children: [
-                                SvgPicture.asset('assets/icons/clock.svg', width: 12, height: 12),
+                                SvgPicture.asset(
+                                  'assets/icons/clock.svg',
+                                  width: 12,
+                                  height: 12,
+                                ),
                                 const SizedBox(width: 4),
                                 Text(
                                   "7 хоног ~ 12 сар",
-                                  style: IOStyles.caption2Bold.copyWith(color: IOColors.textTertiary),
+                                  style: IOStyles.caption2Bold.copyWith(
+                                    color: IOColors.textTertiary,
+                                  ),
                                 ),
                               ],
                             ),
                             const Spacer(),
-                            Text('Боломжит хэмжээ', style: IOStyles.caption1Regular.copyWith(color: IOColors.brand500)),
+                            Text(
+                              'Боломжит хэмжээ',
+                              style: IOStyles.caption1Regular.copyWith(
+                                color: IOColors.brand500,
+                              ),
+                            ),
                             Text(
                               "${controller.loanLimit.isNotEmpty ? controller.loanLimit.first.loanLimit.toCurrency() : 0} хүртэл",
-                              style: IOStyles.body2Semibold.copyWith(color: IOColors.textSecondary),
+                              style: IOStyles.body2Semibold.copyWith(
+                                color: IOColors.textSecondary,
+                              ),
                             ),
                             Text(
                               'Боломжит зээлийн тоо',
-                              style: IOStyles.caption1Regular.copyWith(color: IOColors.brand500),
+                              style: IOStyles.caption1Regular.copyWith(
+                                color: IOColors.brand500,
+                              ),
                             ),
                             Text(
                               "${(5 - (controller.loanLimit.isNotEmpty ? controller.loanLimit.first.loanCount : 0)).toString()} хүртэл",
-                              style: IOStyles.body2Semibold.copyWith(color: IOColors.textSecondary),
+                              style: IOStyles.body2Semibold.copyWith(
+                                color: IOColors.textSecondary,
+                              ),
                             ),
                             const Spacer(),
                             // controller.loanLimit.first.loanLimit < 0
                             // ?
-                            IOButtonWidget(
-                              onPressed: controller.onCreateLoan,
-                              model: IOButtonModel(
-                                label: 'Зээл авах',
-                                type: IOButtonType.primary,
-                                size: IOButtonSize.small,
-                              ),
-                            ),
+                            controller.loanLimit.first.contract
+                                ? IOButtonWidget(
+                                    onPressed: controller.onCreateLoan,
+                                    model: controller.takeLoan.value,
+                                  )
+                                : IOButtonWidget(
+                                    onPressed: controller.onSignContract,
+                                    model: controller.signContract.value,
+                                  ),
                             // : IOButtonWidget(
                             //     onPressed: () {},
                             //     model: IOButtonModel(
@@ -98,19 +116,32 @@ class LoanProductScreen extends GetView<LoanProductController> {
                             const Spacer(),
                             Row(
                               children: [
-                                SvgPicture.asset('assets/icons/clock.svg', width: 12, height: 12),
+                                SvgPicture.asset(
+                                  'assets/icons/clock.svg',
+                                  width: 12,
+                                  height: 12,
+                                ),
                                 const SizedBox(width: 4),
                                 Text(
                                   "2 сар ~ 36 сар",
-                                  style: IOStyles.caption2Bold.copyWith(color: IOColors.textTertiary),
+                                  style: IOStyles.caption2Bold.copyWith(
+                                    color: IOColors.textTertiary,
+                                  ),
                                 ),
                               ],
                             ),
                             const Spacer(),
-                            Text('Боломжит хэмжээ', style: IOStyles.caption1Regular.copyWith(color: IOColors.brand500)),
+                            Text(
+                              'Боломжит хэмжээ',
+                              style: IOStyles.caption1Regular.copyWith(
+                                color: IOColors.brand500,
+                              ),
+                            ),
                             Text(
                               "30% ~ 80% хүртэл",
-                              style: IOStyles.body2Semibold.copyWith(color: IOColors.textSecondary),
+                              style: IOStyles.body2Semibold.copyWith(
+                                color: IOColors.textSecondary,
+                              ),
                             ),
                             const Spacer(),
                             IOButtonWidget(

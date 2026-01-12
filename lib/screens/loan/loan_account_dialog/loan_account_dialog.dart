@@ -14,9 +14,7 @@ class LoanAccountDialog extends StatelessWidget {
     return Container(
       decoration: const BoxDecoration(
         color: IOColors.backgroundPrimary,
-        borderRadius: BorderRadius.vertical(
-          top: Radius.circular(8),
-        ),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(8)),
       ),
       child: SafeArea(
         child: Padding(
@@ -37,7 +35,7 @@ class LoanAccountDialog extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               const Text(
-                'Анхаарна уу',
+                'Анхаарна уу?',
                 textAlign: TextAlign.center,
                 style: IOStyles.h6,
               ),

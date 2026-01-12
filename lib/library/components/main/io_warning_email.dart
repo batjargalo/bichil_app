@@ -3,22 +3,20 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:bichil/library/library.dart';
 
-class IOAlert extends StatelessWidget {
-  final IOAlertType type;
+class IOWarningEmail extends StatelessWidget {
+  final IOWarningEmailType type;
   final String? titleText;
   final String bodyText;
   final String? acceptText;
-  final String? cancelText;
 
   final bool dismissable;
-  const IOAlert({
+  const IOWarningEmail({
     super.key,
     required this.type,
     required this.bodyText,
     this.dismissable = true,
     this.titleText,
     this.acceptText,
-    this.cancelText,
   });
 
   @override
@@ -42,9 +40,9 @@ class IOAlert extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
                   color: switch (type) {
-                    IOAlertType.success => IOColors.infoSecondary,
-                    IOAlertType.error => IOColors.errorSecondary,
-                    IOAlertType.warning => IOColors.warningSecondary,
+                    IOWarningEmailType.success => IOColors.infoSecondary,
+                    IOWarningEmailType.error => IOColors.errorSecondary,
+                    IOWarningEmailType.warning => IOColors.warningSecondary,
                   },
                 ),
                 child: SvgPicture.asset(
@@ -52,9 +50,9 @@ class IOAlert extends StatelessWidget {
                   width: 24,
                   height: 24,
                   colorFilter: ColorFilter.mode(switch (type) {
-                    IOAlertType.success => IOColors.infoPrimary,
-                    IOAlertType.error => IOColors.errorPrimary,
-                    IOAlertType.warning => IOColors.warningPrimary,
+                    IOWarningEmailType.success => IOColors.infoPrimary,
+                    IOWarningEmailType.error => IOColors.errorPrimary,
+                    IOWarningEmailType.warning => IOColors.warningPrimary,
                   }, BlendMode.srcIn),
                 ),
               ),
@@ -72,52 +70,27 @@ class IOAlert extends StatelessWidget {
               textAlign: TextAlign.center,
               style: IOStyles.body1Regular.copyWith(color: IOColors.brand700),
             ),
-            if (acceptText != null || cancelText != null)
+            if (acceptText != null)
               Padding(
                 padding: const EdgeInsets.only(top: 20),
                 child: Row(
                   children: [
-                    if (cancelText != null)
-                      Expanded(
-                        child: IOButtonWidget(
-                          onPressed: Get.back,
-                          model: IOButtonModel(
-                            label: cancelText ?? 'Үгүй',
-                            type: IOButtonType.secondary,
-                            size: IOButtonSize.medium,
-                          ),
+                    Expanded(
+                      child: IOButtonWidget(
+                        onPressed: () => {
+                          Get.back(),
+                          MenuRoute.toChangeEmail(),
+                        },
+                        model: IOButtonModel(
+                          label: acceptText ?? 'Тийм',
+                          type: IOButtonType.primary,
+                          size: IOButtonSize.medium,
                         ),
                       ),
-                    if (acceptText != null && cancelText != null)
-                      const SizedBox(width: 16),
-                    if (acceptText != null)
-                      Expanded(
-                        child: IOButtonWidget(
-                          onPressed: () => Get.back(result: true),
-                          model: IOButtonModel(
-                            label: acceptText ?? 'Тийм',
-                            type: IOButtonType.primary,
-                            size: IOButtonSize.medium,
-                          ),
-                        ),
-                      ),
+                    ),
                   ],
                 ),
               ),
-
-            // if (buttonText != null) ...[
-            //   const SizedBox(height: 40),
-            //   IOButtonWidget(
-            //     model: IOButtonModel(
-            //       type: IOButtonType.primary,
-            //       size: IOButtonSize.medium,
-            //       label: buttonText ?? '',
-            //     ),
-            //     onPressed: () {
-            //       Get.back();
-            //     },
-            //   ),
-            // ],
           ],
         ),
       ),
@@ -129,12 +102,12 @@ class IOAlert extends StatelessWidget {
   }
 }
 
-enum IOAlertType {
+enum IOWarningEmailType {
   success(text: 'Амжилттай', image: 'assets/icons/success.svg'),
   error(text: 'Анхаарна уу?', image: 'assets/icons/info.svg'),
   warning(text: 'Анхаарна уу?', image: 'assets/icons/info.svg');
 
-  const IOAlertType({required this.text, required this.image});
+  const IOWarningEmailType({required this.text, required this.image});
 
   final String text;
   final String image;

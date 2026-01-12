@@ -16,6 +16,18 @@ class DigitalLoanLimitController extends IOController {
   final chargeAmount = 0.0.obs;
   final limitChargeLoading = false.obs;
 
+  final takeLoan = IOButtonModel(
+    label: 'Зээл авах',
+    type: IOButtonType.primary,
+    size: IOButtonSize.small,
+  ).obs;
+
+  final signContract = IOButtonModel(
+    label: 'Гэрээ байгуулах',
+    type: IOButtonType.primary,
+    size: IOButtonSize.small,
+  ).obs;
+
   @override
   void onInit() {
     super.onInit();
@@ -42,8 +54,8 @@ class DigitalLoanLimitController extends IOController {
   Future onPayCharge(LoanLimitType loanLimitType) async {
     final result = await showWarning(
       text: loanLimitType == LoanLimitType.create
-          ? 'Та зээлийн эрх тогтоолгохдоо итгэлтэй байна уу'
-          : 'Та зээлийн эрх шинчлэхдээ итгэлтэй байна уу',
+          ? 'Та зээлийн эрхээ тогтоолгох уу?'
+          : 'Та зээлийн эрх шинэчлэхдээ итгэлтэй байна уу ?',
       acceptText: 'Тийм',
       cancelText: 'Хаах',
     );
@@ -63,6 +75,13 @@ class DigitalLoanLimitController extends IOController {
         data: response.data,
         amount: amount,
         payType: LoanLimitType.create,
+      );
+    } else if (response.message ==
+        "Та өөрийн ашигладаг мэйл хаягаа бүртгүүлнэ үү") {
+      toWarningEmail(
+        titleText: 'Анхаарна уу?',
+        text: response.message,
+        buttonText: 'Мэйл хаяг бүртгүүлэх',
       );
     } else {
       showError(text: response.message);
@@ -99,13 +118,13 @@ class DigitalLoanLimitController extends IOController {
         .toList();
     final typeText = switch (payType) {
       LoanLimitType.create => 'Эрх тогтоох',
-      LoanLimitType.change => 'эрх шинчлэх',
+      LoanLimitType.change => 'эрх шинэчлэх',
     };
     final successText = switch (payType) {
       LoanLimitType.create =>
-        'Таны зээлийн эрх тогтоолгох төлбөр ${amount.toCurrency()} амжилттай хийгдлээ. Бид цаашид таны зээлийн эрхийг тогтоохын тулд ДАН систем, Бүрэн скор системээс таны мэдээллийг авах болно.',
+        'Таны зээлийн эрх тогтоолгох төлбөр амжилттай хийгдлээ. Бид таны зээлийн эрхийг тогтоохын тул ДАН системээс таны мэдээллийг авахыг анхаарна уу.',
       LoanLimitType.change =>
-        'Таны зээлийн эрх шинчлэх төлбөр ${amount.toCurrency()} амжилттай хийгдлээ. Бид цаашид таны зээлийн эрхийг тогтоохын тулд ДАН систем, Бүрэн скор системээс таны мэдээллийг авах болно.',
+        'Таны зээлийн эрх шинэчлэх төлбөр амжилттай хийгдлээ. Бид таны зээлийн эрхийг тогтоохын тул ДАН системээс таны мэдээллийг авахыг анхаарна уу',
     };
     final info = [
       QpayInfoModel(title: 'Төрөл', value: typeText),
@@ -161,6 +180,11 @@ class DigitalLoanLimitController extends IOController {
             "Зээлийн боломжит эрх байхгүй байна. Та зээлийн эрхээ шинэчилнэ үү.",
       );
     }
+  }
+
+  void onSignContract() {
+    Get.back();
+    LoanRoute.toDigitalLoanContract();
   }
 
   // void onBack() {
