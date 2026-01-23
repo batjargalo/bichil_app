@@ -42,9 +42,7 @@ class SavingCreatePoliticController extends IOController {
     next.update((val) {
       val?.isLoading = true;
     });
-    final response = await SavingApi().createSaving(
-      model: create,
-    );
+    final response = await SavingApi().createSaving(model: create);
     isLoading.value = false;
     next.update((val) {
       val?.isLoading = false;
@@ -57,19 +55,13 @@ class SavingCreatePoliticController extends IOController {
           .map((e) => QpayModel.fromJson(e))
           .toList();
       final info = [
-        QpayInfoModel(
-          title: 'Итгэлцлийн нэр',
-          value: create.name,
-        ),
+        QpayInfoModel(title: 'Итгэлцлийн нэр', value: create.name),
         QpayInfoModel(
           title: 'Итгэлцлийн мөнгөн дүн',
           value: create.firstAmount.toCurrency(),
         ),
         if (fee > 0)
-          QpayInfoModel(
-            title: 'Шимтгэл',
-            value: fee.toCurrency(),
-          ),
+          QpayInfoModel(title: 'Qpay хураамж', value: fee.toCurrency()),
         QpayInfoModel(
           title: 'Нийт төлөх дүн',
           value: (fee + create.firstAmount).toCurrency(),

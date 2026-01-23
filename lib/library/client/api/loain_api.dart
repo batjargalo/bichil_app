@@ -132,9 +132,12 @@ class LoanApi extends IOClient {
     return sendPostRequest(url, data: data);
   }
 
-  Future<IOResponse> getLoanCloseAmount({required String code}) async {
+  Future<IOResponse> getLoanCloseAmount({
+    required String code,
+    required String date,
+  }) async {
     const url = '/api/polaris/loan/close-amount/';
-    final data = {'acntCode': code};
+    final data = {'acntCode': code, 'closeDate': date};
     return sendPostRequest(url, data: data);
   }
 
@@ -198,5 +201,11 @@ class LoanApi extends IOClient {
   Future<IOResponse> getDigitalSignedContract() {
     const path = '/api/core/loan/contractlist/';
     return sendGetRequest(path);
+  }
+
+  Future<IOResponse> getDigitalLoanExtension({required String accountCode}) {
+    const path = '/api/core/loan/digital-loan-extension/';
+    final query = {'acnt_code': accountCode};
+    return sendGetRequest(path, query: query);
   }
 }

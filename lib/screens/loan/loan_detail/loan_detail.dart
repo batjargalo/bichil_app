@@ -1,7 +1,14 @@
 export 'models/loan_detail_action_model.dart';
 export 'models/loan_pledge_model.dart';
+export 'models/loan_extension_model.dart';
 export 'widgets/loan_detail_list_widget.dart';
 export 'widgets/loan_detail_widget.dart';
+export 'widgets/loan_detail.dart';
+export 'widgets/loan_icon_widget.dart';
+export 'widgets/loan_actions/loan_payment_widget.dart';
+export 'widgets/loan_actions/loan_close_widget.dart';
+export 'widgets/loan_actions/loan_extension_widget.dart';
+export 'widgets/loan_actions/loan_schedule_widget.dart';
 export 'loan_detail_binding.dart';
 export 'loan_detail_controller.dart';
 export 'loan_detail_screen.dart';

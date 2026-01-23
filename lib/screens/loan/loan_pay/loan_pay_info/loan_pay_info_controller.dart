@@ -35,15 +35,20 @@ class LoanPayInfoController extends IOController {
     super.onInit();
     if (isExpired) {
       getCloseAmount();
+      getExtensionAmount();
     }
   }
 
+  // getDigitalLoanExtension
   Future getCloseAmount() async {
     isInitialLoading.value = true;
     checkClose.update((val) {
       val?.isLoading = true;
     });
-    final response = await LoanApi().getLoanCloseAmount(code: loan.acntCode);
+    final response = await LoanApi().getLoanCloseAmount(
+      code: loan.acntCode,
+      date: DateTime.now().toString(),
+    );
     isInitialLoading.value = false;
     checkClose.update((val) {
       val?.isLoading = false;
@@ -62,7 +67,9 @@ class LoanPayInfoController extends IOController {
     loanExtension.update((val) {
       val?.isLoading = true;
     });
-    final response = await LoanApi().getLoanCloseAmount(code: loan.acntCode);
+    final response = await LoanApi().getDigitalLoanExtension(
+      accountCode: loan.acntCode,
+    );
     isInitialLoading.value = false;
     loanExtension.update((val) {
       val?.isLoading = false;
@@ -284,7 +291,7 @@ class LoanPayInfoController extends IOController {
     final info = [
       QpayInfoModel(title: 'Төрөл', value: typeText),
       QpayInfoModel(title: 'Төлөх мөнгөн дүн', value: amount.toCurrency()),
-      QpayInfoModel(title: 'Шимтгэл', value: fee.toCurrency()),
+      QpayInfoModel(title: 'Qpay хураамж', value: fee.toCurrency()),
       QpayInfoModel(
         title: 'Нийт төлөх дүн',
         value: (fee + amount).toCurrency(),

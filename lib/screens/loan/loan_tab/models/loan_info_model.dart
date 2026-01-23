@@ -22,15 +22,16 @@ class LoanInfoModel {
   final String statusName;
   final String acntManagerName;
   final bool isExpired;
+  final double totalBal;
   final LoanInfoTerm termBasis;
 
   //Production deer oorchlogdono
   LoanInfoType get type => switch (purpose) {
-        'PURP00000033' => LoanInfoType.car,
-        'PURP00000028' => LoanInfoType.car,
-        'PURP00000079' => LoanInfoType.saving,
-        _ => LoanInfoType.other,
-      };
+    'PURP00000033' => LoanInfoType.car,
+    'PURP00000028' => LoanInfoType.car,
+    'PURP00000079' => LoanInfoType.saving,
+    _ => LoanInfoType.other,
+  };
 
   int get paidCountPercent {
     return advAmount == 0 ? 0 : paidAmount * 100 ~/ advAmount;
@@ -47,33 +48,34 @@ class LoanInfoModel {
   bool get canTakeLoan => prodType == 'LINE';
 
   LoanInfoModel.fromJson(JSON json)
-      : acntCode = json['acntCode'].stringValue,
-        prodName = json['prodName'].stringValue,
-        prodType = json['prodType'].stringValue,
-        princBal = json['princBal'].ddoubleValue,
-        advAmount = json['advAmount'].ddoubleValue,
-        approvAmount = json['approvAmount'].ddoubleValue,
-        availComBal = json['availComBal'].ddoubleValue,
-        baseFixedIntRate = json['baseFixedIntRate'].ddoubleValue,
-        termLen = json['termLen'].integerValue,
-        startDate = json['startDate'].stringValue,
-        endDate = json['endDate'].stringValue,
-        paymentCount = json['paymentCount'].integerValue,
-        paidCount = json['paidCount'].integerValue,
-        nextSchdDate = json['nextSchdDate'].stringValue,
-        nextSchdTotal = json['nextSchdTotal'].ddoubleValue,
-        overdueDayCount = json['overdueDayCount'].integerValue,
-        purpose = json['purpose'].stringValue,
-        status = json['status'].stringValue,
-        statusName = json['statusName'].stringValue,
-        acntManagerName = json['acntManagerName'].stringValue,
-        isExpired = json['isExpired'].booleanValue,
-        termBasis = switch (json['termBasis'].stringValue) {
-          'D' => LoanInfoTerm.day,
-          'M' => LoanInfoTerm.month,
-          'Y' => LoanInfoTerm.year,
-          _ => LoanInfoTerm.none,
-        };
+    : acntCode = json['acntCode'].stringValue,
+      prodName = json['prodName'].stringValue,
+      prodType = json['prodType'].stringValue,
+      princBal = json['princBal'].ddoubleValue,
+      advAmount = json['advAmount'].ddoubleValue,
+      approvAmount = json['approvAmount'].ddoubleValue,
+      availComBal = json['availComBal'].ddoubleValue,
+      baseFixedIntRate = json['baseFixedIntRate'].ddoubleValue,
+      termLen = json['termLen'].integerValue,
+      startDate = json['startDate'].stringValue,
+      endDate = json['endDate'].stringValue,
+      paymentCount = json['paymentCount'].integerValue,
+      paidCount = json['paidCount'].integerValue,
+      nextSchdDate = json['nextSchdDate'].stringValue,
+      nextSchdTotal = json['nextSchdTotal'].ddoubleValue,
+      overdueDayCount = json['overdueDayCount'].integerValue,
+      purpose = json['purpose'].stringValue,
+      status = json['status'].stringValue,
+      statusName = json['statusName'].stringValue,
+      acntManagerName = json['acntManagerName'].stringValue,
+      isExpired = json['isExpired'].booleanValue,
+      totalBal = json['totalBal'].ddoubleValue,
+      termBasis = switch (json['termBasis'].stringValue) {
+        'D' => LoanInfoTerm.day,
+        'M' => LoanInfoTerm.month,
+        'Y' => LoanInfoTerm.year,
+        _ => LoanInfoTerm.none,
+      };
 }
 
 enum LoanInfoType { car, saving, other }
