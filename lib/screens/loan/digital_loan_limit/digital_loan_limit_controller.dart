@@ -89,7 +89,7 @@ class DigitalLoanLimitController extends IOController {
   }
 
   Future getChargeAmount() async {
-    chargeAmount.value = 1500;
+    chargeAmount.value = 1700;
   }
 
   Future getLoanLimit(bool isInitial) async {
@@ -129,8 +129,8 @@ class DigitalLoanLimitController extends IOController {
     };
     final info = [
       QpayInfoModel(title: 'Төрөл', value: typeText),
-      QpayInfoModel(title: 'Төлөх мөнгөн дүн', value: amount.toCurrency()),
-      QpayInfoModel(title: 'Шимтгэл', value: fee.toCurrency()),
+      // QpayInfoModel(title: 'Төлөх мөнгөн дүн', value: amount.toCurrency()),
+      // QpayInfoModel(title: 'Qpay хураамж', value: fee.toCurrency()),
       QpayInfoModel(
         title: 'Нийт төлөх дүн',
         value: (fee + amount).toCurrency(),

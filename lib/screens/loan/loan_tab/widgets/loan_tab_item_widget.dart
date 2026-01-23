@@ -1,168 +1,146 @@
 import 'package:bichil/library/library.dart';
 import 'package:bichil/screens/screens.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 class LoanTabItemWidget extends StatelessWidget {
-  final bool isSecure;
   final LoanInfoModel item;
-  const LoanTabItemWidget({
-    super.key,
-    required this.isSecure,
-    required this.item,
-  });
 
-  void onTapDetail() {
-    LoanRoute.toDetail(loan: item);
-  }
-
-  void onTapPay() {
-    LoanRoute.toPayInfo(loan: item);
-  }
+  const LoanTabItemWidget({super.key, required this.item});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: IOColors.backgroundQuarternary,
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          if (item.canTakeLoan) ...[
-            LoanTabScoringWidget(
-              isSecure: isSecure,
-              model: item,
-            )
+    return GestureDetector(
+      onTap: () => LoanRoute.toDetail(loan: item),
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withAlpha(25),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
+            ),
           ],
-          IOCardBorderWidget(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Flexible(
-                      child: Text(
-                        item.prodName,
-                        style: IOStyles.body2Semibold,
-                      ),
-                    ),
-                    const SizedBox(width: 16),
-                    SvgPicture.asset(
-                      'assets/icons/chevron.right.svg',
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 16),
-                _RowWidget(
-                  isSecure: isSecure,
-                  title: 'Зээлийн үлдэгдэл',
-                  value: item.princBal.toCurrency(),
-                ),
-                const SizedBox(height: 16),
-                _RowWidget(
-                  isSecure: isSecure,
-                  title: 'Дараагийн төлөлт',
-                  value: item.nextSchdDate.isEmpty
-                      ? '-'
-                      : item.nextSchdDate
-                          .toFormattedString(format: 'yyyy/MM/dd'),
-                  valueStyle: IOStyles.caption1SemiBold.copyWith(
-                    color: item.isOver
-                        ? IOColors.errorPrimary
-                        : IOColors.textPrimary,
+                Text(
+                  item.prodName,
+                  style: IOStyles.caption1Regular.copyWith(
+                    color: IOColors.textSecondary,
                   ),
                 ),
-                if (item.isOver) ...[
-                  const SizedBox(height: 16),
-                  _RowWidget(
-                    isSecure: isSecure,
-                    title: 'Хэтэрсэн өдөр',
-                    value: '${item.overdueDayCount} өдөр',
-                    valueStyle: IOStyles.caption1SemiBold.copyWith(
-                      color: IOColors.errorPrimary,
-                    ),
-                  ),
-                ],
-                const SizedBox(height: 16),
-                _RowWidget(
-                  isSecure: isSecure,
-                  title: 'Төлөх дүн',
-                  value: item.nextSchdTotal.toCurrency(),
-                  valueStyle: IOStyles.caption1SemiBold.copyWith(
-                    color: item.isOver
-                        ? IOColors.errorPrimary
-                        : IOColors.textPrimary,
-                  ),
-                ),
-                const SizedBox(height: 16),
-                Row(
-                  children: [
-                    Expanded(
-                      child: IOButtonWidget(
-                        onPressed: onTapDetail,
-                        model: IOButtonModel(
-                          label: 'Дэлгэрэнгүй',
-                          type: IOButtonType.secondary,
-                          size: IOButtonSize.small,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: IOButtonWidget(
-                        onPressed: onTapPay,
-                        model: IOButtonModel(
-                          label: 'Зээл төлөх',
-                          type: IOButtonType.primary,
-                          size: IOButtonSize.small,
-                        ),
-                      ),
-                    ),
-                  ],
-                )
+                _StatusBadge(isOver: item.isOver),
               ],
             ),
-          ),
-        ],
+
+            const SizedBox(height: 8),
+
+            Text(item.princBal.toCurrency(), style: IOStyles.body1Bold),
+
+            const SizedBox(height: 12),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Төлөлт хийх огноо',
+                      style: IOStyles.caption2Regular.copyWith(
+                        color: IOColors.textTertiary,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      item.nextSchdDate.toFormattedString(format: 'yyyy.MM.dd'),
+                      style: IOStyles.caption1SemiBold,
+                    ),
+                  ],
+                ),
+
+                _RemainingDaysCircle(
+                  days: item.overdueDayCount == 0
+                      ? DateTime.tryParse(item.nextSchdDate)
+                                ?.add(Duration(days: 1))
+                                .difference(DateTime.now())
+                                .inDays ??
+                            0
+                      : item.overdueDayCount,
+                  isOver:
+                      DateTime.now().isBefore(
+                        DateTime.tryParse(item.nextSchdDate) ?? DateTime.now(),
+                      )
+                      ? false
+                      : true,
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
 }
 
-class _RowWidget extends StatelessWidget {
-  final bool isSecure;
-  final String title;
-  final String value;
-  final TextStyle? valueStyle;
-  const _RowWidget({
-    required this.isSecure,
-    required this.title,
-    required this.value,
-    this.valueStyle,
-  });
+class _StatusBadge extends StatelessWidget {
+  final bool isOver;
+
+  const _StatusBadge({required this.isOver});
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          title,
-          style: IOStyles.caption1Regular.copyWith(
-            color: IOColors.textTertiary,
-          ),
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+      decoration: BoxDecoration(
+        color: isOver
+            ? IOColors.errorPrimary.withAlpha(30)
+            : IOColors.successPrimary.withAlpha(30),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Text(
+        isOver ? 'Хугацаа хэтэрсэн' : 'Хэвийн',
+        style: IOStyles.caption2SemiBold.copyWith(
+          color: isOver ? IOColors.errorPrimary : IOColors.successPrimary,
         ),
-        Text(
-          isSecure ? '**********' : value,
-          style: valueStyle ?? IOStyles.caption1SemiBold,
+      ),
+    );
+  }
+}
+
+class _RemainingDaysCircle extends StatelessWidget {
+  final int days;
+  final bool isOver;
+
+  const _RemainingDaysCircle({required this.days, required this.isOver});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 44,
+      height: 44,
+
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        border: Border.all(
+          color: isOver ? IOColors.errorPrimary : IOColors.successPrimary,
+          width: 2,
         ),
-      ],
+      ),
+      alignment: Alignment.center,
+      child: Text(
+        '$days',
+        style: IOStyles.body1SemiBold.copyWith(
+          color: isOver ? IOColors.errorPrimary : IOColors.successPrimary,
+        ),
+      ),
     );
   }
 }

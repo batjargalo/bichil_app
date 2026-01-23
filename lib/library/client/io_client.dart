@@ -134,7 +134,7 @@ class IOClient {
       case DioExceptionType.connectionTimeout:
         return IOResponse.withError('Connection time out');
       case DioExceptionType.connectionError:
-        return IOResponse.withError('Cant connect the server');
+        return IOResponse.withError('Та интернет холболтоо шалгана уу.');
       case DioExceptionType.receiveTimeout:
         return IOResponse.withError('Receive time out');
       case DioExceptionType.sendTimeout:
@@ -154,7 +154,7 @@ class IOClient {
         return IOResponse.withError('Bad certificate');
 
       case DioExceptionType.unknown:
-        return IOResponse.withError('Check your internet connection');
+        return IOResponse.withError('Та интернет холболтоо шалгана уу.');
     }
   }
 }

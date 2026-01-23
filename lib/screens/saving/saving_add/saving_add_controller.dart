@@ -54,10 +54,7 @@ class SavingAddController extends IOController {
           title: 'Төлөх мөнгөн дүн',
           value: amount.value.toCurrency(),
         ),
-        QpayInfoModel(
-          title: 'Шимтгэл',
-          value: fee.toCurrency(),
-        ),
+        QpayInfoModel(title: 'Qpay хураамж', value: fee.toCurrency()),
         QpayInfoModel(
           title: 'Нийт төлөх дүн',
           value: (fee + amount.value).toCurrency(),

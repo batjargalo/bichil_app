@@ -7,8 +7,6 @@ class LoanDetailBinding extends Bindings {
 
   @override
   void dependencies() {
-    Get.lazyPut(
-      () => LoanDetailController(loan: loan),
-    );
+    Get.lazyPut(() => LoanDetailController(loan: loan));
   }
 }

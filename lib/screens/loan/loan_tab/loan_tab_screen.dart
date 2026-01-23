@@ -34,7 +34,7 @@ class LoanTabScreen extends GetView<LoanTabController> {
                           final item = controller.loans[index];
                           return LoanTabItemWidget(
                             // isSecure: controller.isSecure.value,
-                            isSecure: false,
+                            // isSecure: false,
                             item: item,
                           );
                         },

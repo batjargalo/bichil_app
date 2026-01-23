@@ -4,7 +4,7 @@ extension ExtendedDouble on double {
   String toCurrency({
     bool hasSymbol = true,
     String symbol = '\u20AE',
-    int fractionDigits = 1,
+    int fractionDigits = 0,
   }) {
     MoneyFormatter fmf = MoneyFormatter(
       amount: this,
