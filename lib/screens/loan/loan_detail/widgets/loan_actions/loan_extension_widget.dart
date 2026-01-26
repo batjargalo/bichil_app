@@ -6,12 +6,14 @@ class LoanExtension extends StatelessWidget {
   final double billFineBal;
   final double princBal;
   final double totalExtensionAmount;
+  final Function() onExtensionLoan;
   const LoanExtension({
     super.key,
     required this.totalExtensionAmount,
     required this.allIntBal,
     required this.billFineBal,
     required this.princBal,
+    required this.onExtensionLoan,
   });
 
   @override
@@ -98,7 +100,9 @@ class LoanExtension extends StatelessWidget {
               width: double.infinity,
               height: 40,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  onExtensionLoan();
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: IOColors.brand600,
                   shape: RoundedRectangleBorder(

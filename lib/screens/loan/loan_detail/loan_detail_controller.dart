@@ -253,6 +253,35 @@ class LoanDetailController extends IOController {
     }
   }
 
+  Future onExtensionLoan() async {
+    final result = await showWarning(
+      text: 'Та зээл сунгахдаа итгэлтэй байна уу',
+      acceptText: 'Тийм',
+      cancelText: 'Хаах',
+    );
+    if (result == null) return;
+    final amount = totalExtensionAmount;
+
+    isLoading.value = true;
+
+    final response = await LoanApi().extendLoan(
+      code: loan.acntCode,
+      amount: amount,
+    );
+
+    isLoading.value = false;
+
+    if (response.isSuccess) {
+      onResult(
+        data: response.data,
+        amount: amount,
+        payType: LoanPayType.extension,
+      );
+    } else {
+      showError(text: response.message);
+    }
+  }
+
   Future onResult({
     required JSON data,
     required double amount,

@@ -1,5 +1,4 @@
 import 'package:bichil/library/library.dart';
-
 import 'package:bichil/screens/screens.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -43,6 +42,7 @@ class LoanDetailScreen extends GetView<LoanDetailController> {
                         allIntBal: controller.allIntBal,
                         billFineBal: controller.billFineBal,
                         princBal: controller.princBal,
+                        onExtensionLoan: controller.onExtensionLoan,
                         // totalExtensionAmount: controller.totalExtensionAmount(),
                         // action: controller.onIconTapped,
                         // activeIconIndex: controller.selectedIndex.value,

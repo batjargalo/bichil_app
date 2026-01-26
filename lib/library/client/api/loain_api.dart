@@ -208,4 +208,12 @@ class LoanApi extends IOClient {
     final query = {'acnt_code': accountCode};
     return sendGetRequest(path, query: query);
   }
+  Future<IOResponse> extendLoan({
+    required String code,
+    required double amount,
+  }) async {
+    const url = '/api/core/loan/digital-loan-extension/';
+    final data = {'amount': amount, 'account_no': code};
+    return sendPostRequest(url, data: data);
+  }
 }
