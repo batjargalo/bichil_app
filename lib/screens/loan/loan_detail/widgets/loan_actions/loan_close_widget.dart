@@ -1,8 +1,9 @@
 import 'package:bichil/library/library.dart';
-import 'package:bichil/screens/loan/loan_tab/models/loan_info_model.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:bichil/screens/screens.dart';
 
-class LoanClose extends StatelessWidget {
+class LoanClose extends GetView<LoanDetailController> {
   final double closeAmount;
   const LoanClose({super.key, required this.closeAmount});
 
@@ -55,7 +56,9 @@ class LoanClose extends StatelessWidget {
               width: double.infinity,
               height: 40,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  controller.onCloseLoan();
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: IOColors.brand600,
                   shape: RoundedRectangleBorder(

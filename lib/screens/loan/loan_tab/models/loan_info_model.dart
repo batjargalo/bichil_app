@@ -23,6 +23,10 @@ class LoanInfoModel {
   final String acntManagerName;
   final bool isExpired;
   final double totalBal;
+  final double acrBaseIntBal;
+  final double billBaseIntBal;
+  final double billFinepBal;
+  final double billFinebBal;
   final LoanInfoTerm termBasis;
 
   //Production deer oorchlogdono
@@ -70,6 +74,10 @@ class LoanInfoModel {
       acntManagerName = json['acntManagerName'].stringValue,
       isExpired = json['isExpired'].booleanValue,
       totalBal = json['totalBal'].ddoubleValue,
+      acrBaseIntBal = json['acrBaseintBal'].ddoubleValue,
+      billBaseIntBal = json['billBaseintBal'].ddoubleValue,
+      billFinepBal = json['billFinepBal'].ddoubleValue,
+      billFinebBal = json['billFinebBal'].ddoubleValue,
       termBasis = switch (json['termBasis'].stringValue) {
         'D' => LoanInfoTerm.day,
         'M' => LoanInfoTerm.month,

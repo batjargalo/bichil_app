@@ -30,10 +30,14 @@ class LoanTabItemWidget extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  item.prodName,
-                  style: IOStyles.caption1Regular.copyWith(
-                    color: IOColors.textSecondary,
+                Expanded(
+                  child: Text(
+                    item.prodName,
+                    style: IOStyles.caption1Regular.copyWith(
+                      color: IOColors.textSecondary,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 2,
                   ),
                 ),
                 _StatusBadge(isOver: item.isOver),
