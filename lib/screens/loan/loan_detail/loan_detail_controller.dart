@@ -29,6 +29,8 @@ class LoanDetailController extends IOController {
   LoanDetailController({required this.loan});
   final customPayment = 0.0.obs;
   final closeAmount = 0.0.obs;
+  final schdleAmount = 0.0.obs;
+
   final textController = TextEditingController();
   final formatter = CurrencyTextInputFormatter.currency(
     symbol: '₮',
@@ -37,14 +39,24 @@ class LoanDetailController extends IOController {
   final scheduleLoading = false.obs;
   final customLoading = false.obs;
   final closeLoading = false.obs;
+  final extensionLoading = false.obs;
+
   @override
   void onInit() {
     super.onInit();
     textController.text = formatter.formatDouble(0.0);
     getPledge();
-    getExtensionAmount();
-    getScheduleData();
-    getCloseAmount();
+    checkLoading();
+  }
+
+  Future checkLoading() async {
+    isInitialLoading.value = true;
+    await Future.wait([
+      getExtensionAmount(),
+      getScheduleData(),
+      getCloseAmount(),
+    ]);
+    isInitialLoading.value = false;
   }
 
   bool isSameDay(DateTime date1, DateTime date2) {
@@ -70,13 +82,13 @@ class LoanDetailController extends IOController {
   }
 
   Future getCloseAmount() async {
-    isInitialLoading.value = true;
+    closeLoading.value = true;
 
     final response = await LoanApi().getLoanCloseAmount(
       code: loan.acntCode,
       date: DateFormat('yyyy-MM-dd').format(DateTime.now()),
     );
-    isInitialLoading.value = false;
+    closeLoading.value = false;
     if (response.isSuccess) {
       closeAmount.value = response.data['totalBal'].ddoubleValue;
     } else {
@@ -135,7 +147,7 @@ class LoanDetailController extends IOController {
 
   Future getExtensionAmount() async {
     try {
-      isInitialLoading.value = true;
+      extensionLoading.value = true;
       final response = await LoanApi().getDigitalLoanExtension(
         accountCode: loan.acntCode,
       );
@@ -149,7 +161,7 @@ class LoanDetailController extends IOController {
         showError(text: response.message);
       }
     } finally {
-      isInitialLoading.value = false;
+      extensionLoading.value = false;
     }
   }
 
@@ -158,15 +170,17 @@ class LoanDetailController extends IOController {
   }
 
   Future getScheduleData() async {
-    isInitialLoading.value = true;
+    scheduleLoading.value = true;
     final response = await LoanApi().getLoanSchedule(code: loan.acntCode);
-    isInitialLoading.value = false;
-
     if (response.isSuccess) {
       schedule.value = response.data.listValue
           .map((e) => LoanScheduleModel.fromJson(e))
           .toList();
+      calculateSchedulePayment();
+      scheduleLoading.value = false;
     } else {
+      scheduleLoading.value = false;
+
       Get.back();
       showError(text: response.message);
     }
@@ -236,7 +250,6 @@ class LoanDetailController extends IOController {
     final amount = closeAmount.value;
 
     isLoading.value = true;
-    closeLoading.value = true;
 
     final response = await LoanApi().closeLoan(
       code: loan.acntCode,
@@ -244,7 +257,6 @@ class LoanDetailController extends IOController {
     );
 
     isLoading.value = false;
-    closeLoading.value = false;
 
     if (response.isSuccess) {
       onResult(data: response.data, amount: amount, payType: LoanPayType.close);
@@ -253,6 +265,7 @@ class LoanDetailController extends IOController {
     }
   }
 
+  // Зээл сунгах
   Future onExtensionLoan() async {
     final result = await showWarning(
       text: 'Та зээл сунгахдаа итгэлтэй байна уу',
@@ -276,6 +289,42 @@ class LoanDetailController extends IOController {
         data: response.data,
         amount: amount,
         payType: LoanPayType.extension,
+      );
+    } else {
+      showError(text: response.message);
+    }
+  }
+
+  Future<void> calculateSchedulePayment() async {
+    schdleAmount.value = schedule.fold<double>(
+      0.0,
+      (previousValue, element) =>
+          previousValue + (element.isPaid ? 0.0 : element.totalAmount),
+    );
+  }
+
+  // Хуварийн дагуу төлөх
+  Future onScheduleLoan(double schdlePay) async {
+    // final scheduleItem = schedule.firstWhereOrNull(
+    //   (element) => !element.isPaid,
+    // );
+    if (schdleAmount.value == 0.0) {
+      showError(text: 'Төлөх хуваарь байхгүй байна');
+      return;
+    }
+    final amount = schdlePay;
+
+    isLoading.value = true;
+    final response = await LoanApi().payLoan(
+      code: loan.acntCode,
+      amount: amount,
+    );
+    isLoading.value = false;
+    if (response.isSuccess) {
+      onResult(
+        data: response.data,
+        amount: schdlePay,
+        payType: LoanPayType.schedule,
       );
     } else {
       showError(text: response.message);

@@ -11,12 +11,7 @@ class LoanDetailScreen extends GetView<LoanDetailController> {
     return IOScaffold(
       appBar: IOAppBar(titleText: 'Зээлийн дэлгэрэнгүй'),
       body: SingleChildScrollView(
-        padding: EdgeInsets.only(
-          left: 16,
-          right: 16,
-          top: 16,
-          // bottom: 16 + Get.mediaQuery.padding.bottom,
-        ),
+        padding: EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 0),
         child: Obx(
           () => Column(
             children: [
