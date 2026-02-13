@@ -42,7 +42,7 @@ class LoanLimitChargePayWidget extends StatelessWidget {
                           onPressed: () => onPay(PayType.qpay),
                           model: IOButtonModel(
                             label: title,
-                            type: IOButtonType.secondary,
+                            type: IOButtonType.primary,
                             size: IOButtonSize.small,
                           ),
                         ),

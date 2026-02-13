@@ -65,18 +65,18 @@ class LoanProductScreen extends GetView<LoanProductController> {
                                 color: IOColors.textSecondary,
                               ),
                             ),
-                            Text(
-                              'Боломжит зээлийн тоо',
-                              style: IOStyles.caption1Regular.copyWith(
-                                color: IOColors.brand500,
-                              ),
-                            ),
-                            Text(
-                              "${(5 - (controller.loanLimit.isNotEmpty ? controller.loanLimit.first.loanCount : 0)).toString()} хүртэл",
-                              style: IOStyles.body2Semibold.copyWith(
-                                color: IOColors.textSecondary,
-                              ),
-                            ),
+                            // Text(
+                            //   'Боломжит зээлийн тоо',
+                            //   style: IOStyles.caption1Regular.copyWith(
+                            //     color: IOColors.brand500,
+                            //   ),
+                            // ),
+                            // Text(
+                            //   "${(5 - (controller.loanLimit.isNotEmpty ? controller.loanLimit.first.loanCount : 0)).toString()} хүртэл",
+                            //   style: IOStyles.body2Semibold.copyWith(
+                            //     color: IOColors.textSecondary,
+                            //   ),
+                            // ),
                             const Spacer(),
                             controller.loanLimit.first.loanLimit != 0
                                 ? (controller.loanLimit.first.contract

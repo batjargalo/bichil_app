@@ -43,7 +43,7 @@ class LoanProductController extends IOController {
   void onCreateLoan() {
     if (loanLimit.first.loanLimit > 0) {
       if (loanLimit.first.loanCount <= 5) {
-        LoanRoute.toCreateAmount(item: loanLimit.first);
+        LoanRoute.toCreateAmount();
       } else {
         showWarning(text: "Таны зээлийн тоо олгох хязгаарт хүрсэн байна.");
       }
@@ -57,7 +57,7 @@ class LoanProductController extends IOController {
 
   void onSignContract() {
     Get.back();
-    LoanRoute.toDigitalLoanContract();
+    // LoanRoute.toDigitalLoanContract();
   }
 
   void onScoreCal() {

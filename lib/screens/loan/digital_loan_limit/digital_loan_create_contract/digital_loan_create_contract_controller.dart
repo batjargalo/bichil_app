@@ -3,7 +3,7 @@ import 'package:bichil/screens/screens.dart';
 import 'package:get/get.dart';
 
 class DigitalLoanContractController extends IOController {
-  final DigitalLoanLimitModel? item;
+  final DigitalLoanCreateModel? item;
   final String? code;
   final html = ''.obs;
   DigitalLoanContractController({required this.item, required this.code});
@@ -32,14 +32,17 @@ class DigitalLoanContractController extends IOController {
   }
 
   Future onTapNext() async {
-    LoanRoute.toDigitalLoanSignature(contractId: contractId);
+    LoanRoute.toDigitalLoanSignature(contractId: contractId, item: item!);
   }
 
   Future getData() async {
     isInitialLoading.value = true;
     late IOResponse response;
     if (code != null) {
-      response = await LoanApi().getDigitalLoanContract();
+      response = await LoanApi().getDigitalLoanContract(
+        termLen: item!.term,
+        totalAmount: item!.amount,
+      );
     }
     isInitialLoading.value = false;
 

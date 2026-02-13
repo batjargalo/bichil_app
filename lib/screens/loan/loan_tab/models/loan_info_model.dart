@@ -47,7 +47,10 @@ class LoanInfoModel {
 
   double get paidAmount => advAmount - princBal;
 
-  bool get isOver => overdueDayCount > 0;
+  bool get isOver =>
+      overdueDayCount > 0 ||
+      (overdueDayCount == 0 &&
+          DateTime.tryParse(nextSchdDate)?.isBefore(DateTime.now()) == true);
 
   bool get canTakeLoan => prodType == 'LINE';
 

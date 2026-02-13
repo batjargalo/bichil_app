@@ -116,12 +116,12 @@ class UserInfoScreen extends GetView<UserInfoController> {
           ),
         ),
       ),
-      bottomNavigationBar: IOBottomNavigationBar(
-        child: IOButtonWidget(
-          model: controller.deleteButton,
-          onPressed: controller.onTapDelete,
-        ),
-      ),
+      // bottomNavigationBar: IOBottomNavigationBar(
+      //   child: IOButtonWidget(
+      //     model: controller.deleteButton,
+      //     onPressed: controller.onTapDelete,
+      //   ),
+      // ),
     );
   }
 }

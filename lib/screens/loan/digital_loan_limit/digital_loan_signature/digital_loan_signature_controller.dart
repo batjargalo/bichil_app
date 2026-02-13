@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:bichil/library/library.dart';
+import 'package:bichil/screens/loan/digital_loan_create/digital_loan_ceate_amount/models/digital_loan_create_model.dart';
 import 'package:get/get.dart';
 import 'package:hand_signature/signature.dart';
 import 'dart:typed_data';
@@ -7,8 +8,9 @@ import 'package:flutter/material.dart';
 
 class DigitalLoanSignatureController extends IOController {
   final html = ''.obs;
+  final DigitalLoanCreateModel? item;
 
-  DigitalLoanSignatureController();
+  DigitalLoanSignatureController({required this.item});
   HandSignatureControl control = HandSignatureControl();
   ValueNotifier<String?> svg = ValueNotifier<String?>(null);
   ValueNotifier<ByteData?> rawImage = ValueNotifier<ByteData?>(null);
@@ -24,7 +26,7 @@ class DigitalLoanSignatureController extends IOController {
   ).obs;
 
   final clearSig = IOButtonModel(
-    label: 'Цэвэрлэх',
+    label: 'Арилгах',
     type: IOButtonType.primary,
     size: IOButtonSize.medium,
     isEnabled: true,
@@ -76,13 +78,22 @@ class DigitalLoanSignatureController extends IOController {
     final response = await LoanApi().sendSignature(
       image: image,
       contract: contractId,
+      term_lem: item!.term,
+      total_amount: item!.amount,
     );
-    isInitialLoading.value = false;
 
     if (response.isSuccess) {
       html.value = response.data['body'].stringValue;
       onTapClear();
+      final responseLoan = await LoanApi().createDigitalLoan(model: item!);
+      if (!responseLoan.isSuccess) {
+        isInitialLoading.value = false;
+        showError(text: responseLoan.message);
+        return;
+      }
       await showSuccess(text: 'Амжилттай илгээлээ');
+
+      // Get.back();
       IOPages.toHome();
     } else {
       Get.back();

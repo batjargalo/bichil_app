@@ -2,7 +2,7 @@ import 'package:bichil/screens/screens.dart';
 import 'package:get/get.dart';
 
 class DigitalLoanContractBinding extends Bindings {
-  final DigitalLoanLimitModel? item;
+  final DigitalLoanCreateModel? item;
   final String? code;
   DigitalLoanContractBinding({required this.item, required this.code});
 

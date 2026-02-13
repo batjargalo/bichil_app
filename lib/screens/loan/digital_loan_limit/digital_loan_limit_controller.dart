@@ -47,14 +47,16 @@ class DigitalLoanLimitController extends IOController {
   }
 
   void onPay(LoanLimitType loanLimitType, PayType payType) {
-    Get.focusScope?.unfocus();
-    onPayCharge(loanLimitType);
+    if (SessionManager.shared.checkBankAccount()) {
+      Get.focusScope?.unfocus();
+      onPayCharge(loanLimitType);
+    }
   }
 
   Future onPayCharge(LoanLimitType loanLimitType) async {
     final result = await showWarning(
       text: loanLimitType == LoanLimitType.create
-          ? 'Та зээлийн эрхээ тогтоолгох уу?'
+          ? 'Таны зээлийн эрхийн хэмжээг зээл авах тухай бүрт шинэчлэн тогтоохыг анхаарна уу.'
           : 'Та зээлийн эрх шинэчлэхдээ итгэлтэй байна уу ?',
       acceptText: 'Тийм',
       cancelText: 'Хаах',
@@ -89,7 +91,7 @@ class DigitalLoanLimitController extends IOController {
   }
 
   Future getChargeAmount() async {
-    chargeAmount.value = 1700;
+    chargeAmount.value = 2700;
   }
 
   Future getLoanLimit(bool isInitial) async {
@@ -168,24 +170,24 @@ class DigitalLoanLimitController extends IOController {
     // }
   }
 
-  void onCreateLoan() {
-    if (loanLimit.first.loanLimit > 0) {
-      if (loanLimit.first.loanCount <= 5) {
-        LoanRoute.toCreateAmount(item: loanLimit.first);
-      } else {
-        showWarning(text: "Таны зээлийн тоо олгох хязгаарт хүрсэн байна.");
-      }
-    } else {
-      showWarning(
-        text:
-            "Зээлийн боломжит эрх байхгүй байна. Та зээлийн эрхээ шинэчилнэ үү.",
-      );
-    }
-  }
+  // void onCreateLoan() {
+  //   if (loanLimit.first.loanLimit > 0) {
+  //     if (loanLimit.first.loanCount <= 5) {
+  //       LoanRoute.toCreateAmount(item: loanLimit.first);
+  //     } else {
+  //       showWarning(text: "Таны зээлийн тоо олгох хязгаарт хүрсэн байна.");
+  //     }
+  //   } else {
+  //     showWarning(
+  //       text:
+  //           "Зээлийн боломжит эрх байхгүй байна. Та зээлийн эрхээ шинэчилнэ үү.",
+  //     );
+  //   }
+  // }
 
   void onSignContract() {
     Get.back();
-    LoanRoute.toDigitalLoanContract();
+    // LoanRoute.toDigitalLoanContract();
   }
 
   // void onBack() {

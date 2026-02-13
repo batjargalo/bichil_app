@@ -15,13 +15,17 @@ class LoanRecreateAmountWidget extends StatefulWidget {
   });
 
   @override
-  State<LoanRecreateAmountWidget> createState() => _LoanRecreateAmountWidgetState();
+  State<LoanRecreateAmountWidget> createState() =>
+      _LoanRecreateAmountWidgetState();
 }
 
 class _LoanRecreateAmountWidgetState extends State<LoanRecreateAmountWidget> {
   var step = 10000;
 
-  final formatter = CurrencyTextInputFormatter.currency(symbol: '', decimalDigits: 0);
+  final formatter = CurrencyTextInputFormatter.currency(
+    symbol: '',
+    decimalDigits: 0,
+  );
   final textController = TextEditingController();
 
   double value = 0;
@@ -52,7 +56,9 @@ class _LoanRecreateAmountWidgetState extends State<LoanRecreateAmountWidget> {
                   padding: const EdgeInsets.all(12),
                   backgroundColor: IOColors.brand50,
                   foregroundColor: IOColors.brand500,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
                 ),
                 child: const Icon(Icons.remove, color: IOColors.textPrimary),
               ),
@@ -62,7 +68,10 @@ class _LoanRecreateAmountWidgetState extends State<LoanRecreateAmountWidget> {
               child: Container(
                 height: 48,
                 alignment: Alignment.center,
-                decoration: BoxDecoration(color: IOColors.backgroundPrimary, borderRadius: BorderRadius.circular(8)),
+                decoration: BoxDecoration(
+                  color: IOColors.backgroundPrimary,
+                  borderRadius: BorderRadius.circular(8),
+                ),
                 child: TextFormField(
                   textAlign: TextAlign.center,
                   keyboardType: TextInputType.number,
@@ -94,7 +103,9 @@ class _LoanRecreateAmountWidgetState extends State<LoanRecreateAmountWidget> {
                   padding: const EdgeInsets.all(12),
                   backgroundColor: IOColors.brand50,
                   foregroundColor: IOColors.brand500,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
                 ),
                 child: const Icon(Icons.add, color: IOColors.textPrimary),
               ),
@@ -120,7 +131,9 @@ class _LoanRecreateAmountWidgetState extends State<LoanRecreateAmountWidget> {
             divisions: (widget.maxValue / step).floor(),
             onChanged: (value) {
               final roundedValue = (value / step).round() * step;
-              final tempValue = roundedValue.clamp(0, widget.maxValue).toDouble();
+              final tempValue = roundedValue
+                  .clamp(0, widget.maxValue)
+                  .toDouble();
               onChangeSlider(tempValue);
             },
           ),
