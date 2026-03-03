@@ -23,6 +23,7 @@ class LoanTabController extends IOController {
   @override
   void onInit() {
     super.onInit();
+    getLoanList();
     onRefresh();
   }
 

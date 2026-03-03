@@ -47,6 +47,13 @@ class DigitalLoanLimitController extends IOController {
   }
 
   void onPay(LoanLimitType loanLimitType, PayType payType) {
+    if (loanLimit.first.loanCount > 0) {
+      showError(
+        text:
+            'Одоогоор танд нэг зээл идэвхтэй байна. Зээлээ төлж дууссаны дараа дахин зээл авах боломжтой.',
+      );
+      return;
+    }
     if (SessionManager.shared.checkBankAccount()) {
       Get.focusScope?.unfocus();
       onPayCharge(loanLimitType);
@@ -81,7 +88,7 @@ class DigitalLoanLimitController extends IOController {
     } else if (response.message ==
         "Та өөрийн ашигладаг мэйл хаягаа бүртгүүлнэ үү") {
       toWarningEmail(
-        titleText: 'Анхаарна уу?',
+        titleText: 'Анхаарна уу.',
         text: response.message,
         buttonText: 'Мэйл хаяг бүртгүүлэх',
       );

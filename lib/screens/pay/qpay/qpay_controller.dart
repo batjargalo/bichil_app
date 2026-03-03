@@ -44,15 +44,18 @@ class QpayController extends IOSuperController {
     });
 
     if (response.isSuccess) {
-      // final paid = response.data['status'].stringValue;
+      final paid = response.data['status'].stringValue;
       Get.back(
         result: true,
       ); // Prod орчинд оруулахад энэ мөрийг идэвхгүй болгож доор байгаа шалгалтыг нээх хэрэгтэй
-      // if (paid == 'paid') {
-      //   Get.back(result: true);
-      // } else {
-      //   showWarning(text: 'Таны төлбөр төлөгдөөгүй байна', acceptText: 'Ойлголоо');
-      // }
+      if (paid == 'paid') {
+        Get.back(result: true);
+      } else {
+        showWarning(
+          text: 'Таны төлбөр төлөгдөөгүй байна',
+          acceptText: 'Ойлголоо',
+        );
+      }
     } else {
       showError(text: response.message);
     }

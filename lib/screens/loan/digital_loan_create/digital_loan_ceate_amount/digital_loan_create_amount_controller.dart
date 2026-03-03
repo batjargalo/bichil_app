@@ -141,7 +141,7 @@ class DigitalLoanCreateAmountController extends IOController {
   }
 
   void onTapNext() async {
-    if (loanLimit.first.loanCount < 5) {
+    if (loanLimit.first.loanCount > 0) {
       showError(
         text:
             'Одоогоор танд нэг зээл идэвхтэй байна. Зээлээ төлж дууссаны дараа дахин зээл авах боломжтой.',
@@ -153,7 +153,7 @@ class DigitalLoanCreateAmountController extends IOController {
         final relatedData = userRelated.data;
         if (relatedData.listValue.length < 3) {
           toWarningUserInfo(
-            titleText: 'Анхаарна уу?',
+            titleText: 'Анхаарна уу.',
             text: "Та өөрийн ойр дотны 3 хүний мэдээллийг оруулна уу.",
             buttonText: 'Бүртгэлээ шинэчлэх',
           );
@@ -207,7 +207,7 @@ class DigitalLoanCreateAmountController extends IOController {
         // }
       } else if (response.message == "Та гүйлгээний нууц үгээ тохируулна уу") {
         toWarning(
-          titleText: 'Анхаарна уу?',
+          titleText: 'Анхаарна уу.',
           text: response.message,
           buttonText: 'Нууц үг үүсгэх',
         );

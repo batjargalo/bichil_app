@@ -101,8 +101,8 @@ class IOWarning extends StatelessWidget {
 
 enum IOWarningType {
   success(text: 'Амжилттай', image: 'assets/icons/success.svg'),
-  error(text: 'Анхаарна уу?', image: 'assets/icons/info.svg'),
-  warning(text: 'Анхаарна уу?', image: 'assets/icons/info.svg');
+  error(text: 'Анхаарна уу.', image: 'assets/icons/info.svg'),
+  warning(text: 'Анхаарна уу.', image: 'assets/icons/info.svg');
 
   const IOWarningType({required this.text, required this.image});
 

@@ -97,40 +97,42 @@ class LoanIcon extends StatelessWidget {
               ),
             ),
           ),
-          Expanded(
-            child: GestureDetector(
-              onTap: () => action(2),
-              child: Column(
-                children: [
-                  Container(
-                    width: 50,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: activeIconIndex == 2
-                          ? IOColors.brand600.withAlpha(30)
-                          : Colors.transparent,
-                    ),
-                    child: Icon(
-                      Icons.more_time,
-                      size: 35,
-                      color: loan.isOver
-                          ? IOColors.brand600
-                          : IOColors.brand300,
+          loan.canTakeLoan
+              ? const SizedBox.shrink()
+              : Expanded(
+                  child: GestureDetector(
+                    onTap: () => action(2),
+                    child: Column(
+                      children: [
+                        Container(
+                          width: 50,
+                          height: 50,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: activeIconIndex == 2
+                                ? IOColors.brand600.withAlpha(30)
+                                : Colors.transparent,
+                          ),
+                          child: Icon(
+                            Icons.more_time,
+                            size: 35,
+                            color: loan.isOver
+                                ? IOColors.brand600
+                                : IOColors.brand300,
+                          ),
+                        ),
+                        Text(
+                          'Сунгалт',
+                          style: IOStyles.caption2Regular.copyWith(
+                            color: activeIconIndex == 2
+                                ? IOColors.brand600
+                                : IOColors.brand300,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  Text(
-                    'Сунгалт',
-                    style: IOStyles.caption2Regular.copyWith(
-                      color: activeIconIndex == 2
-                          ? IOColors.brand600
-                          : IOColors.brand300,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
+                ),
           Expanded(
             child: GestureDetector(
               onTap: () => action(3),

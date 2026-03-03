@@ -131,8 +131,8 @@ class IOAlert extends StatelessWidget {
 
 enum IOAlertType {
   success(text: 'Амжилттай', image: 'assets/icons/success.svg'),
-  error(text: 'Анхаарна уу?', image: 'assets/icons/info.svg'),
-  warning(text: 'Анхаарна уу?', image: 'assets/icons/info.svg');
+  error(text: 'Анхаарна уу.', image: 'assets/icons/info.svg'),
+  warning(text: 'Анхаарна уу.', image: 'assets/icons/info.svg');
 
   const IOAlertType({required this.text, required this.image});
 

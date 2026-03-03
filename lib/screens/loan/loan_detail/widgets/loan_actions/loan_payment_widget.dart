@@ -67,7 +67,9 @@ class LoanPayment extends GetView<LoanDetailController> {
               height: 40,
               child: ElevatedButton(
                 onPressed: () {
-                  controller.onCustomsLoan();
+                  controller.customPayment.value == controller.closeAmount.value
+                      ? controller.onCloseLoan(false)
+                      : controller.onCustomsLoan();
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: IOColors.brand600,

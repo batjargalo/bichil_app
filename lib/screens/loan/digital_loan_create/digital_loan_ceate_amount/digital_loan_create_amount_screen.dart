@@ -25,9 +25,36 @@ class DigitalLoanCreateAmountScreen
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          const Text(
-                            'Зээлийн хэмжээгээ оруулна уу.',
-                            style: IOStyles.body1SemiBold,
+                          // ${controller.loanLimit.first.loanLimit.toCurrency()}
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Зээлийн нийт эрх',
+                                style: IOStyles.body1Bold.copyWith(
+                                  color: IOColors.successPrimary,
+                                ),
+                              ),
+                              Text(
+                                controller.loanLimit.first.loanLimit
+                                    .toCurrency(),
+                                style: IOStyles.body1Bold.copyWith(
+                                  color: IOColors.successPrimary,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 24),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Text(
+                                'Зээлийн хэмжээгээ оруулна уу.',
+                                style: IOStyles.body2Semibold.copyWith(
+                                  color: IOColors.textTertiary,
+                                ),
+                              ),
+                            ],
                           ),
                           const SizedBox(height: 24),
                           LoanRecreateAmountWidget(
@@ -58,9 +85,16 @@ class DigitalLoanCreateAmountScreen
                           const SizedBox(height: 16),
                           controller.amount.value == 0
                               ? const SizedBox.shrink()
-                              : const Text(
-                                  'Зээлийн хугацаагаа сонгоно уу.',
-                                  style: IOStyles.body1SemiBold,
+                              : Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Text(
+                                      'Зээлийн хугацаагаа сонгоно уу.',
+                                      style: IOStyles.body2Semibold.copyWith(
+                                        color: IOColors.textTertiary,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                           const SizedBox(height: 16),
                           controller.amount.value == 0
@@ -73,13 +107,12 @@ class DigitalLoanCreateAmountScreen
                                 ),
                           const SizedBox(height: 16),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               Text(
                                 'Эргэн төлөлтийн мэдээлэл',
                                 style: IOStyles.body2Semibold.copyWith(
-                                  color: IOColors.textPrimary,
+                                  color: IOColors.textTertiary,
                                 ),
                               ),
                               // Text(
