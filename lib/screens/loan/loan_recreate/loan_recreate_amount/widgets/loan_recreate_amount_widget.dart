@@ -113,31 +113,31 @@ class _LoanRecreateAmountWidgetState extends State<LoanRecreateAmountWidget> {
           ],
         ),
         const SizedBox(height: 24),
-        SliderTheme(
-          data: const SliderThemeData(
-            padding: EdgeInsets.zero,
-            activeTrackColor: IOColors.brand300,
-            inactiveTrackColor: IOColors.strokePrimary,
-            thumbColor: IOColors.brand500,
-            overlayColor: IOColors.brand200,
-            trackHeight: 6,
-            inactiveTickMarkColor: Colors.transparent,
-            activeTickMarkColor: Colors.transparent,
-          ),
-          child: Slider(
-            min: 0,
-            max: widget.maxValue,
-            value: value.clamp(0, widget.maxValue),
-            divisions: (widget.maxValue / step).floor(),
-            onChanged: (value) {
-              final roundedValue = (value / step).round() * step;
-              final tempValue = roundedValue
-                  .clamp(0, widget.maxValue)
-                  .toDouble();
-              onChangeSlider(tempValue);
-            },
-          ),
-        ),
+        // SliderTheme(
+        //   data: const SliderThemeData(
+        //     padding: EdgeInsets.zero,
+        //     activeTrackColor: IOColors.brand300,
+        //     inactiveTrackColor: IOColors.strokePrimary,
+        //     thumbColor: IOColors.brand500,
+        //     overlayColor: IOColors.brand200,
+        //     trackHeight: 6,
+        //     inactiveTickMarkColor: Colors.transparent,
+        //     activeTickMarkColor: Colors.transparent,
+        //   ),
+        //   child: Slider(
+        //     min: 0,
+        //     max: widget.maxValue,
+        //     value: value.clamp(0, widget.maxValue),
+        //     divisions: (widget.maxValue / step).floor(),
+        //     onChanged: (value) {
+        //       final roundedValue = (value / step).round() * step;
+        //       final tempValue = roundedValue
+        //           .clamp(0, widget.maxValue)
+        //           .toDouble();
+        //       onChangeSlider(tempValue);
+        //     },
+        //   ),
+        // ),
       ],
     );
   }

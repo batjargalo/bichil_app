@@ -97,9 +97,8 @@ class LoanIcon extends StatelessWidget {
               ),
             ),
           ),
-          loan.canTakeLoan
-              ? const SizedBox.shrink()
-              : Expanded(
+          loan.extension
+              ? Expanded(
                   child: GestureDetector(
                     onTap: () => action(2),
                     child: Column(
@@ -132,7 +131,8 @@ class LoanIcon extends StatelessWidget {
                       ],
                     ),
                   ),
-                ),
+                )
+              : const SizedBox.shrink(),
           Expanded(
             child: GestureDetector(
               onTap: () => action(3),

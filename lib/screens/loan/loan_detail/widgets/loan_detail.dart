@@ -52,17 +52,30 @@ class LoanDetail extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Олгосон зээл',
-                    style: IOStyles.caption2Regular.copyWith(
-                      color: IOColors.textTertiary,
-                    ),
-                  ),
+                  loan.extension
+                      ? Text(
+                          'Олгосон зээл',
+                          style: IOStyles.caption2Regular.copyWith(
+                            color: IOColors.textTertiary,
+                          ),
+                        )
+                      : Text(
+                          'Батлагдсан дүн',
+                          style: IOStyles.caption2Regular.copyWith(
+                            color: IOColors.textTertiary,
+                          ),
+                        ),
                   const SizedBox(height: 4),
-                  Text(
-                    loan.advAmount.toCurrency(),
-                    style: IOStyles.caption1SemiBold,
-                  ),
+                  loan.extension
+                      ? Text(
+                          loan.advAmount.toCurrency(),
+                          style: IOStyles.caption1SemiBold,
+                        )
+                      : Text(
+                          loan.approvAmount.toCurrency(),
+                          style: IOStyles.caption1SemiBold,
+                        ),
+
                   const SizedBox(height: 8),
 
                   Text(

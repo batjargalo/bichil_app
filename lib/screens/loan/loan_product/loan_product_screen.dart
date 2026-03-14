@@ -3,7 +3,6 @@ import 'package:bichil/library/components/button/io_button_widget.dart';
 import 'package:bichil/library/components/main/io_card_border.dart';
 import 'package:bichil/library/components/main/io_loading.dart';
 import 'package:bichil/library/components/main/io_refresher.dart';
-import 'package:bichil/library/extensions/extended_double.dart';
 import 'package:bichil/library/theme/io_colors.dart';
 import 'package:bichil/library/theme/io_styles.dart';
 import 'package:bichil/screens/screens.dart';
@@ -78,24 +77,14 @@ class LoanProductScreen extends GetView<LoanProductController> {
                             //   ),
                             // ),
                             const Spacer(),
-                            controller.loanLimit.first.loanLimit != 0
-                                ? (controller.loanLimit.first.contract
-                                      ? IOButtonWidget(
-                                          onPressed: controller.onCreateLoan,
-                                          model: controller.takeLoan.value,
-                                        )
-                                      : IOButtonWidget(
-                                          onPressed: controller.onSignContract,
-                                          model: controller.signContract.value,
-                                        ))
-                                : IOButtonWidget(
-                                    onPressed: controller.onScoreCal,
-                                    model: IOButtonModel(
-                                      label: 'Зээлийн эрх тогтоох',
-                                      type: IOButtonType.primary,
-                                      size: IOButtonSize.small,
-                                    ),
-                                  ),
+                            IOButtonWidget(
+                              onPressed: controller.onScoreCal,
+                              model: IOButtonModel(
+                                label: 'Зээл авах',
+                                type: IOButtonType.primary,
+                                size: IOButtonSize.small,
+                              ),
+                            ),
                           ],
                         ),
                       ),

@@ -19,7 +19,7 @@ class LoanTabItemWidget extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if (item.canTakeLoan) ...[
+            if (item.loanOnLoan) ...[
               LoanTabScoringWidget(
                 // Nud haragduul
                 isSecure: false,
