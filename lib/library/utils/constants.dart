@@ -1,4 +1,4 @@
-const environment = Environment.staging;
+const environment = Environment.test;
 String get domain => environment.domain;
 
 // const domain = 'https://api.bichilglobus.mn';
