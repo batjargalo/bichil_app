@@ -17,6 +17,7 @@ const kNotificationCount = 'kNotificationCount';
 enum Environment {
   test(domain: 'http://192.168.88.87:8000'),
   staging(domain: 'https://testapi.bichilglobus.mn'),
+  preProd(domain: 'https://batja.bichilglobus.mn'),
   prod(domain: 'https://api.bichilglobus.mn');
 
   const Environment({required this.domain});

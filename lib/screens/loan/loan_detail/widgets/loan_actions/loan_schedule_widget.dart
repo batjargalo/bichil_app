@@ -119,15 +119,7 @@ class LoanScheduleWidget extends GetView<LoanDetailController> {
                                       ],
                                     ),
                                     ElevatedButton(
-                                      onPressed:
-                                          !item.isPaid &&
-                                              controller.checkIsTodayPayment(
-                                                item.schdDate,
-                                              )
-                                          ? () => controller.onScheduleLoan(
-                                              item.totalAmount,
-                                            )
-                                          : null,
+                                      onPressed: null,
                                       style: ElevatedButton.styleFrom(
                                         backgroundColor: IOColors.brand600,
                                         disabledBackgroundColor: item.isPaid
@@ -140,13 +132,7 @@ class LoanScheduleWidget extends GetView<LoanDetailController> {
                                         ),
                                       ),
                                       child: Text(
-                                        item.isPaid
-                                            ? 'Төлсөн'
-                                            : controller.checkIsTodayPayment(
-                                                item.schdDate,
-                                              )
-                                            ? 'Төлөх'
-                                            : "Төлөөгүй",
+                                        item.isPaid ? 'Төлсөн' : "Төлөөгүй",
                                         style: const TextStyle(
                                           color: Colors.white,
                                           fontSize: 12,
@@ -163,6 +149,60 @@ class LoanScheduleWidget extends GetView<LoanDetailController> {
                       ),
                     ),
                   ],
+                ),
+              ),
+            ),
+          ),
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(vertical: 6),
+            child: Column(
+              children: [
+                Text(
+                  controller.loan.nextSchdTotal.toCurrency(),
+                  style: IOStyles.h6.copyWith(color: IOColors.brand500),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+            child: SizedBox(
+              width: double.infinity,
+              height: 40,
+              child: ElevatedButton(
+                onPressed:
+                    DateTime.parse(
+                      controller.loan.nextSchdDate,
+                    ).isAfter(DateTime.now())
+                    ? null
+                    : () {
+                        controller.loan.nextSchdTotal ==
+                                controller.closeAmount.value
+                            ? controller.onCloseLoan(false)
+                            : controller.onScheduleLoan(
+                                controller.loan.nextSchdTotal,
+                              );
+                      },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor:
+                      DateTime.parse(
+                        controller.loan.nextSchdDate,
+                      ).isAfter(DateTime.now())
+                      ? Colors.grey.shade300
+                      : IOColors.brand600,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(25),
+                  ),
+                  elevation: 0,
+                ),
+                child: const Text(
+                  'Төлөлт хийх',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ),
             ),

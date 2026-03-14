@@ -35,7 +35,7 @@ class LoanAccountDialog extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               const Text(
-                'Анхаарна уу?',
+                'Анхаарна уу.',
                 textAlign: TextAlign.center,
                 style: IOStyles.h6,
               ),

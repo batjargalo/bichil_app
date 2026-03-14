@@ -57,7 +57,7 @@ class LoanClose extends GetView<LoanDetailController> {
               height: 40,
               child: ElevatedButton(
                 onPressed: () {
-                  controller.onCloseLoan();
+                  controller.onCloseLoan(true);
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: IOColors.brand600,

@@ -104,8 +104,8 @@ class IOWarningEmail extends StatelessWidget {
 
 enum IOWarningEmailType {
   success(text: 'Амжилттай', image: 'assets/icons/success.svg'),
-  error(text: 'Анхаарна уу?', image: 'assets/icons/info.svg'),
-  warning(text: 'Анхаарна уу?', image: 'assets/icons/info.svg');
+  error(text: 'Анхаарна уу.', image: 'assets/icons/info.svg'),
+  warning(text: 'Анхаарна уу.', image: 'assets/icons/info.svg');
 
   const IOWarningEmailType({required this.text, required this.image});
 

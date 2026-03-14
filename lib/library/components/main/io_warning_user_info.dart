@@ -101,8 +101,8 @@ class IOWarningUserInfo extends StatelessWidget {
 
 enum IOWarningUserInfoType {
   success(text: 'Амжилттай', image: 'assets/icons/success.svg'),
-  error(text: 'Анхаарна уу?', image: 'assets/icons/info.svg'),
-  warning(text: 'Анхаарна уу?', image: 'assets/icons/info.svg');
+  error(text: 'Анхаарна уу.', image: 'assets/icons/info.svg'),
+  warning(text: 'Анхаарна уу.', image: 'assets/icons/info.svg');
 
   const IOWarningUserInfoType({required this.text, required this.image});
 

@@ -14,7 +14,7 @@ class DigitalLoanSignatureScreen
   Widget build(BuildContext context) {
     return Obx(
       () => IOScaffold(
-        appBar: IOAppBar(titleText: 'Зээлийн гэрээ'),
+        appBar: IOAppBar(titleText: 'Та гарын үсгээ зурна уу'),
         body: Column(
           children: [
             controller.isInitialLoading.value
@@ -25,22 +25,19 @@ class DigitalLoanSignatureScreen
                       builder: (context, index, child) => IndexedStack(
                         children: [
                           Padding(
-                            padding: EdgeInsets.symmetric(vertical: 16.0),
+                            padding:
+                                EdgeInsets.zero, // Removed vertical padding
                             child: Column(
-                              spacing: 24.0,
                               children: <Widget>[
                                 Expanded(
-                                  child: Center(
-                                    child: AspectRatio(
-                                      aspectRatio: 1,
-                                      child: Container(
-                                        constraints: BoxConstraints.expand(),
-                                        color: Colors.white,
-                                        child: HandSignature(
-                                          control: controller.control,
-                                          drawer: ShapeSignatureDrawer(),
-                                        ),
-                                      ),
+                                  // This ensures the drawing area takes all available space
+                                  child: Container(
+                                    width: double
+                                        .infinity, // Ensure it fills the width
+                                    color: Colors.white,
+                                    child: HandSignature(
+                                      control: controller.control,
+                                      drawer: ShapeSignatureDrawer(),
                                     ),
                                   ),
                                 ),
