@@ -73,10 +73,10 @@ class LoanRoute {
     );
   }
 
-  static Future? toCreateAmount({required LoanLimitModel item}) {
+  static Future? toCreateAmount() {
     return Get.to(
       () => const DigitalLoanCreateAmountScreen(),
-      binding: DigitalLoanCreateAmountBinding(item: item),
+      binding: DigitalLoanCreateAmountBinding(),
     );
   }
 
@@ -163,17 +163,22 @@ class LoanRoute {
     );
   }
 
-  static Future<JSON?>? toDigitalLoanContract() {
+  static Future<JSON?>? toDigitalLoanContract({
+    required DigitalLoanCreateModel item,
+  }) {
     return Get.to(
       () => const DigitalLoanContractScreen(),
-      binding: DigitalLoanContractBinding(item: null, code: ''),
+      binding: DigitalLoanContractBinding(item: item, code: ''),
     );
   }
 
-  static Future<JSON?>? toDigitalLoanSignature({int? contractId}) {
+  static Future<JSON?>? toDigitalLoanSignature({
+    int? contractId,
+    DigitalLoanCreateModel? item,
+  }) {
     return Get.to(
       () => const DigitalLoanSignatureScreen(isLoading: false),
-      binding: DigitalLoanSignatureBinding(),
+      binding: DigitalLoanSignatureBinding(item: item),
       arguments: {'contractId': contractId},
     );
   }

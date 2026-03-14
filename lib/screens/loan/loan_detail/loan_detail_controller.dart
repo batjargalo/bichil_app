@@ -156,17 +156,13 @@ class LoanDetailController extends IOController {
         allIntBal = response.data['allIntBal'].ddoubleValue;
         billFineBal = response.data['billFineBal'].ddoubleValue;
         princBal = response.data['princBal'].ddoubleValue;
-        totalExtensionAmount = allIntBal + billFineBal + princBal;
+        totalExtensionAmount = response.data['totalAmount'].ddoubleValue;
       } else {
         showError(text: response.message);
       }
     } finally {
       extensionLoading.value = false;
     }
-  }
-
-  void getTotalExtensionAmount() {
-    totalExtensionAmount = allIntBal + billFineBal + princBal;
   }
 
   Future getScheduleData() async {
@@ -240,12 +236,14 @@ class LoanDetailController extends IOController {
   }
 
   // Зээл хаах
-  Future onCloseLoan() async {
-    final result = await showWarning(
-      text: 'Та зээл хаахдаа итгэлтэй байна уу',
-      acceptText: 'Тийм',
-      cancelText: 'Хаах',
-    );
+  Future onCloseLoan(bool isClose) async {
+    final result = isClose
+        ? await showWarning(
+            text: 'Та зээл хаахдаа итгэлтэй байна уу',
+            acceptText: 'Тийм',
+            cancelText: 'Хаах',
+          )
+        : true;
     if (result == null) return;
     final amount = closeAmount.value;
 
@@ -377,6 +375,10 @@ class LoanDetailController extends IOController {
     if (result == null) return;
 
     await AppRoute.toSuccess(title: 'Амжилттай', description: successText);
-    Get.back();
+    Get.until((route) => route.isFirst);
+    if (Get.isRegistered<LoanTabController>()) {
+      Get.find<LoanTabController>().onRefresh();
+    }
+    // Get.back();
   }
 }

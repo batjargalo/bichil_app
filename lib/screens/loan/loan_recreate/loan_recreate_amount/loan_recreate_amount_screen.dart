@@ -9,9 +9,7 @@ class LoanRecreateAmountScreen extends GetView<LoanRecreateAmountController> {
   @override
   Widget build(BuildContext context) {
     return IOScaffold(
-      appBar: IOAppBar(
-        titleText: 'Давтан зээл авах',
-      ),
+      appBar: IOAppBar(titleText: 'Давтан зээл авах'),
       body: Obx(
         () => GestureDetector(
           onTap: Get.focusScope?.unfocus,
@@ -52,54 +50,54 @@ class LoanRecreateAmountScreen extends GetView<LoanRecreateAmountController> {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 32),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Эргэн төлөлтийн мэдээлэл',
-                          style: IOStyles.body2Semibold.copyWith(
-                            color: IOColors.textPrimary,
-                          ),
-                        ),
-                        Text(
-                          'Хүү - ${controller.item.baseFixedIntRate}%',
-                          style: IOStyles.caption1SemiBold.copyWith(
-                            color: IOColors.textSecondary,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 8),
-                    IOCardBorderWidget(
-                      padding: const EdgeInsets.all(16),
-                      child: Column(
-                        children: [
-                          RowWidget(
-                            title: 'Нийт төлөх дүн',
-                            value: 0.0.toCurrency(),
-                            titleStyle: IOStyles.caption1SemiBold.copyWith(
-                              color: IOColors.textSecondary,
-                            ),
-                            valueStyle: IOStyles.body2Bold.copyWith(
-                              color: IOColors.brand500,
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          RowWidget(
-                            title: 'Сард төлөх дүн',
-                            value: 0.0.toCurrency(),
-                            titleStyle: IOStyles.caption1SemiBold.copyWith(
-                              color: IOColors.textSecondary,
-                            ),
-                            valueStyle: IOStyles.body2Bold.copyWith(
-                              color: IOColors.brand500,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                    // const SizedBox(height: 32),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //   crossAxisAlignment: CrossAxisAlignment.center,
+                    //   children: [
+                    //     Text(
+                    //       'Эргэн төлөлтийн мэдээлэл',
+                    //       style: IOStyles.body2Semibold.copyWith(
+                    //         color: IOColors.textPrimary,
+                    //       ),
+                    //     ),
+                    //     Text(
+                    //       'Хүү - ${controller.item.baseFixedIntRate}%',
+                    //       style: IOStyles.caption1SemiBold.copyWith(
+                    //         color: IOColors.textSecondary,
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
+                    // const SizedBox(height: 8),
+                    // IOCardBorderWidget(
+                    //   padding: const EdgeInsets.all(16),
+                    //   child: Column(
+                    //     children: [
+                    //       RowWidget(
+                    //         title: 'Нийт төлөх дүн',
+                    //         value: 0.0.toCurrency(),
+                    //         titleStyle: IOStyles.caption1SemiBold.copyWith(
+                    //           color: IOColors.textSecondary,
+                    //         ),
+                    //         valueStyle: IOStyles.body2Bold.copyWith(
+                    //           color: IOColors.brand500,
+                    //         ),
+                    //       ),
+                    //       const SizedBox(height: 8),
+                    //       RowWidget(
+                    //         title: 'Сард төлөх дүн',
+                    //         value: 0.0.toCurrency(),
+                    //         titleStyle: IOStyles.caption1SemiBold.copyWith(
+                    //           color: IOColors.textSecondary,
+                    //         ),
+                    //         valueStyle: IOStyles.body2Bold.copyWith(
+                    //           color: IOColors.brand500,
+                    //         ),
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
                     const Spacer(),
                     // Expanded(
                     //   child: IOAmountField(

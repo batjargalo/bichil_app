@@ -28,6 +28,8 @@ class LoanInfoModel {
   final double billFinepBal;
   final double billFinebBal;
   final LoanInfoTerm termBasis;
+  bool extension = false;
+  bool loanOnLoan = false;
 
   //Production deer oorchlogdono
   LoanInfoType get type => switch (purpose) {
@@ -47,7 +49,10 @@ class LoanInfoModel {
 
   double get paidAmount => advAmount - princBal;
 
-  bool get isOver => overdueDayCount > 0;
+  bool get isOver =>
+      overdueDayCount > 0 ||
+      (overdueDayCount == 0 &&
+          DateTime.tryParse(nextSchdDate)?.isBefore(DateTime.now()) == true);
 
   bool get canTakeLoan => prodType == 'LINE';
 
@@ -83,7 +88,9 @@ class LoanInfoModel {
         'M' => LoanInfoTerm.month,
         'Y' => LoanInfoTerm.year,
         _ => LoanInfoTerm.none,
-      };
+      },
+      extension = json['extension'].booleanValue,
+      loanOnLoan = json['loanOnLoan'].booleanValue;
 }
 
 enum LoanInfoType { car, saving, other }

@@ -13,8 +13,8 @@ class LoanTabScoringWidget extends StatelessWidget {
   });
 
   void onTap() {
-    // final result = SessionManager.shared.checkBankAccount();
-    // if (result == false) return;
+    final result = SessionManager.shared.checkBankAccount();
+    if (result == false) return;
     LoanRoute.toRecreateAmount(item: model);
   }
 
@@ -28,15 +28,15 @@ class LoanTabScoringWidget extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                const Text(
-                  'Зээлжих эрх',
-                  style: IOStyles.body2Bold,
+                Text(
+                  'ЗЭЭЛЖИХ ЭРХ',
+                  style: IOStyles.caption1Regular.copyWith(
+                    color: IOColors.textSecondary,
+                  ),
                 ),
                 Text(
                   isSecure ? '***********' : model.availComBal.toCurrency(),
-                  style: IOStyles.h6.copyWith(
-                    color: IOColors.brand500,
-                  ),
+                  style: IOStyles.body1Bold,
                 ),
               ],
             ),
@@ -54,3 +54,4 @@ class LoanTabScoringWidget extends StatelessWidget {
     );
   }
 }
+// Text(item.princBal.toCurrency(), style: IOStyles.body1Bold),
