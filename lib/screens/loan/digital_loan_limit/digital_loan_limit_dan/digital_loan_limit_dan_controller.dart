@@ -6,7 +6,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 class DigitalLoanLimitDanController extends IOController {
   final webController = WebViewController();
-  final danUrl = '$domain/api/user/authorize?score=true';
+  final danUrl = '$domain/api/user/authorize?score=true&test=true';
   @override
   void onInit() {
     super.onInit();
@@ -26,9 +26,7 @@ class DigitalLoanLimitDanController extends IOController {
               launchUrlString(request.url);
               return NavigationDecision.prevent;
             }
-            if (request.url.startsWith(
-              'https://api.bichilglobus.mn/api/user/callback-dan',
-            )) {
+            if (request.url.startsWith('https://api.bichilglobus.mn/api/user/callback-dan')) {
               getData(request.url);
               return NavigationDecision.prevent;
             }
@@ -38,10 +36,7 @@ class DigitalLoanLimitDanController extends IOController {
       )
       ..loadRequest(
         Uri.parse(danUrl),
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": "Bearer ${HelperManager.token.access}",
-        },
+        headers: {"Content-Type": "application/json", "Authorization": "Bearer ${HelperManager.token.access}"},
       );
   }
 

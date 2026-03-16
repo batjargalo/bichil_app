@@ -1,16 +1,11 @@
 import 'package:bichil/library/library.dart';
-import 'package:flutter/services.dart';
 import 'package:local_auth/local_auth.dart';
-import 'package:local_auth/error_codes.dart' as auth_error;
 
 class BiometricResponse {
   final bool success;
   String errorMessage = '';
 
-  BiometricResponse({
-    required this.success,
-    this.errorMessage = '',
-  });
+  BiometricResponse({required this.success, this.errorMessage = ''});
 }
 
 class BiometricManager {
@@ -20,13 +15,11 @@ class BiometricManager {
 
   bool get isAutenticated => HelperManager.isSavedBiometric;
 
-  Future<List<BiometricType>> get availableBiometrics =>
-      auth.getAvailableBiometrics();
+  Future<List<BiometricType>> get availableBiometrics => auth.getAvailableBiometrics();
 
   Future<bool> get isAvailable async {
     final types = await availableBiometrics;
-    return types.contains(BiometricType.face) ||
-        types.contains(BiometricType.fingerprint);
+    return types.contains(BiometricType.face) || types.contains(BiometricType.fingerprint);
   }
 
   Future<String> get icon async {
@@ -56,26 +49,21 @@ class BiometricManager {
     try {
       final didAuthenticate = await auth.authenticate(
         localizedReason: 'Please authenticate to login',
-        options: const AuthenticationOptions(biometricOnly: true),
+        biometricOnly: true,
       );
-      return BiometricResponse(
-        success: didAuthenticate,
-        errorMessage: 'Баталгаажуулалт амжилтгүй',
-      );
-    } on PlatformException catch (e) {
+      return BiometricResponse(success: didAuthenticate, errorMessage: 'Баталгаажуулалт амжилтгүй');
+    } on LocalAuthException catch (e) {
       final error = BiometricResponse(success: false);
       switch (e.code) {
-        case auth_error.notAvailable:
+        case LocalAuthExceptionCode.noCredentialsSet:
           error.errorMessage = 'Баталгаажуулалт цуцлагдлаа';
           break;
-        case auth_error.notEnrolled:
-          error.errorMessage =
-              'Баталгаажуулалт цуцлагдлаа. Та тохиргоогоо нээнэ үү';
+        case LocalAuthExceptionCode.noBiometricsEnrolled:
+          error.errorMessage = 'Баталгаажуулалт цуцлагдлаа. Та тохиргоогоо нээнэ үү';
           break;
 
-        case auth_error.lockedOut:
-          error.errorMessage =
-              'Баталгаажуулалт цуцлагдлаа. Та олон удаа буруу оруулсан байна';
+        case LocalAuthExceptionCode.timeout:
+          error.errorMessage = 'Баталгаажуулалт цуцлагдлаа. Та олон удаа буруу оруулсан байна';
           break;
 
         default:

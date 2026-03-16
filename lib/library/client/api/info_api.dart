@@ -50,10 +50,7 @@ class InfoApi extends IOClient {
     return sendGetRequest(url, hasToken: false);
   }
 
-  Future<IOResponse> checkBank({
-    required int bankId,
-    required String account,
-  }) async {
+  Future<IOResponse> checkBank({required int bankId, required String account}) async {
     const url = '/api/info/account/name';
     final data = {'bank_id': bankId, 'account_no': account};
     return sendPostRequest(url, data: data, hasToken: false);
@@ -61,10 +58,7 @@ class InfoApi extends IOClient {
 
   Future<IOResponse> getBranches({int? countryId, int? cityId}) async {
     const url = '/api/info/branchs';
-    final query = {
-      if (countryId != null) 'city': countryId,
-      if (cityId != null) 'district': cityId,
-    };
+    final query = {'city': ?countryId, 'district': ?cityId};
     return sendGetRequest(url, query: query, hasToken: false);
   }
 
@@ -85,19 +79,13 @@ class InfoApi extends IOClient {
     return sendGetRequest(url, query: query, hasToken: false);
   }
 
-  Future<IOResponse> getAdvice({
-    required int offset,
-    required int limit,
-  }) async {
+  Future<IOResponse> getAdvice({required int offset, required int limit}) async {
     const url = '/api/info/advice';
     final query = {'offset': offset, 'limit': limit};
     return sendGetRequest(url, query: query, hasToken: false);
   }
 
-  Future<IOResponse> getVideos({
-    required int offset,
-    required int limit,
-  }) async {
+  Future<IOResponse> getVideos({required int offset, required int limit}) async {
     const url = '/api/info/videos';
     final query = {'offset': offset, 'limit': limit};
     return sendGetRequest(url, query: query, hasToken: false);
@@ -116,10 +104,7 @@ class InfoApi extends IOClient {
 
   Future<IOResponse> getAppVersion() async {
     const path = '/api/info/app-version';
-    final data = {
-      'platform': Platform.isIOS ? 'ios' : 'android',
-      'version': await HelperManager.buildVersion,
-    };
+    final data = {'platform': Platform.isIOS ? 'ios' : 'android', 'version': await HelperManager.buildVersion};
     return sendPostRequest(path, data: data, hasToken: false);
   }
 }

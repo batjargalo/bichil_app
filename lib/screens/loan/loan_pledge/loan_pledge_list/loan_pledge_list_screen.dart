@@ -19,11 +19,9 @@ class LoanPledgeListScreen extends GetView<LoanPledgeListController> {
                 padding: EdgeInsets.zero,
                 itemBuilder: (context, index) {
                   final model = items[index];
-                  return IOCardBorderWidget(
-                    child: LoanPledgeTile(model: model),
-                  );
+                  return IOCardBorderWidget(child: LoanPledgeTile(model: model));
                 },
-                separatorBuilder: (_, __) => const SizedBox(height: 12),
+                separatorBuilder: (_, _) => const SizedBox(height: 12),
                 itemCount: items.length,
               ),
       ),
