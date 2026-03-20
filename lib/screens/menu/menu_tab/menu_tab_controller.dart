@@ -11,7 +11,7 @@ class MenuTabController extends IOController {
       MenuTabModel(
         title: 'Хэрэглэгчийн мэдээлэл',
         items: [
-          // MenuTabItemModel(type: MenuTabItemType.contract),
+          MenuTabItemModel(type: MenuTabItemType.contract),
           MenuTabItemModel(type: MenuTabItemType.loanHistory),
           MenuTabItemModel(type: MenuTabItemType.savingHistory),
           // MenuTabItemModel(type: MenuTabItemType.insurane),
@@ -70,9 +70,9 @@ class MenuTabController extends IOController {
 
   void onTapItem(MenuTabItemType type, bool? value) {
     switch (type) {
-      // case MenuTabItemType.contract:
-      //   LoanRoute.toSignedContract();
-      //   break;
+      case MenuTabItemType.contract:
+        LoanRoute.toSignedContract();
+        break;
       case MenuTabItemType.loanHistory:
         LoanRoute.toHistoryList();
         break;

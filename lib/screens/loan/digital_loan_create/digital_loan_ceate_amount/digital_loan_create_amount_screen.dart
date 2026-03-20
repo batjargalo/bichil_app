@@ -26,23 +26,54 @@ class DigitalLoanCreateAmountScreen
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           // ${controller.loanLimit.first.loanLimit.toCurrency()}
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Зээлийн нийт эрх',
-                                style: IOStyles.body1Bold.copyWith(
-                                  color: IOColors.successPrimary,
-                                ),
+                          Container(
+                            width: double.infinity,
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 12,
+                              horizontal: 12,
+                            ),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12),
+                              gradient: const LinearGradient(
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+
+                                colors: [
+                                  Color.fromARGB(
+                                    255,
+                                    59,
+                                    13,
+                                    245,
+                                  ), // Bright Blue
+                                  Color.fromRGBO(0, 174, 164, 45), // Teal/Cyan
+                                ],
                               ),
-                              Text(
-                                controller.loanLimit.first.loanLimit
-                                    .toCurrency(),
-                                style: IOStyles.body1Bold.copyWith(
-                                  color: IOColors.successPrimary,
+                            ),
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'Зээлийн нийт эрх',
+                                      style: IOStyles.body1Bold.copyWith(
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ),
-                            ],
+                                const SizedBox(height: 8),
+                                Text(
+                                  controller.loanLimit.first.scoreLimit
+                                      .toCurrency(),
+                                  style: IOStyles.body1Bold.copyWith(
+                                    color: Colors.white,
+                                    fontSize: 42, // Large display size
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                           const SizedBox(height: 24),
                           Row(
@@ -58,31 +89,12 @@ class DigitalLoanCreateAmountScreen
                           ),
                           const SizedBox(height: 24),
                           LoanRecreateAmountWidget(
-                            maxValue: controller.loanLimit.first.loanLimit,
+                            maxValue: controller.loanLimit.first.scoreLimit,
                             // currentValue: controller.amount.value,
                             onChanged: controller.amount.call,
                           ),
                           const SizedBox(height: 16),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                '0₮',
-                                style: IOStyles.caption1SemiBold.copyWith(
-                                  color: IOColors.textTertiary,
-                                ),
-                              ),
-                              Text(
-                                controller.loanLimit.first.loanLimit
-                                    .toCurrency(),
-                                style: IOStyles.caption1SemiBold.copyWith(
-                                  color: IOColors.textTertiary,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 16),
+
                           controller.amount.value == 0
                               ? const SizedBox.shrink()
                               : Row(

@@ -6,6 +6,7 @@ class LoanLimitModel {
   final int loanCount;
   final String prodCode;
   final String message;
+  final String limitMessage;
   final bool contract;
 
   LoanLimitModel.fromJson(JSON json)
@@ -14,5 +15,6 @@ class LoanLimitModel {
       loanCount = json['loan_count'].integerValue,
       prodCode = json['prod_code'].stringValue,
       message = json['message'].stringValue,
+      limitMessage = json['limit_message'].stringValue,
       contract = json['contract'].booleanValue;
 }

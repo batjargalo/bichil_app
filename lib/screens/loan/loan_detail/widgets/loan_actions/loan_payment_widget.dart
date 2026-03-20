@@ -67,7 +67,10 @@ class LoanPayment extends GetView<LoanDetailController> {
               height: 40,
               child: ElevatedButton(
                 onPressed: () {
-                  controller.customPayment.value == controller.closeAmount.value
+                  controller.loan.prodType == "LINE"
+                      ? controller.onCustomsLoan()
+                      : controller.customPayment.value ==
+                            controller.closeAmount.value
                       ? controller.onCloseLoan(false)
                       : controller.onCustomsLoan();
                 },

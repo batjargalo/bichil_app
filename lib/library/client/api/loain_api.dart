@@ -234,4 +234,10 @@ class LoanApi extends IOClient {
     final data = {'pin_code': pin};
     return sendPostRequest(url, data: data);
   }
+
+  Future<IOResponse> calculateScore({required String danId}) async {
+    const url = '/api/user/score-callback';
+    final data = {'dan_id': danId};
+    return sendPostRequest(url, data: data);
+  }
 }

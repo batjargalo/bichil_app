@@ -21,6 +21,48 @@ class LoanRecreateAmountScreen extends GetView<LoanRecreateAmountController> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
+                    Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 12,
+                        horizontal: 12,
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        gradient: const LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+
+                          colors: [
+                            Color.fromARGB(255, 59, 13, 245), // Bright Blue
+                            Color.fromRGBO(0, 174, 164, 45), // Teal/Cyan
+                          ],
+                        ),
+                      ),
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Зээлийн нийт эрх',
+                                style: IOStyles.body1Bold.copyWith(
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            controller.item.availComBal.toCurrency(),
+                            style: IOStyles.body1Bold.copyWith(
+                              color: Colors.white,
+                              fontSize: 42, // Large display size
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                     const Text(
                       'Зээлийн хэмжээгээ оруулна уу.',
                       style: IOStyles.body1SemiBold,
@@ -31,25 +73,7 @@ class LoanRecreateAmountScreen extends GetView<LoanRecreateAmountController> {
                       // currentValue: controller.amount.value,
                       onChanged: controller.amount.call,
                     ),
-                    const SizedBox(height: 16),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          '0₮',
-                          style: IOStyles.caption1SemiBold.copyWith(
-                            color: IOColors.textTertiary,
-                          ),
-                        ),
-                        Text(
-                          controller.item.availComBal.toCurrency(),
-                          style: IOStyles.caption1SemiBold.copyWith(
-                            color: IOColors.textTertiary,
-                          ),
-                        ),
-                      ],
-                    ),
+
                     // const SizedBox(height: 32),
                     // Row(
                     //   mainAxisAlignment: MainAxisAlignment.spaceBetween,

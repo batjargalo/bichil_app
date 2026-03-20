@@ -61,7 +61,9 @@ class HomeController extends IOController {
   }
 
   void onTapDigitalLoan() {
-    LoanRoute.toDigitaLoanLimit();
+    final tabController = Get.find<TabBarController>();
+    tabController.tabIndex.value = 2;
+    Get.back();
   }
 
   void onTapSaving() {

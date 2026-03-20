@@ -1,10 +1,5 @@
-import 'package:bichil/library/components/button/io_button_model.dart';
-import 'package:bichil/library/components/button/io_button_widget.dart';
-import 'package:bichil/library/components/main/io_card_border.dart';
-import 'package:bichil/library/components/main/io_loading.dart';
-import 'package:bichil/library/components/main/io_refresher.dart';
-import 'package:bichil/library/theme/io_colors.dart';
-import 'package:bichil/library/theme/io_styles.dart';
+import 'package:bichil/library/library.dart';
+import 'package:bichil/screens/loan/digital_loan_limit/widgets/digital_loan_charge_widget.dart';
 import 'package:bichil/screens/screens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -35,6 +30,15 @@ class LoanProductScreen extends GetView<LoanProductController> {
                           children: [
                             Text("Дижитал зээл", style: IOStyles.body2Bold),
                             const Spacer(),
+                            Text(
+                              controller.loanLimit.first.message,
+                              style: IOStyles.caption2Regular.copyWith(
+                                color: IOColors.textSecondary,
+                              ),
+                            ),
+
+                            const Spacer(),
+
                             Row(
                               children: [
                                 SvgPicture.asset(
@@ -59,31 +63,53 @@ class LoanProductScreen extends GetView<LoanProductController> {
                               ),
                             ),
                             Text(
-                              "5,000,000₮ хүртэл",
+                              controller.loanLimit.first.scoreLimit
+                                  .toCurrency(),
                               style: IOStyles.body2Semibold.copyWith(
                                 color: IOColors.textSecondary,
                               ),
                             ),
-                            // Text(
-                            //   'Боломжит зээлийн тоо',
-                            //   style: IOStyles.caption1Regular.copyWith(
-                            //     color: IOColors.brand500,
-                            //   ),
-                            // ),
-                            // Text(
-                            //   "${(5 - (controller.loanLimit.isNotEmpty ? controller.loanLimit.first.loanCount : 0)).toString()} хүртэл",
-                            //   style: IOStyles.body2Semibold.copyWith(
-                            //     color: IOColors.textSecondary,
-                            //   ),
-                            // ),
                             const Spacer(),
-                            IOButtonWidget(
-                              onPressed: controller.onScoreCal,
-                              model: IOButtonModel(
-                                label: 'Зээл авах',
-                                type: IOButtonType.primary,
-                                size: IOButtonSize.small,
-                              ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+                              children: [
+                                Expanded(
+                                  child: Obx(
+                                    () => LoanLimitChargePayWidget(
+                                      editable: false,
+                                      title: 'Эрх шинэчлэх',
+                                      isLoading:
+                                          controller.limitChargeLoading.value,
+                                      initialValue:
+                                          controller.chargeAmount.value,
+                                      onPay: (type) => controller.onPay(
+                                        LoanLimitType.create,
+                                        type,
+                                      ),
+                                    ),
+                                  ),
+                                  //  IOButtonWidget(
+                                  //   onPressed: controller.onScoreCal,
+                                  //   model: IOButtonModel(
+                                  //     label: 'Эрх шинэчлэх',
+                                  //     type: IOButtonType.primary,
+                                  //     size: IOButtonSize.small,
+                                  //   ),
+                                  // ),
+                                ),
+
+                                Expanded(
+                                  child: IOButtonWidget(
+                                    onPressed: controller.onCreateLoan,
+                                    model: IOButtonModel(
+                                      label: 'Зээл авах',
+                                      type: IOButtonType.primary,
+                                      size: IOButtonSize.small,
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ],
                         ),

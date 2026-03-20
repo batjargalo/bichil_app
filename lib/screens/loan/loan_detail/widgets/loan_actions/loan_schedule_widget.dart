@@ -9,6 +9,14 @@ class LoanScheduleWidget extends GetView<LoanDetailController> {
   @override
   Widget build(BuildContext context) {
     if (controller.schedule.isEmpty) return const SizedBox.shrink();
+
+    final DateTime? nextSchdDate = DateTime.tryParse(
+      controller.loan.nextSchdDate,
+    );
+
+    final bool isFutureDate =
+        nextSchdDate == null || nextSchdDate.isAfter(DateTime.now());
+
     return Container(
       height: Get.height * 0.42,
       clipBehavior: Clip.hardEdge,
@@ -47,6 +55,23 @@ class LoanScheduleWidget extends GetView<LoanDetailController> {
                             itemCount: controller.schedule.length,
                             itemBuilder: (context, index) {
                               final item = controller.schedule[index];
+
+                              final TextStyle currentLabelStyle = item.isPaid
+                                  ? TextStyle(
+                                      fontFamily: IOFonts.gilroyRegular,
+                                      fontSize: 12,
+                                      color: IOColors.successPrimary,
+                                    )
+                                  : IOStyles.caption1Regular;
+
+                              final TextStyle currentValueStyle = item.isPaid
+                                  ? TextStyle(
+                                      fontFamily: IOFonts.gilroyRegular,
+                                      fontSize: 12,
+                                      color: IOColors.successPrimary,
+                                    )
+                                  : IOStyles.caption1Bold;
+
                               return Padding(
                                 padding: const EdgeInsets.symmetric(
                                   vertical: 2.0,
@@ -56,80 +81,43 @@ class LoanScheduleWidget extends GetView<LoanDetailController> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Text(
                                           'Төлөх өдөр',
-                                          style: item.isPaid
-                                              ? TextStyle(
-                                                  fontFamily:
-                                                      IOFonts.gilroyRegular,
-                                                  fontSize: 12,
-                                                  color:
-                                                      IOColors.successPrimary,
-                                                )
-                                              : IOStyles.caption1Regular,
+                                          style: currentLabelStyle,
                                         ),
                                         Text(
                                           item.schdDate.toFormattedString(
                                             hasLocalTimeZone: false,
                                             format: 'yyyy/MM/dd',
                                           ),
-                                          style: item.isPaid
-                                              ? TextStyle(
-                                                  fontFamily:
-                                                      IOFonts.gilroyRegular,
-                                                  fontSize: 12,
-                                                  color:
-                                                      IOColors.successPrimary,
-                                                )
-                                              : IOStyles.caption1Bold,
+                                          style: currentValueStyle,
                                         ),
                                       ],
                                     ),
                                     Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Text(
                                           'Төлөх дүн',
-                                          style: item.isPaid
-                                              ? TextStyle(
-                                                  fontFamily:
-                                                      IOFonts.gilroyRegular,
-                                                  fontSize: 12,
-                                                  color:
-                                                      IOColors.successPrimary,
-                                                )
-                                              : IOStyles.caption1Regular,
+                                          style: currentLabelStyle,
                                         ),
                                         Text(
                                           item.totalAmount.toCurrency(),
-                                          style: item.isPaid
-                                              ? TextStyle(
-                                                  fontFamily:
-                                                      IOFonts.gilroyRegular,
-                                                  fontSize: 12,
-                                                  color:
-                                                      IOColors.successPrimary,
-                                                )
-                                              : IOStyles.caption1Bold,
+                                          style: currentValueStyle,
                                         ),
                                       ],
                                     ),
                                     ElevatedButton(
                                       onPressed: null,
                                       style: ElevatedButton.styleFrom(
-                                        backgroundColor: IOColors.brand600,
                                         disabledBackgroundColor: item.isPaid
                                             ? IOColors.successPrimary
                                             : Colors.grey.shade300,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(
-                                            25,
-                                          ),
-                                        ),
+                                        shape: const StadiumBorder(),
                                       ),
                                       child: Text(
                                         item.isPaid ? 'Төлсөн' : "Төлөөгүй",
@@ -171,26 +159,21 @@ class LoanScheduleWidget extends GetView<LoanDetailController> {
               width: double.infinity,
               height: 40,
               child: ElevatedButton(
-                onPressed:
-                    DateTime.parse(
-                      controller.loan.nextSchdDate,
-                    ).isAfter(DateTime.now())
+                onPressed: isFutureDate
                     ? null
                     : () {
-                        controller.loan.nextSchdTotal ==
-                                controller.closeAmount.value
-                            ? controller.onCloseLoan(false)
-                            : controller.onScheduleLoan(
-                                controller.loan.nextSchdTotal,
-                              );
+                        if (controller.loan.nextSchdTotal ==
+                            controller.closeAmount.value) {
+                          controller.onCloseLoan(false);
+                        } else {
+                          controller.onScheduleLoan(
+                            controller.loan.nextSchdTotal,
+                          );
+                        }
                       },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor:
-                      DateTime.parse(
-                        controller.loan.nextSchdDate,
-                      ).isAfter(DateTime.now())
-                      ? Colors.grey.shade300
-                      : IOColors.brand600,
+                  backgroundColor: IOColors.brand600,
+                  disabledBackgroundColor: Colors.grey.shade300,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(25),
                   ),

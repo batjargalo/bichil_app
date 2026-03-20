@@ -63,40 +63,42 @@ class LoanIcon extends StatelessWidget {
               ),
             ),
           ),
-          Expanded(
-            child: GestureDetector(
-              onTap: () => action(1),
-              child: Column(
-                children: [
-                  Container(
-                    width: 50, // Adjust size as needed
-                    height: 50,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(
-                        10,
-                      ), // Rounded corners for rectangle
-                      color: activeIconIndex == 1
-                          ? IOColors.brand600.withAlpha(30)
-                          : Colors.transparent,
-                    ),
-                    child: Icon(
-                      Icons.money,
-                      size: 35,
-                      color: IOColors.brand600,
+          loan.prodType == "LINE"
+              ? const SizedBox.shrink()
+              : Expanded(
+                  child: GestureDetector(
+                    onTap: () => action(1),
+                    child: Column(
+                      children: [
+                        Container(
+                          width: 50, // Adjust size as needed
+                          height: 50,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(
+                              10,
+                            ), // Rounded corners for rectangle
+                            color: activeIconIndex == 1
+                                ? IOColors.brand600.withAlpha(30)
+                                : Colors.transparent,
+                          ),
+                          child: Icon(
+                            Icons.money,
+                            size: 35,
+                            color: IOColors.brand600,
+                          ),
+                        ),
+                        Text(
+                          'Зээл хаах',
+                          style: IOStyles.caption2Regular.copyWith(
+                            color: activeIconIndex == 1
+                                ? IOColors.brand600
+                                : IOColors.brand300,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  Text(
-                    'Зээл хаах',
-                    style: IOStyles.caption2Regular.copyWith(
-                      color: activeIconIndex == 1
-                          ? IOColors.brand600
-                          : IOColors.brand300,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
+                ),
           loan.extension
               ? Expanded(
                   child: GestureDetector(

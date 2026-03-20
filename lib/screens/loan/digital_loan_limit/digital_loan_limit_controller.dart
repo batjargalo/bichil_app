@@ -47,7 +47,7 @@ class DigitalLoanLimitController extends IOController {
   }
 
   void onPay(LoanLimitType loanLimitType, PayType payType) {
-    if (loanLimit.first.loanCount > 0) {
+    if (loanLimit.first.loanCount > 10) {
       showError(
         text:
             'Одоогоор танд нэг зээл идэвхтэй байна. Зээлээ төлж дууссаны дараа дахин зээл авах боломжтой.',
@@ -69,32 +69,33 @@ class DigitalLoanLimitController extends IOController {
       cancelText: 'Хаах',
     );
     if (result == null) return;
-    final amount = chargeAmount.value;
+    customerInfoDan();
+    // final amount = chargeAmount.value;
 
-    isLoading.value = true;
-    limitChargeLoading.value = true;
+    // isLoading.value = true;
+    // limitChargeLoading.value = true;
 
-    final response = await LoanApi().payLimitCharge(amount: amount);
+    // final response = await LoanApi().payLimitCharge(amount: amount);
 
-    isLoading.value = false;
-    limitChargeLoading.value = false;
+    // isLoading.value = false;
+    // limitChargeLoading.value = false;
 
-    if (response.isSuccess) {
-      onResult(
-        data: response.data,
-        amount: amount,
-        payType: LoanLimitType.create,
-      );
-    } else if (response.message ==
-        "Та өөрийн ашигладаг мэйл хаягаа бүртгүүлнэ үү") {
-      toWarningEmail(
-        titleText: 'Анхаарна уу.',
-        text: response.message,
-        buttonText: 'Мэйл хаяг бүртгүүлэх',
-      );
-    } else {
-      showError(text: response.message);
-    }
+    // if (response.isSuccess) {
+    //   onResult(
+    //     data: response.data,
+    //     amount: amount,
+    //     payType: LoanLimitType.create,
+    //   );
+    // } else if (response.message ==
+    //     "Та өөрийн ашигладаг мэйл хаягаа бүртгүүлнэ үү") {
+    //   toWarningEmail(
+    //     titleText: 'Анхаарна уу.',
+    //     text: response.message,
+    //     buttonText: 'Мэйл хаяг бүртгүүлэх',
+    //   );
+    // } else {
+    //   showError(text: response.message);
+    // }
   }
 
   Future getChargeAmount() async {

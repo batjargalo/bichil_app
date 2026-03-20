@@ -11,6 +11,11 @@ class AppRoute {
     return Get.to(() => IOSuccessScreen(title: title, description: description, buttonText: buttonText));
   }
 
+  static Future? toSuc({required String title, required String description}) {
+    return Get.to(() => IOWarning(type: IOWarningType.success, bodyText: title));
+  }
+
+  // IOWarning
   static Future? toConfirm({
     required String title,
     required String description,
@@ -31,6 +36,13 @@ class AppRoute {
 
   static Future<bool?>? toQpay({required QpayScreenModel model}) {
     return Get.to(() => const QpayScreen(), binding: QpayBinding(model: model));
+  }
+
+  static Future<bool?>? toQpayDan({required QpayDanScreenModel model, required String danId}) {
+    return Get.to(
+      () => const QpayDanScreen(),
+      binding: QpayDanBinding(model: model, danId: danId),
+    );
   }
 
   static Future<String?> toPin() {

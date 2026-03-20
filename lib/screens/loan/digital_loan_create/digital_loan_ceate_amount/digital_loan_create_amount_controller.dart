@@ -163,8 +163,10 @@ class DigitalLoanCreateAmountController extends IOController {
         showError(text: userRelated.message);
         return;
       }
-      if (amount.value > loanLimit.first.loanLimit) {
-        showError(text: '${loanLimit.first.loanLimit}-с ихгүй утга оруулна уу');
+      if (amount.value > loanLimit.first.scoreLimit) {
+        showError(
+          text: '${loanLimit.first.scoreLimit}-с ихгүй утга оруулна уу',
+        );
         return;
       } else if (amount.value < 50000) {
         showError(text: '50000₮-с багагүй утга оруулна уу');
