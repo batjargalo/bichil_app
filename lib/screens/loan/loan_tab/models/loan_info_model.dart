@@ -28,6 +28,8 @@ class LoanInfoModel {
   final double billFinepBal;
   final double billFinebBal;
   final LoanInfoTerm termBasis;
+  final String companyCode;
+  final String prodCode;
   bool extension = false;
   bool loanOnLoan = false;
 
@@ -51,8 +53,7 @@ class LoanInfoModel {
 
   bool get isOver =>
       overdueDayCount > 0 ||
-      (overdueDayCount == 0 &&
-          DateTime.tryParse(nextSchdDate)?.isBefore(DateTime.now()) == true);
+      (overdueDayCount == 0 && DateTime.tryParse(nextSchdDate)?.isBefore(DateTime.now()) == true);
 
   bool get canTakeLoan => prodType == 'LINE';
 
@@ -83,12 +84,14 @@ class LoanInfoModel {
       billBaseIntBal = json['billBaseintBal'].ddoubleValue,
       billFinepBal = json['billFinepBal'].ddoubleValue,
       billFinebBal = json['billFinebBal'].ddoubleValue,
+      prodCode = json['prodCode'].stringValue,
       termBasis = switch (json['termBasis'].stringValue) {
         'D' => LoanInfoTerm.day,
         'M' => LoanInfoTerm.month,
         'Y' => LoanInfoTerm.year,
         _ => LoanInfoTerm.none,
       },
+      companyCode = json['companyCode'].stringValue,
       extension = json['extension'].booleanValue,
       loanOnLoan = json['loanOnLoan'].booleanValue;
 }

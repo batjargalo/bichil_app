@@ -17,15 +17,11 @@ class LoanScheduleController extends IOController {
 
   Future getData() async {
     isInitialLoading.value = true;
-    final response = await LoanApi().getLoanSchedule(
-      code: loan.acntCode,
-    );
+    final response = await LoanApi().getLoanSchedule(code: loan.acntCode, companyCode: loan.companyCode);
     isInitialLoading.value = false;
 
     if (response.isSuccess) {
-      items.value = response.data.listValue
-          .map((e) => LoanScheduleModel.fromJson(e))
-          .toList();
+      items.value = response.data.listValue.map((e) => LoanScheduleModel.fromJson(e)).toList();
     } else {
       Get.back();
       showError(text: response.message);

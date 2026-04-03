@@ -21,11 +21,7 @@ class LoanPayInfoController extends IOController {
     type: IOButtonType.primary,
     size: IOButtonSize.medium,
   ).obs;
-  final loanExtension = IOButtonModel(
-    label: 'Зээл сунгах',
-    type: IOButtonType.primary,
-    size: IOButtonSize.medium,
-  ).obs;
+  final loanExtension = IOButtonModel(label: 'Зээл сунгах', type: IOButtonType.primary, size: IOButtonSize.medium).obs;
   LoanPayInfoController({required this.loan});
 
   bool get isExpired => loan.isExpired;
@@ -48,6 +44,7 @@ class LoanPayInfoController extends IOController {
     final response = await LoanApi().getLoanCloseAmount(
       code: loan.acntCode,
       date: DateTime.now().toString(),
+      companyCode: loan.companyCode,
     );
     isInitialLoading.value = false;
     checkClose.update((val) {
@@ -67,9 +64,7 @@ class LoanPayInfoController extends IOController {
     loanExtension.update((val) {
       val?.isLoading = true;
     });
-    final response = await LoanApi().getDigitalLoanExtension(
-      accountCode: loan.acntCode,
-    );
+    final response = await LoanApi().getDigitalLoanExtension(accountCode: loan.acntCode, companyCode: loan.companyCode);
     isInitialLoading.value = false;
     loanExtension.update((val) {
       val?.isLoading = false;
@@ -116,20 +111,13 @@ class LoanPayInfoController extends IOController {
     isLoading.value = true;
     checkLoanExtension.value = true;
 
-    final response = await LoanApi().payLoan(
-      code: loan.acntCode,
-      amount: amount,
-    );
+    final response = await LoanApi().payLoan(code: loan.acntCode, amount: amount, companyCode: loan.companyCode);
 
     isLoading.value = false;
     checkLoanExtension.value = false;
 
     if (response.isSuccess) {
-      onResult(
-        data: response.data,
-        amount: amount,
-        payType: LoanPayType.extension,
-      );
+      onResult(data: response.data, amount: amount, payType: LoanPayType.extension);
     } else {
       showError(text: response.message);
     }
@@ -147,20 +135,13 @@ class LoanPayInfoController extends IOController {
     isLoading.value = true;
     scheduleLoading.value = true;
 
-    final response = await LoanApi().payLoan(
-      code: loan.acntCode,
-      amount: amount,
-    );
+    final response = await LoanApi().payLoan(code: loan.acntCode, amount: amount, companyCode: loan.companyCode);
 
     isLoading.value = false;
     scheduleLoading.value = false;
 
     if (response.isSuccess) {
-      onResult(
-        data: response.data,
-        amount: amount,
-        payType: LoanPayType.schedule,
-      );
+      onResult(data: response.data, amount: amount, payType: LoanPayType.schedule);
     } else {
       showError(text: response.message);
     }
@@ -178,72 +159,47 @@ class LoanPayInfoController extends IOController {
     isLoading.value = true;
     customLoading.value = true;
 
-    final response = await LoanApi().payLoan(
-      code: loan.acntCode,
-      amount: amount,
-    );
+    final response = await LoanApi().payLoan(code: loan.acntCode, amount: amount, companyCode: loan.companyCode);
 
     isLoading.value = false;
     customLoading.value = false;
 
     if (response.isSuccess) {
-      onResult(
-        data: response.data,
-        amount: amount,
-        payType: LoanPayType.custom,
-      );
+      onResult(data: response.data, amount: amount, payType: LoanPayType.custom);
     } else {
       showError(text: response.message);
     }
   }
 
   Future onCloseLineLoan() async {
-    final result = await showWarning(
-      text: 'Та зээл хаахдаа итгэлтэй байна уу',
-      acceptText: 'Тийм',
-      cancelText: 'Хаах',
-    );
+    final result = await showWarning(text: 'Та зээл хаахдаа итгэлтэй байна уу', acceptText: 'Тийм', cancelText: 'Хаах');
     if (result == null) return;
     final amount = closeAmount.value;
 
     isLoading.value = true;
     closeLoading.value = true;
 
-    final response = await LoanApi().payLoan(
-      code: loan.acntCode,
-      amount: amount,
-    );
+    final response = await LoanApi().payLoan(code: loan.acntCode, amount: amount, companyCode: loan.companyCode);
 
     isLoading.value = false;
     closeLoading.value = false;
 
     if (response.isSuccess) {
-      onResult(
-        data: response.data,
-        amount: amount,
-        payType: LoanPayType.closeLine,
-      );
+      onResult(data: response.data, amount: amount, payType: LoanPayType.closeLine);
     } else {
       showError(text: response.message);
     }
   }
 
   Future onCloseLoan() async {
-    final result = await showWarning(
-      text: 'Та зээл хаахдаа итгэлтэй байна уу',
-      acceptText: 'Тийм',
-      cancelText: 'Хаах',
-    );
+    final result = await showWarning(text: 'Та зээл хаахдаа итгэлтэй байна уу', acceptText: 'Тийм', cancelText: 'Хаах');
     if (result == null) return;
     final amount = closeAmount.value;
 
     isLoading.value = true;
     closeLoading.value = true;
 
-    final response = await LoanApi().closeLoan(
-      code: loan.acntCode,
-      amount: amount,
-    );
+    final response = await LoanApi().closeLoan(code: loan.acntCode, amount: amount, companyCode: loan.companyCode);
 
     isLoading.value = false;
     closeLoading.value = false;
@@ -262,16 +218,10 @@ class LoanPayInfoController extends IOController {
     }
   }
 
-  Future onResult({
-    required JSON data,
-    required double amount,
-    required LoanPayType payType,
-  }) async {
+  Future onResult({required JSON data, required double amount, required LoanPayType payType}) async {
     final fee = data['fee'].ddoubleValue;
     final invoice = data['local_invoice_number'].stringValue;
-    final urls = data['urls'].listValue
-        .map((e) => QpayModel.fromJson(e))
-        .toList();
+    final urls = data['urls'].listValue.map((e) => QpayModel.fromJson(e)).toList();
     final typeText = switch (payType) {
       LoanPayType.schedule => 'Хуваарийн дагуу төлөх',
       LoanPayType.custom => 'Өөр дүнгээр төлөх',
@@ -279,30 +229,18 @@ class LoanPayInfoController extends IOController {
       LoanPayType.extension => 'Зээл сунгах',
     };
     final successText = switch (payType) {
-      LoanPayType.schedule =>
-        'Таны зээлийн эргэн төлөлт ${amount.toCurrency()} амжилттай хийгдлээ',
-      LoanPayType.custom =>
-        'Таны зээлийн төлөлт ${amount.toCurrency()} амжилттай хийгдлээ',
-      LoanPayType.close ||
-      LoanPayType.closeLine => 'Таны зээлийн төлөлт амжилттай хийгдэж хаагдлаа',
-      LoanPayType.extension =>
-        'Таны зээлийн сунгалт ${amount.toCurrency()} амжилттай хийгдлээ',
+      LoanPayType.schedule => 'Таны зээлийн эргэн төлөлт ${amount.toCurrency()} амжилттай хийгдлээ',
+      LoanPayType.custom => 'Таны зээлийн төлөлт ${amount.toCurrency()} амжилттай хийгдлээ',
+      LoanPayType.close || LoanPayType.closeLine => 'Таны зээлийн төлөлт амжилттай хийгдэж хаагдлаа',
+      LoanPayType.extension => 'Таны зээлийн сунгалт ${amount.toCurrency()} амжилттай хийгдлээ',
     };
     final info = [
       QpayInfoModel(title: 'Төрөл', value: typeText),
       QpayInfoModel(title: 'Төлөх мөнгөн дүн', value: amount.toCurrency()),
       QpayInfoModel(title: 'Qpay хураамж', value: fee.toCurrency()),
-      QpayInfoModel(
-        title: 'Нийт төлөх дүн',
-        value: (fee + amount).toCurrency(),
-      ),
+      QpayInfoModel(title: 'Нийт төлөх дүн', value: (fee + amount).toCurrency()),
     ];
-    final qpay = QpayScreenModel(
-      title: 'Зээл',
-      invoice: invoice,
-      info: info,
-      urls: urls,
-    );
+    final qpay = QpayScreenModel(title: 'Зээл', invoice: invoice, info: info, urls: urls);
 
     final result = await AppRoute.toQpay(model: qpay);
     if (result == null) return;

@@ -18,9 +18,7 @@ class LoanDetailController extends IOController {
     // LoanDetailActionCalculateModel(title: 'Тооцоолуур'),
   ];
 
-  List<LoanDetailActionModel> get pledge => [
-    LoanDetailActionPledgeModel(title: 'Барьцаа хөрөнгө'),
-  ];
+  List<LoanDetailActionModel> get pledge => [LoanDetailActionPledgeModel(title: 'Барьцаа хөрөнгө')];
   final RxInt selectedIndex = (0).obs;
   double allIntBal = 0.0;
   double billFineBal = 0.0;
@@ -32,10 +30,7 @@ class LoanDetailController extends IOController {
   final schdleAmount = 0.0.obs;
 
   final textController = TextEditingController();
-  final formatter = CurrencyTextInputFormatter.currency(
-    symbol: '₮',
-    decimalDigits: 0,
-  );
+  final formatter = CurrencyTextInputFormatter.currency(symbol: '₮', decimalDigits: 0);
   final scheduleLoading = false.obs;
   final customLoading = false.obs;
   final closeLoading = false.obs;
@@ -51,18 +46,12 @@ class LoanDetailController extends IOController {
 
   Future checkLoading() async {
     isInitialLoading.value = true;
-    await Future.wait([
-      getExtensionAmount(),
-      getScheduleData(),
-      getCloseAmount(),
-    ]);
+    await Future.wait([getExtensionAmount(), getScheduleData(), getCloseAmount()]);
     isInitialLoading.value = false;
   }
 
   bool isSameDay(DateTime date1, DateTime date2) {
-    return date1.year == date2.year &&
-        date1.month == date2.month &&
-        date1.day == date2.day;
+    return date1.year == date2.year && date1.month == date2.month && date1.day == date2.day;
   }
 
   bool checkIsTodayPayment(String schedule) {
@@ -76,9 +65,7 @@ class LoanDetailController extends IOController {
   }
 
   void onIconTapped(int index) {
-    selectedIndex.value = !loan.isOver && index == 2
-        ? selectedIndex.value
-        : index;
+    selectedIndex.value = !loan.isOver && index == 2 ? selectedIndex.value : index;
   }
 
   Future getCloseAmount() async {
@@ -87,6 +74,7 @@ class LoanDetailController extends IOController {
     final response = await LoanApi().getLoanCloseAmount(
       code: loan.acntCode,
       date: DateFormat('yyyy-MM-dd').format(DateTime.now()),
+      companyCode: loan.companyCode,
     );
     closeLoading.value = false;
     if (response.isSuccess) {
@@ -99,23 +87,15 @@ class LoanDetailController extends IOController {
   Future getPledge() async {
     try {
       isLoading.value = true;
-      final response = await LoanApi().getCollateralInfo(
-        accountCode: loan.acntCode,
-      );
-      final payload = response.data.listValue.isNotEmpty
-          ? response.data.listValue
-          : response.json.listValue;
+      final response = await LoanApi().getCollateralInfo(accountCode: loan.acntCode);
+      final payload = response.data.listValue.isNotEmpty ? response.data.listValue : response.json.listValue;
 
       pledgeList.clear();
       if (payload.isEmpty) {
         return;
       }
 
-      pledgeList.addAll(
-        payload
-            .map((item) => LoanPledgeModel.fromJson(item))
-            .toList(growable: false),
-      );
+      pledgeList.addAll(payload.map((item) => LoanPledgeModel.fromJson(item)).toList(growable: false));
     } finally {
       isLoading.value = false;
     }
@@ -150,6 +130,7 @@ class LoanDetailController extends IOController {
       extensionLoading.value = true;
       final response = await LoanApi().getDigitalLoanExtension(
         accountCode: loan.acntCode,
+        companyCode: loan.companyCode,
       );
 
       if (response.isSuccess) {
@@ -167,11 +148,9 @@ class LoanDetailController extends IOController {
 
   Future getScheduleData() async {
     scheduleLoading.value = true;
-    final response = await LoanApi().getLoanSchedule(code: loan.acntCode);
+    final response = await LoanApi().getLoanSchedule(code: loan.acntCode, companyCode: loan.companyCode);
     if (response.isSuccess) {
-      schedule.value = response.data.listValue
-          .map((e) => LoanScheduleModel.fromJson(e))
-          .toList();
+      schedule.value = response.data.listValue.map((e) => LoanScheduleModel.fromJson(e)).toList();
       calculateSchedulePayment();
       scheduleLoading.value = false;
     } else {
@@ -216,20 +195,13 @@ class LoanDetailController extends IOController {
     isLoading.value = true;
     customLoading.value = true;
 
-    final response = await LoanApi().payLoan(
-      code: loan.acntCode,
-      amount: amount,
-    );
+    final response = await LoanApi().payLoan(code: loan.acntCode, amount: amount, companyCode: loan.companyCode);
 
     isLoading.value = false;
     customLoading.value = false;
 
     if (response.isSuccess) {
-      onResult(
-        data: response.data,
-        amount: amount,
-        payType: LoanPayType.custom,
-      );
+      onResult(data: response.data, amount: amount, payType: LoanPayType.custom);
     } else {
       showError(text: response.message);
     }
@@ -238,21 +210,14 @@ class LoanDetailController extends IOController {
   // Зээл хаах
   Future onCloseLoan(bool isClose) async {
     final result = isClose
-        ? await showWarning(
-            text: 'Та зээл хаахдаа итгэлтэй байна уу',
-            acceptText: 'Тийм',
-            cancelText: 'Хаах',
-          )
+        ? await showWarning(text: 'Та зээл хаахдаа итгэлтэй байна уу', acceptText: 'Тийм', cancelText: 'Хаах')
         : true;
     if (result == null) return;
     final amount = closeAmount.value;
 
     isLoading.value = true;
 
-    final response = await LoanApi().closeLoan(
-      code: loan.acntCode,
-      amount: amount,
-    );
+    final response = await LoanApi().closeLoan(code: loan.acntCode, amount: amount, companyCode: loan.companyCode);
 
     isLoading.value = false;
 
@@ -275,19 +240,12 @@ class LoanDetailController extends IOController {
 
     isLoading.value = true;
 
-    final response = await LoanApi().extendLoan(
-      code: loan.acntCode,
-      amount: amount,
-    );
+    final response = await LoanApi().extendLoan(code: loan.acntCode, amount: amount);
 
     isLoading.value = false;
 
     if (response.isSuccess) {
-      onResult(
-        data: response.data,
-        amount: amount,
-        payType: LoanPayType.extension,
-      );
+      onResult(data: response.data, amount: amount, payType: LoanPayType.extension);
     } else {
       showError(text: response.message);
     }
@@ -296,8 +254,7 @@ class LoanDetailController extends IOController {
   Future<void> calculateSchedulePayment() async {
     schdleAmount.value = schedule.fold<double>(
       0.0,
-      (previousValue, element) =>
-          previousValue + (element.isPaid ? 0.0 : element.totalAmount),
+      (previousValue, element) => previousValue + (element.isPaid ? 0.0 : element.totalAmount),
     );
   }
 
@@ -313,32 +270,19 @@ class LoanDetailController extends IOController {
     final amount = schdlePay;
 
     isLoading.value = true;
-    final response = await LoanApi().payLoan(
-      code: loan.acntCode,
-      amount: amount,
-    );
+    final response = await LoanApi().payLoan(code: loan.acntCode, amount: amount, companyCode: loan.companyCode);
     isLoading.value = false;
     if (response.isSuccess) {
-      onResult(
-        data: response.data,
-        amount: schdlePay,
-        payType: LoanPayType.schedule,
-      );
+      onResult(data: response.data, amount: schdlePay, payType: LoanPayType.schedule);
     } else {
       showError(text: response.message);
     }
   }
 
-  Future onResult({
-    required JSON data,
-    required double amount,
-    required LoanPayType payType,
-  }) async {
+  Future onResult({required JSON data, required double amount, required LoanPayType payType}) async {
     final fee = data['fee'].ddoubleValue;
     final invoice = data['local_invoice_number'].stringValue;
-    final urls = data['urls'].listValue
-        .map((e) => QpayModel.fromJson(e))
-        .toList();
+    final urls = data['urls'].listValue.map((e) => QpayModel.fromJson(e)).toList();
     final typeText = switch (payType) {
       LoanPayType.schedule => 'Хуваарийн дагуу төлөх',
       LoanPayType.custom => 'Өөр дүнгээр төлөх',
@@ -346,30 +290,18 @@ class LoanDetailController extends IOController {
       LoanPayType.extension => 'Зээл сунгах',
     };
     final successText = switch (payType) {
-      LoanPayType.schedule =>
-        'Таны зээлийн эргэн төлөлт ${amount.toCurrency()} амжилттай хийгдлээ',
-      LoanPayType.custom =>
-        'Таны зээлийн төлөлт ${amount.toCurrency()} амжилттай хийгдлээ',
-      LoanPayType.close ||
-      LoanPayType.closeLine => 'Таны зээлийн төлөлт амжилттай хийгдэж хаагдлаа',
-      LoanPayType.extension =>
-        'Таны зээлийн сунгалт ${amount.toCurrency()} амжилттай хийгдлээ',
+      LoanPayType.schedule => 'Таны зээлийн эргэн төлөлт ${amount.toCurrency()} амжилттай хийгдлээ',
+      LoanPayType.custom => 'Таны зээлийн төлөлт ${amount.toCurrency()} амжилттай хийгдлээ',
+      LoanPayType.close || LoanPayType.closeLine => 'Таны зээлийн төлөлт амжилттай хийгдэж хаагдлаа',
+      LoanPayType.extension => 'Таны зээлийн сунгалт ${amount.toCurrency()} амжилттай хийгдлээ',
     };
     final info = [
       QpayInfoModel(title: 'Төрөл', value: typeText),
       QpayInfoModel(title: 'Төлөх мөнгөн дүн', value: amount.toCurrency()),
       QpayInfoModel(title: 'Qpay хураамж', value: fee.toCurrency()),
-      QpayInfoModel(
-        title: 'Нийт төлөх дүн',
-        value: (fee + amount).toCurrency(),
-      ),
+      QpayInfoModel(title: 'Нийт төлөх дүн', value: (fee + amount).toCurrency()),
     ];
-    final qpay = QpayScreenModel(
-      title: 'Зээл',
-      invoice: invoice,
-      info: info,
-      urls: urls,
-    );
+    final qpay = QpayScreenModel(title: 'Зээл', invoice: invoice, info: info, urls: urls);
 
     final result = await AppRoute.toQpay(model: qpay);
     if (result == null) return;

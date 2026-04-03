@@ -10,15 +10,17 @@ class LoanProductModel {
   final String collateralType;
   final String productCode;
   final String createdDate;
+  final String conclusion;
 
   LoanProductModel.fromJson(JSON json)
-      : id = json['id'].integerValue,
-        name = json['name'].stringValue,
-        maxAmount = json['max_amount'].ddoubleValue,
-        interest = json['interest'].stringValue,
-        duration = json['duration'].stringValue,
-        advancePayment = json['advance_payment'].stringValue,
-        collateralType = json['collateral_type'].stringValue,
-        productCode = json['product_code'].stringValue,
-        createdDate = json['created_date'].stringValue;
+    : id = json['id'].integerValue,
+      name = json['name'].stringValue,
+      maxAmount = json['max_amount'].ddoubleValue,
+      interest = json['interest'].stringValue,
+      duration = json['duration'].stringValue,
+      advancePayment = json['advance_payment'].stringValue,
+      collateralType = json['collateral_type'].stringValue,
+      productCode = json['product_code'].stringValue,
+      createdDate = json['created_date'].stringValue,
+      conclusion = json['conclusion'].stringValue;
 }

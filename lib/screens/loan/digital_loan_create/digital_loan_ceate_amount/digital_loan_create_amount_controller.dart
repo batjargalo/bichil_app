@@ -108,28 +108,21 @@ class DigitalLoanCreateAmountController extends IOController {
     everAll([amount, selectedTerm], (_) {
       if (selectedTerm.value <= 3) {
         final P = amount.value;
-        final r = (0.468 / 365) * underMonth[selectedTerm.value];
+        final r = ((loanLimit.first.loanInt * 0.01) / 365) * underMonth[selectedTerm.value];
         final n = 1;
-        mountlyPayment.value =
-            P * r * (pow(1 + r, n) as double) / ((pow(1 + r, n) as double) - 1);
+        mountlyPayment.value = P * r * (pow(1 + r, n) as double) / ((pow(1 + r, n) as double) - 1);
         totalPayment.value = mountlyPayment.value * n;
       } else {
         final P = amount.value;
         late double B = P;
         late double interestSum = 0.0;
-        final r = (0.468 / 365) * 30;
+        final r = ((loanLimit.first.loanInt * 0.01) / 365) * 30;
         final n = underMonth[selectedTerm.value];
-        mountlyPayment.value =
-            P *
-            (r * (pow(1 + r, n) as double) / ((pow(1 + r, n) as double) - 1));
+        mountlyPayment.value = P * (r * (pow(1 + r, n) as double) / ((pow(1 + r, n) as double) - 1));
 
         for (int i = 0; i < n; i++) {
-          final daysInMonth = DateTime(
-            DateTime.now().year,
-            DateTime.now().month + i + 1,
-            0,
-          ).day;
-          final interest = B * (0.468 / 365 * daysInMonth);
+          final daysInMonth = DateTime(DateTime.now().year, DateTime.now().month + i + 1, 0).day;
+          final interest = B * ((loanLimit.first.loanInt * 0.01) / 365 * daysInMonth);
           interestSum += interest;
           final principal = mountlyPayment.value - interest;
           B = B - principal;
@@ -142,10 +135,7 @@ class DigitalLoanCreateAmountController extends IOController {
 
   void onTapNext() async {
     if (loanLimit.first.loanCount > 0) {
-      showError(
-        text:
-            'Одоогоор танд нэг зээл идэвхтэй байна. Зээлээ төлж дууссаны дараа дахин зээл авах боломжтой.',
-      );
+      showError(text: 'Одоогоор танд нэг зээл идэвхтэй байна. Зээлээ төлж дууссаны дараа дахин зээл авах боломжтой.');
       return;
     } else {
       final userRelated = await UserApi().getUserRelated();
@@ -164,9 +154,7 @@ class DigitalLoanCreateAmountController extends IOController {
         return;
       }
       if (amount.value > loanLimit.first.scoreLimit) {
-        showError(
-          text: '${loanLimit.first.scoreLimit}-с ихгүй утга оруулна уу',
-        );
+        showError(text: '${loanLimit.first.scoreLimit}-с ихгүй утга оруулна уу');
         return;
       } else if (amount.value < 50000) {
         showError(text: '50000₮-с багагүй утга оруулна уу');
@@ -183,12 +171,7 @@ class DigitalLoanCreateAmountController extends IOController {
       });
       final response = await LoanApi().checkPin(pin: pin);
 
-      final model = DigitalLoanCreateModel(
-        amount: amount.value,
-        term: term.value,
-        pinCode: pin,
-        payDay: 0,
-      );
+      final model = DigitalLoanCreateModel(amount: amount.value, term: term.value, pinCode: pin, payDay: 0);
       // final response = await LoanApi().createDigitalLoan(model: model);
 
       isLoading.value = false;
@@ -197,22 +180,14 @@ class DigitalLoanCreateAmountController extends IOController {
       });
 
       if (response.isSuccess) {
-        await AppRoute.toSuccess(
-          title: 'Амжилттай',
-          description: response.message,
-          buttonText: 'Үргэлжлүүлэх',
-        );
+        await AppRoute.toSuccess(title: 'Амжилттай', description: response.message, buttonText: 'Үргэлжлүүлэх');
         LoanRoute.toDigitalLoanContract(item: model);
         // Get.until((route) => route.isFirst);
         // if (Get.isRegistered<LoanTabController>()) {
         //   Get.find<LoanTabController>().onRefresh();
         // }
       } else if (response.message == "Та гүйлгээний нууц үгээ тохируулна уу") {
-        toWarning(
-          titleText: 'Анхаарна уу.',
-          text: response.message,
-          buttonText: 'Нууц үг үүсгэх',
-        );
+        toWarning(titleText: 'Анхаарна уу.', text: response.message, buttonText: 'Нууц үг үүсгэх');
       } else {
         showError(text: response.message);
       }

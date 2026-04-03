@@ -8,11 +8,7 @@ class SavingCreateContractController extends IOController {
   final String? code;
   final html = ''.obs;
 
-  SavingCreateContractController({
-    required this.type,
-    required this.item,
-    required this.code,
-  });
+  SavingCreateContractController({required this.type, required this.item, required this.code});
 
   @override
   void onInit() {

@@ -10,32 +10,19 @@ class SavingDetailScreen extends GetView<SavingDetailController> {
   @override
   Widget build(BuildContext context) {
     return IOScaffold(
-      appBar: IOAppBar(
-        titleText: 'Дэлгэрэнгүй',
-      ),
+      appBar: IOAppBar(titleText: 'Дэлгэрэнгүй'),
       body: Obx(
         () => controller.isInitialLoading.value
             ? const IOLoading()
             : SingleChildScrollView(
-                padding: EdgeInsets.only(
-                  left: 16,
-                  right: 16,
-                  top: 16,
-                  bottom: 16 + Get.mediaQuery.padding.bottom,
-                ),
+                padding: EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 16 + Get.mediaQuery.padding.bottom),
                 child: Column(
                   children: [
                     SavingDetailWidget(detail: controller.detail.value),
                     const SizedBox(height: 16),
-                    SavingDetailListWidget(
-                      actions: controller.action1,
-                      onTap: controller.onTapAction,
-                    ),
+                    SavingDetailListWidget(actions: controller.action1, onTap: controller.onTapAction),
                     const SizedBox(height: 16),
-                    SavingDetailListWidget(
-                      actions: controller.action2,
-                      onTap: controller.onTapAction,
-                    ),
+                    SavingDetailListWidget(actions: controller.action2, onTap: controller.onTapAction),
                   ],
                 ),
               ),
