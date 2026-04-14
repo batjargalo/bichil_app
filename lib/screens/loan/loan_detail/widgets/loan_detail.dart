@@ -13,13 +13,7 @@ class LoanDetail extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withAlpha(25),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
+        boxShadow: [BoxShadow(color: Colors.black.withAlpha(25), blurRadius: 10, offset: const Offset(0, 4))],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -30,12 +24,7 @@ class LoanDetail extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Нийт үлдэгдэл',
-                    style: IOStyles.caption2Regular.copyWith(
-                      color: IOColors.textTertiary,
-                    ),
-                  ),
+                  Text('Нийт үлдэгдэл', style: IOStyles.caption2Regular.copyWith(color: IOColors.textTertiary)),
                   const SizedBox(height: 4),
                   Text(loan.totalBal.toCurrency(), style: IOStyles.h6),
                 ],
@@ -53,65 +42,34 @@ class LoanDetail extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   loan.extension
-                      ? Text(
-                          'Олгосон зээл',
-                          style: IOStyles.caption2Regular.copyWith(
-                            color: IOColors.textTertiary,
-                          ),
-                        )
-                      : Text(
-                          'Батлагдсан дүн',
-                          style: IOStyles.caption2Regular.copyWith(
-                            color: IOColors.textTertiary,
-                          ),
-                        ),
+                      ? Text('Олгосон зээл', style: IOStyles.caption2Regular.copyWith(color: IOColors.textTertiary))
+                      : Text('Батлагдсан дүн', style: IOStyles.caption2Regular.copyWith(color: IOColors.textTertiary)),
                   const SizedBox(height: 4),
                   loan.extension
-                      ? Text(
-                          loan.advAmount.toCurrency(),
-                          style: IOStyles.caption1SemiBold,
-                        )
-                      : Text(
-                          loan.approvAmount.toCurrency(),
-                          style: IOStyles.caption1SemiBold,
-                        ),
+                      ? Text(loan.advAmount.toCurrency(), style: IOStyles.caption1SemiBold)
+                      : Text(loan.approvAmount.toCurrency(), style: IOStyles.caption1SemiBold),
 
                   const SizedBox(height: 8),
 
-                  Text(
-                    'Төлөлт хийх огноо',
-                    style: IOStyles.caption2Regular.copyWith(
-                      color: IOColors.textTertiary,
-                    ),
-                  ),
+                  Text('Төлөлт хийх огноо', style: IOStyles.caption2Regular.copyWith(color: IOColors.textTertiary)),
                   const SizedBox(height: 4),
-                  Text(
-                    loan.nextSchdDate.toFormattedString(format: 'yyyy.MM.dd'),
-                    style: IOStyles.caption1SemiBold,
-                  ),
+                  Text(loan.nextSchdDate.toFormattedString(format: 'yyyy.MM.dd'), style: IOStyles.caption1SemiBold),
                 ],
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Дараагийн төлөлт',
-                    style: IOStyles.caption2Regular.copyWith(
-                      color: IOColors.textTertiary,
-                    ),
-                  ),
+                  Text('Олгосон огноо', style: IOStyles.caption2Regular.copyWith(color: IOColors.textTertiary)),
                   const SizedBox(height: 4),
                   Text(
-                    loan.nextSchdTotal.toCurrency(),
+                    DateTime.tryParse(loan.startDate)?.toFormattedString(format: 'yyyy.MM.dd') ?? '',
                     style: IOStyles.caption1SemiBold,
                   ),
                   const SizedBox(height: 8),
 
                   Text(
                     loan.isOver ? 'Хэтэрсэн өдөр' : 'Дараагийн төлөлт хүртэл',
-                    style: IOStyles.caption2Regular.copyWith(
-                      color: IOColors.textTertiary,
-                    ),
+                    style: IOStyles.caption2Regular.copyWith(color: IOColors.textTertiary),
                   ),
                   const SizedBox(height: 4),
                   Text(
@@ -120,9 +78,7 @@ class LoanDetail extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.01,
-              ), // Placeholder for alignment
+              SizedBox(width: MediaQuery.of(context).size.width * 0.01), // Placeholder for alignment
             ],
           ),
         ],
@@ -163,16 +119,12 @@ class _StatusBadge extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
       decoration: BoxDecoration(
-        color: isOver
-            ? IOColors.errorPrimary.withAlpha(30)
-            : IOColors.successPrimary.withAlpha(30),
+        color: isOver ? IOColors.errorPrimary.withAlpha(30) : IOColors.successPrimary.withAlpha(30),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Text(
         isOver ? 'Хугацаа хэтэрсэн' : 'Хэвийн',
-        style: IOStyles.caption2SemiBold.copyWith(
-          color: isOver ? IOColors.errorPrimary : IOColors.successPrimary,
-        ),
+        style: IOStyles.caption2SemiBold.copyWith(color: isOver ? IOColors.errorPrimary : IOColors.successPrimary),
       ),
     );
   }
@@ -185,13 +137,7 @@ class RowWidgets extends StatelessWidget {
   final TextStyle? titleStyle;
   final TextStyle? valueStyle;
 
-  const RowWidgets({
-    super.key,
-    required this.title,
-    required this.value,
-    this.titleStyle,
-    this.valueStyle,
-  });
+  const RowWidgets({super.key, required this.title, required this.value, this.titleStyle, this.valueStyle});
 
   @override
   Widget build(BuildContext context) {
@@ -200,9 +146,7 @@ class RowWidgets extends StatelessWidget {
       children: [
         Text(title, style: titleStyle ?? IOStyles.caption1Regular),
         const SizedBox(width: 16),
-        Flexible(
-          child: Text(value, style: valueStyle ?? IOStyles.caption1Bold),
-        ),
+        Flexible(child: Text(value, style: valueStyle ?? IOStyles.caption1Bold)),
       ],
     );
   }

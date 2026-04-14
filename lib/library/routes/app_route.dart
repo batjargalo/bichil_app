@@ -52,4 +52,8 @@ class AppRoute {
   static dynamic toForceUpdate({required ForceUpdateModel model}) {
     return ForceUpdateScreen(model: model).show();
   }
+
+  static dynamic toForceServiceTerms({required ForceUpdateServiceTermsModel model}) {
+    return ForceUpdateServiceTermsScreen(model: model).show();
+  }
 }

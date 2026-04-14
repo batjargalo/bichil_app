@@ -44,11 +44,7 @@ class SavingApi extends IOClient {
 
   Future<IOResponse> getSavingContract({required SavingCreateModel model}) {
     const path = '/api/core/saving-contract/body';
-    final query = {
-      'term_len': model.term.value,
-      'total_amount': model.firstAmount,
-      'frequency': model.frequency.value,
-    };
+    final query = {'term_len': model.term.value, 'total_amount': model.firstAmount, 'frequency': model.frequency.value};
     return sendGetRequest(path, query: query);
   }
 
@@ -57,10 +53,7 @@ class SavingApi extends IOClient {
     return sendGetRequest(path);
   }
 
-  Future<IOResponse> changeSavingName({
-    required int code,
-    required String name,
-  }) {
+  Future<IOResponse> changeSavingName({required int code, required String name}) {
     final path = '/api/core/saving/change-name/$code/';
     final data = {'name': name};
     return sendPostRequest(path, data: data);
@@ -71,49 +64,27 @@ class SavingApi extends IOClient {
     return sendPostRequest(path, data: model.toMap());
   }
 
-  Future<IOResponse> addAmountSaving({
-    required String code,
-    required double amount,
-  }) {
+  Future<IOResponse> addAmountSaving({required String code, required double amount}) {
     const path = '/api/core/saving/deposit/';
-    final data = {
-      'amount': amount,
-      'account_no': code,
-    };
+    final data = {'amount': amount, 'account_no': code};
     return sendPostRequest(path, data: data);
   }
 
-  Future<IOResponse> getCalculate({
-    required Map<String, dynamic> data,
-  }) {
+  Future<IOResponse> getCalculate({required Map<String, dynamic> data}) {
     const path = '/api/core/saving/calculate/';
 
     return sendPostRequest(path, data: data, hasToken: false);
   }
 
-  Future<IOResponse> getCalculateRate({
-    required double amount,
-    required String purpose,
-    required String account,
-  }) {
+  Future<IOResponse> getCalculateRate({required double amount, required String purpose, required String account}) {
     const path = '/api/core/saving/rate/calculate';
-    final data = {
-      'amount': amount,
-      'purpose': purpose,
-      'account_no': account,
-    };
+    final data = {'amount': amount, 'purpose': purpose, 'account_no': account};
     return sendPostRequest(path, data: data);
   }
 
-  Future<IOResponse> getHistory({
-    required int offset,
-    required int limit,
-  }) async {
+  Future<IOResponse> getHistory({required int offset, required int limit}) async {
     const url = '/api/polaris/customer/td/history/';
-    final query = {
-      'page_number': offset,
-      'page_size': limit,
-    };
+    final query = {'page_number': offset, 'page_size': limit};
     return sendPostRequest(url, query: query);
   }
 

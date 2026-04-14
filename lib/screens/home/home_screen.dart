@@ -42,10 +42,7 @@ class HomeScreen extends GetView<HomeController> {
                                     padding: const EdgeInsets.all(16),
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(8),
-                                      child: IOImageNetworkWidget(
-                                        url: e,
-                                        fit: BoxFit.cover,
-                                      ),
+                                      child: IOImageNetworkWidget(url: e, fit: BoxFit.cover),
                                     ),
                                   ),
                                 ),
@@ -70,34 +67,34 @@ class HomeScreen extends GetView<HomeController> {
                   padding: const EdgeInsets.all(16),
                   child: Column(
                     children: [
-                      SizedBox(
-                        height: 185,
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: HomeWidget(
-                                direction: Axis.vertical,
-                                icon: 'noncoll.png',
-                                title: 'Дижитал зээл',
-                                description: 'Хурдан болон хялбар зээл',
-                                onTap: controller.onTapDigitalLoan,
-                              ),
-                            ),
-                            const SizedBox(width: 7),
-                            Expanded(
-                              child: HomeWidget(
-                                direction: Axis.vertical,
-                                icon: 'loan.home.png',
-                                title: 'Барьцаатай зээл',
-                                description:
-                                    'Таны хэрэгцээнд нийцэх олон төрлийн зээл',
-                                onTap: controller.onTapLoan,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 8),
+                      // SizedBox(
+                      //   height: 185,
+                      //   child: Row(
+                      //     children: [
+                      //       Expanded(
+                      //         child: HomeWidget(
+                      //           direction: Axis.vertical,
+                      //           icon: 'noncoll.png',
+                      //           title: 'Дижитал зээл',
+                      //           description: 'Хурдан болон хялбар зээл',
+                      //           onTap: controller.onTapDigitalLoan,
+                      //         ),
+                      //       ),
+                      //       const SizedBox(width: 7),
+                      //       Expanded(
+                      //         child: HomeWidget(
+                      //           direction: Axis.vertical,
+                      //           icon: 'loan.home.png',
+                      //           title: 'Барьцаатай зээл',
+                      //           description:
+                      //               'Таны хэрэгцээнд нийцэх олон төрлийн зээл',
+                      //           onTap: controller.onTapLoan,
+                      //         ),
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
+                      // const SizedBox(height: 8),
                       HomeWidget(
                         direction: Axis.horizontal,
                         icon: 'saving.home.png',

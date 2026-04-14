@@ -27,15 +27,11 @@ class LoanRecreateAmountController extends IOController {
 
   void onTapNext() async {
     if (item.availComBal == 0) {
-      showError(
-        text:
-            'Зээл авах боломжгүй байна. Та зээлийн боломжит үлдэгдлээ нэмснээр зээл авах боломжтой болно.',
-      );
+      showError(text: 'Зээл авах боломжгүй байна. Та зээлийн боломжит үлдэгдлээ нэмснээр зээл авах боломжтой болно.');
       return;
     }
     if (amount.value > item.availComBal) {
-      showError(
-          text: '${item.availComBal.toCurrency()}-с ихгүй утга оруулна уу');
+      showError(text: '${item.availComBal.toCurrency()}-с ихгүй утга оруулна уу');
       return;
     }
 
@@ -47,14 +43,8 @@ class LoanRecreateAmountController extends IOController {
       val?.isLoading = true;
     });
 
-    final model = LoanRecreateModel(
-      amount: amount.value,
-      accountNo: item.acntCode,
-      pinCode: pin,
-      term: 0,
-      payDay: 0,
-    );
-    final response = await LoanApi().recreate(model: model);
+    final model = LoanRecreateModel(amount: amount.value, accountNo: item.acntCode, pinCode: pin, term: 0, payDay: 0);
+    final response = await LoanApi().recreate(model: model, companyCode: item.companyCode);
 
     isLoading.value = false;
     button.update((val) {
@@ -62,11 +52,7 @@ class LoanRecreateAmountController extends IOController {
     });
 
     if (response.isSuccess) {
-      await AppRoute.toSuccess(
-        title: 'Амжилттай',
-        description: response.message,
-        buttonText: 'Дуусгах',
-      );
+      await AppRoute.toSuccess(title: 'Амжилттай', description: response.message, buttonText: 'Дуусгах');
       Get.until((route) => route.isFirst);
       if (Get.isRegistered<LoanTabController>()) {
         Get.find<LoanTabController>().onRefresh();

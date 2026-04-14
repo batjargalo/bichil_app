@@ -24,12 +24,7 @@ class UserInfoScreen extends GetView<UserInfoController> {
                     const Divider(height: 1, thickness: 1),
                     UserInfoWidget(title: 'Регистр', value: controller.user.value.registerCode),
                     const Divider(height: 1, thickness: 1),
-                    UserInfoWidget(
-                      title: 'Утасны дугаар',
-                      value: controller.user.value.phone,
-                      hasAction: true,
-                      onTap: controller.onChangePhone,
-                    ),
+                    UserInfoWidget(title: 'Утасны дугаар', value: controller.user.value.phone),
                     const Divider(height: 1, thickness: 1),
                     UserInfoWidget(
                       title: 'Дансны дугаар',

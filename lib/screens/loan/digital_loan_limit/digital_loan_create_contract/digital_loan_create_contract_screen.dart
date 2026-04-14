@@ -15,10 +15,7 @@ class DigitalLoanContractScreen extends GetView<DigitalLoanContractController> {
         appBar: IOAppBar(titleText: 'Зээлийн гэрээ'),
         body: SingleChildScrollView(
           padding: const EdgeInsets.all(5),
-          child: HtmlWidget(
-            controller.html.value,
-            textStyle: IOStyles.body2Regular,
-          ),
+          child: HtmlWidget(controller.html.value, textStyle: IOStyles.body2Regular),
         ),
         bottomNavigationBar: IOBottomNavigationBar(
           backgroundColor: IOColors.backgroundPrimary,
@@ -38,16 +35,10 @@ class DigitalLoanContractScreen extends GetView<DigitalLoanContractController> {
                     children: [
                       SizedBox.square(
                         dimension: 16,
-                        child: IOCheckbox(
-                          value: controller.accepted.value,
-                          onChanged: controller.accepted.call,
-                        ),
+                        child: IOCheckbox(value: controller.accepted.value, onChanged: controller.accepted.call),
                       ),
                       const SizedBox(width: 16),
-                      const Text(
-                        'Би дээрх нөхцөлүүдийг зөвшөөрч байна.',
-                        style: IOStyles.caption1Regular,
-                      ),
+                      const Text('Би дээрх нөхцөлүүдийг зөвшөөрч байна.', style: IOStyles.caption1Regular),
                     ],
                   ),
                 ),
@@ -56,10 +47,7 @@ class DigitalLoanContractScreen extends GetView<DigitalLoanContractController> {
               Row(
                 children: [
                   Expanded(
-                    child: IOButtonWidget(
-                      model: controller.next.value,
-                      onPressed: controller.onTapNext,
-                    ),
+                    child: IOButtonWidget(model: controller.next.value, onPressed: controller.onTapNext),
                   ),
                 ],
               ),

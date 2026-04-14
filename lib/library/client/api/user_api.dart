@@ -1,16 +1,9 @@
 import 'package:bichil/library/library.dart';
 
 class UserApi extends IOClient {
-  Future<IOResponse> login({
-    required String username,
-    required String password,
-  }) async {
+  Future<IOResponse> login({required String username, required String password}) async {
     const path = '/api/token/';
-    final data = {
-      'device_id': await HelperManager.deviceId,
-      'username': username,
-      'password': password,
-    };
+    final data = {'device_id': await HelperManager.deviceId, 'username': username, 'password': password};
     return sendPostRequest(path, data: data, hasToken: false);
   }
 
@@ -25,47 +18,31 @@ class UserApi extends IOClient {
     return sendPostRequest(path);
   }
 
-  Future<IOResponse> sendOtp({
-    required String phone,
-    required String type,
-  }) async {
+  Future<IOResponse> sendOtp({required String phone, required String type}) async {
     const url = '/api/otp/send';
     final data = {'phone_number': phone, 'type': type};
     return sendPostRequest(url, data: data, hasToken: false);
   }
 
-  Future<IOResponse> checkOtp({
-    required String phoneNumber,
-    required String otp,
-    required String token,
-  }) async {
+  Future<IOResponse> checkOtp({required String phoneNumber, required String otp, required String token}) async {
     const url = '/api/otp/check';
     final data = {'phone_number': phoneNumber, 'otp': otp, 'otp_token': token};
     return sendPostRequest(url, data: data, hasToken: false);
   }
 
-  Future<IOResponse> changePassword({
-    required String old,
-    required String newPass,
-  }) async {
+  Future<IOResponse> changePassword({required String old, required String newPass}) async {
     const url = '/api/user/password/update/';
     final data = {'new_password': newPass, 'current_password': old};
     return sendPostRequest(url, data: data);
   }
 
-  Future<IOResponse> changePhone({
-    required String phone,
-    required String token,
-  }) async {
+  Future<IOResponse> changePhone({required String phone, required String token}) async {
     const url = '/api/user/change/phonenumber/';
     final data = {'phone_number': phone, 'opt_token': token};
     return sendPostRequest(url, data: data);
   }
 
-  Future<IOResponse> changeBank({
-    required int bankId,
-    required String account,
-  }) {
+  Future<IOResponse> changeBank({required int bankId, required String account}) {
     const url = '/api/user/bankaccount/';
     final data = {'bank_id': bankId, 'account_number': account};
     return sendPostRequest(url, data: data);
@@ -77,26 +54,15 @@ class UserApi extends IOClient {
     return sendPostRequest(url, data: data);
   }
 
-  Future<IOResponse> changePin({
-    required String pin,
-    required String password,
-  }) async {
+  Future<IOResponse> changePin({required String pin, required String password}) async {
     const url = '/api/user/pin-code/create';
     final data = {'pin_code': pin, 'password': password};
     return sendPostRequest(url, data: data);
   }
 
-  Future<IOResponse> resetPassword({
-    required String phone,
-    required String password,
-    required String token,
-  }) async {
+  Future<IOResponse> resetPassword({required String phone, required String password, required String token}) async {
     const url = '/api/user/password/reset/';
-    final data = {
-      'phone_number': phone,
-      'password': password,
-      'otp_token': token,
-    };
+    final data = {'phone_number': phone, 'password': password, 'otp_token': token};
     return sendPostRequest(url, data: data, hasToken: false);
   }
 
@@ -125,11 +91,7 @@ class UserApi extends IOClient {
     return sendPostRequest(url, data: data);
   }
 
-  Future<IOResponse> getNotifications({
-    required int offset,
-    required int limit,
-    required String type,
-  }) async {
+  Future<IOResponse> getNotifications({required int offset, required int limit, required String type}) async {
     const url = '/api/user/notification';
     final query = {'offset': offset, 'limit': limit, 'type': type};
     return sendGetRequest(url, query: query);
@@ -151,22 +113,24 @@ class UserApi extends IOClient {
     return sendGetRequest(path);
   }
 
-  Future<IOResponse> addRelate({
-    required String name,
-    required String phone,
-    required String relation,
-  }) {
+  Future<IOResponse> getUserTerms() {
+    const path = '/api/user/service-term/';
+    return sendGetRequest(path);
+  }
+
+  Future<IOResponse> checkUserTerms() {
+    const path = '/api/user/service-term/';
+    final data = {'service_term': true};
+    return sendPostRequest(path, data: data);
+  }
+
+  Future<IOResponse> addRelate({required String name, required String phone, required String relation}) {
     const url = '/api/user/related/';
     final data = {'name': name, 'phone': phone, 'relation': relation};
     return sendPostRequest(url, data: data);
   }
 
-  Future<IOResponse> changeRelate({
-    int? id,
-    required String name,
-    required String phone,
-    required String relation,
-  }) {
+  Future<IOResponse> changeRelate({int? id, required String name, required String phone, required String relation}) {
     const url = '/api/user/related/';
     final data = {"id": id, 'name': name, 'phone': phone, 'relation': relation};
     return sendPutRequest(url, data: data);

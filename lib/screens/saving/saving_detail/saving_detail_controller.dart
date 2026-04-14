@@ -7,17 +7,17 @@ class SavingDetailController extends IOController {
   final detail = SavingDetailModel.fromJson(JSON.nil).obs;
 
   List<SavingDetailAction> get action1 => [
-        SavingDetailAction.contract,
-        SavingDetailAction.changeName,
-        SavingDetailAction.statement,
-        SavingDetailAction.calculator,
-        if (detail.value.blockBal <= 0) SavingDetailAction.cashout,
-      ];
+    SavingDetailAction.contract,
+    SavingDetailAction.changeName,
+    SavingDetailAction.statement,
+    SavingDetailAction.calculator,
+    if (detail.value.blockBal <= 0) SavingDetailAction.cashout,
+  ];
 
   List<SavingDetailAction> get action2 => [
-        SavingDetailAction.loan,
-        SavingDetailAction.create,
-      ];
+    // SavingDetailAction.loan,
+    SavingDetailAction.create,
+  ];
 
   SavingDetailController({required SavingDetailModel info}) {
     detail.value = info;
@@ -25,9 +25,7 @@ class SavingDetailController extends IOController {
 
   Future getInfo() async {
     isInitialLoading.value = true;
-    final response = await SavingApi().getSavingFullInfo(
-      code: detail.value.accountNumber,
-    );
+    final response = await SavingApi().getSavingFullInfo(code: detail.value.accountNumber);
     isInitialLoading.value = false;
 
     if (response.isSuccess) {
@@ -58,11 +56,11 @@ class SavingDetailController extends IOController {
         if (result == false) return;
         onCashout();
         break;
-      case SavingDetailAction.loan:
-        final result = SessionManager.shared.checkBankAccount();
-        if (result == false) return;
-        LoanRoute.toCreateSavingAmount(saving: detail.value);
-        break;
+      // case SavingDetailAction.loan:
+      //   final result = SessionManager.shared.checkBankAccount();
+      //   if (result == false) return;
+      //   LoanRoute.toCreateSavingAmount(saving: detail.value);
+      //   break;
       case SavingDetailAction.create:
         SavingRoute.toCreateCondition();
         break;
@@ -80,8 +78,7 @@ class SavingDetailController extends IOController {
       case SavingCloseType.deposite:
         final response = await SavingApi().getSavingCondition();
         if (response.isSuccess) {
-          model.minimumAmount =
-              response.data['minimum_withdrawal_amount'].ddoubleValue;
+          model.minimumAmount = response.data['minimum_withdrawal_amount'].ddoubleValue;
           if (model.minimumAmount <= detail.value.availBal) {
             SavingRoute.toDeposite(model: model);
           } else {
@@ -111,7 +108,7 @@ enum SavingDetailAction {
   statement(title: 'Хуулга'),
   calculator(title: 'Тооцоолуур'),
   cashout(title: 'Итгэлцлээс зарлага гаргах'),
-  loan(title: 'Итгэлцэл барьцаалсан зээл авах'),
+  // loan(title: 'Итгэлцэл барьцаалсан зээл авах'),
   create(title: 'Итгэлцэл нээх');
 
   const SavingDetailAction({required this.title});

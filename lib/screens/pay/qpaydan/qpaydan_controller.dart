@@ -7,11 +7,7 @@ class QpayDanController extends IOSuperController {
   final QpayDanScreenModel model;
   final String danId;
   final loadingScore = false.obs;
-  final check = IOButtonModel(
-    label: 'Төлбөр шалгах',
-    type: IOButtonType.primary,
-    size: IOButtonSize.medium,
-  ).obs;
+  final check = IOButtonModel(label: 'Төлбөр шалгах', type: IOButtonType.primary, size: IOButtonSize.medium).obs;
   QpayDanController({required this.model, required this.danId});
 
   @override
@@ -23,10 +19,7 @@ class QpayDanController extends IOSuperController {
     try {
       await launchUrlString(item.link, mode: LaunchMode.externalApplication);
     } catch (e) {
-      showWarning(
-        text: 'Уг банкний аппликейшнийг суулгана уу',
-        acceptText: 'Тийм',
-      );
+      showWarning(text: 'Уг банкний аппликейшнийг суулгана уу', acceptText: 'Тийм');
     }
   }
 
@@ -67,10 +60,7 @@ class QpayDanController extends IOSuperController {
           }
         }
       } else {
-        showWarning(
-          text: 'Таны төлбөр төлөгдөөгүй байна',
-          acceptText: 'Ойлголоо',
-        );
+        showWarning(text: 'Таны төлбөр төлөгдөөгүй байна', acceptText: 'Ойлголоо');
         Get.until((route) => route.isFirst);
         if (Get.isRegistered<LoanProductController>()) {
           Get.find<LoanProductController>().onRefresh();
