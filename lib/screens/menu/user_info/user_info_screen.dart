@@ -12,43 +12,23 @@ class UserInfoScreen extends GetView<UserInfoController> {
       appBar: IOAppBar(titleText: 'Хэрэглэгчийн мэдээлэл'),
       body: Obx(
         () => SingleChildScrollView(
-          padding: EdgeInsets.only(
-            left: 16,
-            right: 16,
-            top: 24,
-            bottom: 24 + Get.mediaQuery.padding.bottom,
-          ),
+          padding: EdgeInsets.only(left: 16, right: 16, top: 24, bottom: 24 + Get.mediaQuery.padding.bottom),
           child: Column(
             children: [
               IOCardBorderWidget(
                 child: Column(
                   children: [
-                    UserInfoWidget(
-                      title: 'Овог',
-                      value: controller.user.value.lastName,
-                    ),
+                    UserInfoWidget(title: 'Овог', value: controller.user.value.lastName),
                     const Divider(height: 1, thickness: 1),
-                    UserInfoWidget(
-                      title: 'Нэр',
-                      value: controller.user.value.firstName,
-                    ),
+                    UserInfoWidget(title: 'Нэр', value: controller.user.value.firstName),
                     const Divider(height: 1, thickness: 1),
-                    UserInfoWidget(
-                      title: 'Регистр',
-                      value: controller.user.value.registerCode,
-                    ),
+                    UserInfoWidget(title: 'Регистр', value: controller.user.value.registerCode),
                     const Divider(height: 1, thickness: 1),
-                    UserInfoWidget(
-                      title: 'Утасны дугаар',
-                      value: controller.user.value.phone,
-                      hasAction: true,
-                      onTap: controller.onChangePhone,
-                    ),
+                    UserInfoWidget(title: 'Утасны дугаар', value: controller.user.value.phone),
                     const Divider(height: 1, thickness: 1),
                     UserInfoWidget(
                       title: 'Дансны дугаар',
-                      value:
-                          '${controller.user.value.bankAccount} - ${controller.user.value.bankName}',
+                      value: '${controller.user.value.bankAccount} - ${controller.user.value.bankName}',
                       hasAction: true,
                       onTap: controller.onChangeBank,
                     ),
@@ -77,16 +57,12 @@ class UserInfoScreen extends GetView<UserInfoController> {
                             hasAction: true,
                             onTap: () => controller.onChangeRelate(person),
                           ),
-                          if (index < controller.relatedPersons.length - 1)
-                            const Divider(height: 1, thickness: 1),
+                          if (index < controller.relatedPersons.length - 1) const Divider(height: 1, thickness: 1),
                         ],
                       );
                     }),
-                    if (controller.relatedPersons.length < 3)
-                      const Divider(height: 1, thickness: 1),
-                    ...List.generate(3 - controller.relatedPersons.length, (
-                      index,
-                    ) {
+                    if (controller.relatedPersons.length < 3) const Divider(height: 1, thickness: 1),
+                    ...List.generate(3 - controller.relatedPersons.length, (index) {
                       return Column(
                         children: [
                           UserRelatedInfoWidget(
@@ -95,17 +71,10 @@ class UserInfoScreen extends GetView<UserInfoController> {
                             phone: '',
                             hasAction: true,
                             onTap: () => controller.onChangeRelate(
-                              UserRelatedModel(
-                                id: 0,
-                                name: '',
-                                relation: '',
-                                phone: '',
-                                isActive: false,
-                              ),
+                              UserRelatedModel(id: 0, name: '', relation: '', phone: '', isActive: false),
                             ),
                           ),
-                          if (index < 3 - controller.relatedPersons.length - 1)
-                            const Divider(height: 1, thickness: 1),
+                          if (index < 3 - controller.relatedPersons.length - 1) const Divider(height: 1, thickness: 1),
                         ],
                       );
                     }),

@@ -38,7 +38,7 @@ class _SavingLoanCardWidgetState extends State<SavingLoanCardWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 5),
+      margin: const EdgeInsets.only(bottom: 10),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
@@ -61,10 +61,10 @@ class _SavingLoanCardWidgetState extends State<SavingLoanCardWidget> {
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SvgPicture.asset(
                   'assets/icons/${widget.mainIcon}.svg',
@@ -74,14 +74,19 @@ class _SavingLoanCardWidgetState extends State<SavingLoanCardWidget> {
                 ),
                 const SizedBox(width: 12),
                 Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text(widget.title, style: IOStyles.body1Bold.copyWith(color: IOColors.brand500)),
+                      Text(widget.title, style: IOStyles.body2Bold.copyWith(color: IOColors.brand500)),
                       if (widget.subtitle != null)
                         Text(widget.subtitle!, style: IOStyles.caption2Regular.copyWith(color: IOColors.brand500)),
                     ],
                   ),
+                ),
+                Icon(
+                  _isExpanded ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
+                  color: IOColors.brand500,
+                  size: 20,
                 ),
               ],
             ),

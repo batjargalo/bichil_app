@@ -19,11 +19,11 @@ class LoanCreateSavingConditionScreen extends GetView<LoanCreateSavingConditionC
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     SizedBox(
-                      height: 120, // Set height for your cards
+                      height: 120,
                       child: PageView.builder(
                         itemCount: controller.saving.length,
                         onPageChanged: controller.onPageChanged,
-                        controller: PageController(viewportFraction: 0.9), // Peek next card
+                        controller: PageController(viewportFraction: 0.9),
                         itemBuilder: (context, index) {
                           final List<Alignment> begins = [
                             Alignment.topLeft,
@@ -119,7 +119,7 @@ class LoanCreateSavingConditionScreen extends GetView<LoanCreateSavingConditionC
                           ),
                           const SizedBox(height: 8),
                           RowWidget(
-                            title: 'Хугацаа',
+                            title: 'Дуусах хугацаа',
                             value: controller.saving[controller.activeIndex.value].closeDate.toFormattedString(
                               format: 'yyyy/MM/dd',
                             ),

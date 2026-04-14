@@ -30,14 +30,13 @@ class HomeController extends IOController {
   Future onRefresh() async {
     await getBanner();
     SessionManager.shared.getAppVersion();
+    SessionManager.shared.getUserTerms();
   }
 
   Future getBanner() async {
     final response = await InfoApi().getBanner();
     if (response.isSuccess) {
-      banners.value = response.data.listValue
-          .map((e) => e['image'].stringValue)
-          .toList();
+      banners.value = response.data.listValue.map((e) => e['image'].stringValue).toList();
       startAutoScroll();
     }
     refresher.refreshCompleted();
@@ -48,11 +47,7 @@ class HomeController extends IOController {
     _autoScrollTimer = Timer.periodic(const Duration(seconds: 3), (timer) {
       if (banners.isEmpty) return;
       _currentPage = (_currentPage + 1) % banners.length;
-      pageController.animateToPage(
-        _currentPage,
-        duration: const Duration(milliseconds: 500),
-        curve: Curves.easeInOut,
-      );
+      pageController.animateToPage(_currentPage, duration: const Duration(milliseconds: 500), curve: Curves.easeInOut);
     });
   }
 

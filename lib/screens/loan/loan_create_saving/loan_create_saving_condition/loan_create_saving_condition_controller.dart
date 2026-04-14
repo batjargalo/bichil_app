@@ -1,7 +1,6 @@
 import 'package:bichil/library/library.dart';
 import 'package:bichil/screens/screens.dart';
 import 'package:get/get.dart';
-import 'package:flutter/material.dart';
 
 class LoanCreateSavingConditionController extends IOController {
   final saving = (Get.arguments as List<SavingDetailModel>).obs;
@@ -54,7 +53,7 @@ class LoanCreateSavingConditionController extends IOController {
 
   void checkValidation() {
     next.update((val) {
-      val?.isEnabled = amount.value > 0 && amount.value <= create[activeIndex.value].maxAmount;
+      val?.isEnabled = amount.value >= 20000 && amount.value <= create[activeIndex.value].maxAmount;
     });
   }
 

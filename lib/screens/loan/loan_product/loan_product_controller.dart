@@ -66,8 +66,27 @@ class LoanProductController extends IOController {
     }
   }
 
-  void onTapLoan() {
-    LoanRoute.toProductList();
+  void onTapProduct(String collType) {
+    final result = SessionManager.shared.checkBankAccount();
+    if (result == false) return;
+
+    switch (collType) {
+      case 'property':
+        LoanRoute.toCreateProperty();
+        break;
+      case 'car':
+        LoanRoute.toCreateCar();
+        break;
+      case 'phone_number':
+        LoanRoute.toCreatePhone();
+        break;
+      default:
+        break;
+    }
+  }
+
+  void toRecreateAmount(String productCode) {
+    LoanRoute.toRecreateAmount(item: findLineLoan(productCode)!);
   }
 
   LoanInfoModel? findLineLoan(String productCode) {
@@ -92,7 +111,8 @@ class LoanProductController extends IOController {
         showWarning(text: "Таны зээлийн тоо олгох хязгаарт хүрсэн байна.");
       }
     } else {
-      showWarning(text: "Зээлийн боломжит эрх байхгүй байна. Та зээлийн эрхээ шинэчилнэ үү.");
+      onPay(LoanLimitType.create, PayType.values.first);
+      // showWarning(text: "Зээлийн боломжит эрх байхгүй байна. Та зээлийн эрхээ шинэчилнэ үү.");
     }
   }
 
@@ -180,32 +200,6 @@ class LoanProductController extends IOController {
     );
     if (result == null) return;
     customerInfoDan();
-    // final amount = chargeAmount.value;
-
-    // isLoading.value = true;
-    // limitChargeLoading.value = true;
-
-    // final response = await LoanApi().payLimitCharge(amount: amount);
-
-    // isLoading.value = false;
-    // limitChargeLoading.value = false;
-
-    // if (response.isSuccess) {
-    //   onResult(
-    //     data: response.data,
-    //     amount: amount,
-    //     payType: LoanLimitType.create,
-    //   );
-    // } else if (response.message ==
-    //     "Та өөрийн ашигладаг мэйл хаягаа бүртгүүлнэ үү") {
-    //   toWarningEmail(
-    //     titleText: 'Анхаарна уу.',
-    //     text: response.message,
-    //     buttonText: 'Мэйл хаяг бүртгүүлэх',
-    //   );
-    // } else {
-    //   showError(text: response.message);
-    // }
   }
 
   Future getChargeAmount() async {
@@ -244,3 +238,29 @@ class LoanProductController extends IOController {
     if (result == null) return;
   }
 }
+ // final amount = chargeAmount.value;
+
+    // isLoading.value = true;
+    // limitChargeLoading.value = true;
+
+    // final response = await LoanApi().payLimitCharge(amount: amount);
+
+    // isLoading.value = false;
+    // limitChargeLoading.value = false;
+
+    // if (response.isSuccess) {
+    //   onResult(
+    //     data: response.data,
+    //     amount: amount,
+    //     payType: LoanLimitType.create,
+    //   );
+    // } else if (response.message ==
+    //     "Та өөрийн ашигладаг мэйл хаягаа бүртгүүлнэ үү") {
+    //   toWarningEmail(
+    //     titleText: 'Анхаарна уу.',
+    //     text: response.message,
+    //     buttonText: 'Мэйл хаяг бүртгүүлэх',
+    //   );
+    // } else {
+    //   showError(text: response.message);
+    // }

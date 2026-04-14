@@ -34,7 +34,7 @@ class _LineLoanCardWidgetState extends State<LineLoanCardWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 5),
+      margin: const EdgeInsets.only(bottom: 10),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
@@ -60,7 +60,7 @@ class _LineLoanCardWidgetState extends State<LineLoanCardWidget> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SvgPicture.asset(
                   'assets/icons/${widget.mainIcon}.svg',
@@ -70,14 +70,19 @@ class _LineLoanCardWidgetState extends State<LineLoanCardWidget> {
                 ),
                 const SizedBox(width: 12),
                 Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(widget.title, style: IOStyles.body2Bold.copyWith(color: IOColors.brand500)),
                       if (widget.subtitle != null)
                         Text(widget.subtitle!, style: IOStyles.caption2Regular.copyWith(color: IOColors.brand500)),
                     ],
                   ),
+                ),
+                Icon(
+                  _isExpanded ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
+                  color: IOColors.brand500,
+                  size: 20,
                 ),
               ],
             ),
@@ -104,7 +109,7 @@ class _LineLoanCardWidgetState extends State<LineLoanCardWidget> {
               children: [
                 Row(
                   children: [
-                    Text("ЗЭЭЛЖИХ ЭРХ ● ", style: IOStyles.caption2Medium.copyWith(color: IOColors.textTertiary)),
+                    Text("ЗЭЭЛИЙН ЭРХ ● ", style: IOStyles.caption2Medium.copyWith(color: IOColors.textTertiary)),
                     Text(
                       " ${widget.loanLimit ?? ''}",
                       style: IOStyles.body2Medium.copyWith(color: IOColors.textSecondary),

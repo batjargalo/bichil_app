@@ -28,9 +28,9 @@ class LoanApi extends IOClient {
     return sendPostRequest(url, data: data);
   }
 
-  Future<IOResponse> recreate({required LoanRecreateModel model}) async {
+  Future<IOResponse> recreate({required LoanRecreateModel model, required String companyCode}) async {
     const url = '/api/core/loan/loan-on-loan/';
-    return sendPostRequest(url, data: model.toMapFromLoan());
+    return sendPostRequest(url, data: model.toMapFromLoan()..['company_code'] = companyCode);
   }
 
   Future<IOResponse> createFromSaving({required LoanRecreateModel model}) async {

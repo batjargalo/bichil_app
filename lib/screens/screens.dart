@@ -1,4 +1,5 @@
 export 'force_update/force_update.dart';
+export 'force_service_terms/force_service_terms_update.dart';
 export 'gold/gold.dart';
 export 'home/home.dart';
 export 'loan/loan.dart';

@@ -42,7 +42,7 @@ class QpayDanController extends IOSuperController {
       if (paid == 'paid') {
         loadingScore.value = true;
         showSuccess(text: 'Таны төлбөр амжилттай төлөгдсөн байна.');
-        final response = await LoanApi().calculateScore(danId: "1201");
+        final response = await LoanApi().calculateScore(danId: danId);
 
         if (response.isSuccess) {
           check.update((val) {

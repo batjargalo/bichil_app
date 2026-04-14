@@ -11,6 +11,8 @@ class LoanProductScreen extends GetView<LoanProductController> {
     return Obx(
       () => controller.isInitialLoading.value
           ? const IOLoading()
+          : controller.loanLimit.isEmpty
+          ? const IOLoading()
           : IORefresher(
               controller: controller.refresher,
               onRefresh: controller.onRefresh,
@@ -34,7 +36,7 @@ class LoanProductScreen extends GetView<LoanProductController> {
                       ),
                       SavingLoanCardWidget(
                         title: 'Итгэлцэл барьцаалсан зээл',
-                        subtitle: "Та заавал итгэлэцээ барьцаалсан байх",
+                        subtitle: "",
                         mainIcon: "shield",
                         amountLimit: "Итгэлцэлийн 70% хүртэл",
                         duration: '7 хоног ~ 12 сар',
@@ -44,23 +46,24 @@ class LoanProductScreen extends GetView<LoanProductController> {
                       for (var product in controller.productsLine)
                         LineLoanCardWidget(
                           title: product.name,
-                          subtitle: product.conclusion,
+                          subtitle: "",
                           mainIcon: product.collateralType,
                           duration: '7 хоног ~ 12 сар',
                           loanLimit: controller.findLineLoan(product.productCode)?.availComBal.toCurrency(),
                           limitDate: controller.loanLimit.first.scoreLimitExpDate,
-                          onPrimaryTap: () => (),
+                          onPrimaryTap: () => controller.toRecreateAmount(product.productCode),
+                          onRightButtonTap: () => (),
                         ),
                       for (var product in controller.productsReq)
                         LoanReqCardWidget(
                           title: product.name,
-                          subtitle: product.conclusion,
+                          subtitle: "",
                           mainIcon: product.collateralType,
                           duration: '7 хоног ~ 12 сар',
                           loanLimit: "0₮",
                           limitDate: controller.loanLimit.first.scoreLimitExpDate,
                           rightButtonLabel: 'Хүсэлт илгээх',
-                          onPrimaryTap: () => (),
+                          onPrimaryTap: () => controller.onTapProduct(product.collateralType),
                           onSecondaryTap: () => (),
                         ),
                       // LoanCardWidget(
@@ -99,9 +102,7 @@ class LoanProductScreen extends GetView<LoanProductController> {
               //                   color: IOColors.textSecondary,
               //                 ),
               //               ),
-
               //               const Spacer(),
-
               // Row(
               //   children: [
               //     SvgPicture.asset(

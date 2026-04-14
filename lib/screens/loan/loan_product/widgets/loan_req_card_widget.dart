@@ -38,7 +38,7 @@ class _LoanReqCardWidgetState extends State<LoanReqCardWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 5),
+      margin: const EdgeInsets.only(bottom: 10),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
@@ -59,12 +59,12 @@ class _LoanReqCardWidgetState extends State<LoanReqCardWidget> {
         });
       },
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SvgPicture.asset(
                   'assets/icons/${widget.mainIcon}.svg',
@@ -74,8 +74,8 @@ class _LoanReqCardWidgetState extends State<LoanReqCardWidget> {
                 ),
                 const SizedBox(width: 12),
                 Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  child: Wrap(
+                    crossAxisAlignment: WrapCrossAlignment.center,
                     children: [
                       Text(widget.title, style: IOStyles.body2Bold.copyWith(color: IOColors.brand500)),
                       if (widget.subtitle != null)
@@ -87,7 +87,7 @@ class _LoanReqCardWidgetState extends State<LoanReqCardWidget> {
                 if (widget.rightButtonLabel != null) ...[
                   const SizedBox(width: 8),
                   ElevatedButton(
-                    onPressed: widget.onSecondaryTap,
+                    onPressed: widget.onPrimaryTap,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: IOColors.brand300,
                       elevation: 0,

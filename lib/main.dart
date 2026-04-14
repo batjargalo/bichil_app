@@ -19,9 +19,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return Listener(
       behavior: HitTestBehavior.translucent,
-      onTapDown: (_) => controller.onEventChanged(),
+      onPointerDown: (_) => controller.onEventChanged(),
       child: GetMaterialApp(
         title: 'Bichil',
         theme: IOTheme.lightTheme,

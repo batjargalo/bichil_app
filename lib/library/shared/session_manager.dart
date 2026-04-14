@@ -20,6 +20,25 @@ class SessionManager {
     }
   }
 
+  Future getUserTerms() async {
+    final response = await UserApi().getUserTerms();
+    if (response.isSuccess) {
+      final model = ForceUpdateServiceTermsModel.fromJson(response.data);
+
+      if (model.serviceTerm) return;
+
+      AppRoute.toForceServiceTerms(model: model);
+    }
+  }
+
+  Future changeUserTerms() async {
+    final response = await UserApi().checkUserTerms();
+    if (response.isSuccess) {
+      // final terms = UserTermsModel.fromJson(response.data);
+      // await UserStoreManager.shared.write(kUserTerms, terms.toMap());
+    }
+  }
+
   Future logout() async {
     if (HelperManager.isSavedBiometricOnUser == false) {
       await BiometricManager.shared.deleteBiometric();
@@ -31,7 +50,7 @@ class SessionManager {
   Future eventChanged() async {
     timer?.cancel();
     if (isLogged) {
-      timer = Timer(duration, () async {
+      timer = Timer(duration, () {
         logout();
       });
     }

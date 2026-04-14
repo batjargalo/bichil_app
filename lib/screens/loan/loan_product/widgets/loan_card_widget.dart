@@ -42,7 +42,7 @@ class _LoanCardWidgetState extends State<LoanCardWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 5),
+      margin: const EdgeInsets.only(bottom: 10),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
@@ -81,27 +81,31 @@ class _LoanCardWidgetState extends State<LoanCardWidget> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(widget.title, style: IOStyles.body1Bold.copyWith(color: IOColors.brand500)),
+                      Text(widget.title, style: IOStyles.body2Bold.copyWith(color: IOColors.brand500)),
                       if (widget.subtitle != null)
                         Text(widget.subtitle!, style: IOStyles.caption2Regular.copyWith(color: IOColors.brand500)),
                     ],
                   ),
                 ),
-                const SizedBox(width: 8),
-                if (widget.rightButtonLabel != null) ...[
-                  const SizedBox(width: 8),
-                  ElevatedButton(
-                    onPressed: widget.onSecondaryTap,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: IOColors.brand300,
-                      elevation: 0,
-                      minimumSize: const Size(80, 30),
-                      padding: const EdgeInsets.symmetric(horizontal: 12),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                    ),
-                    child: Text(widget.rightButtonLabel!, style: const TextStyle(fontSize: 10, color: Colors.white)),
-                  ),
-                ],
+                Icon(
+                  _isExpanded ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
+                  color: IOColors.brand500,
+                  size: 20,
+                ),
+                // if (widget.rightButtonLabel != null) ...[
+                //   const SizedBox(width: 8),
+                //   ElevatedButton(
+                //     onPressed: widget.onSecondaryTap,
+                //     style: ElevatedButton.styleFrom(
+                //       backgroundColor: IOColors.brand300,
+                //       elevation: 0,
+                //       minimumSize: const Size(80, 30),
+                //       padding: const EdgeInsets.symmetric(horizontal: 12),
+                //       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                //     ),
+                //     child: Text(widget.rightButtonLabel!, style: const TextStyle(fontSize: 10, color: Colors.white)),
+                //   ),
+                // ],
               ],
             ),
             const SizedBox(height: 12),
@@ -135,7 +139,7 @@ class _LoanCardWidgetState extends State<LoanCardWidget> {
               children: [
                 Row(
                   children: [
-                    Text("ЗЭЭЛЖИХ ЭРХ ● ", style: IOStyles.caption2Medium.copyWith(color: IOColors.textTertiary)),
+                    Text("ЗЭЭЛИЙН ЭРХ ● ", style: IOStyles.caption2Medium.copyWith(color: IOColors.textTertiary)),
                     Text(
                       " ${widget.loanLimit ?? ''}",
                       style: IOStyles.body2Medium.copyWith(color: IOColors.textSecondary),

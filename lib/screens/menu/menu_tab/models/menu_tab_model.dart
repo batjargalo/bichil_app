@@ -13,7 +13,7 @@ class MenuTabItemModel {
 }
 
 enum MenuTabItemType {
-  contract(title: 'Харилцагчийн гэрээ'),
+  contract(title: 'Зээлийн гэрээ'),
   loanHistory(title: 'Зээлийн түүх'),
   savingHistory(title: 'Итгэлцлийн түүх'),
   // insurane(title: 'Даатгал'),
